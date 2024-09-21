@@ -9,7 +9,7 @@ services:
       - GRIST_SESSION_SECRET=Mycobacteri@98
       - GRIST_DEFAULT_EMAIL=ianras@yahoo.com
       - GRIST_SINGLE_ORG=rasies
-    image: "gristlabs/grist:1.4.2"
+    image: "gristlabs/grist:latest"
     ports:
       - ${APP_PORT}:8484
     restart: always
