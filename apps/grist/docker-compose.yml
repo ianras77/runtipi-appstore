@@ -9,7 +9,18 @@ services:
       - GRIST_SESSION_SECRET=Mycobacteri@98
       - GRIST_DEFAULT_EMAIL=ianras@yahoo.com
       - GRIST_SINGLE_ORG=rasies
+<<<<<<< HEAD
     image: "gristlabs/grist:latest"
+=======
+      - GRIST_ALLOWED_HOSTS=https://grist.rasies.com # Replace with webhook target domains
+      - GRIST_SINGLE_ORG=myorg
+      - GRIST_HIDE_UI_ELEMENTS=billing
+      - GRIST_LIST_PUBLIC_SITES=false
+      - GRIST_ORG_IN_PATH=false
+      - GRIST_PAGE_TITLE_SUFFIX=_blank
+      - GRIST_SUPPORT_ANON=false
+    image: gristlabs/grist:1.1.16
+>>>>>>> 4154d2d1 (Add wordpress_elderseth)
     ports:
       - ${APP_PORT}:8484
     restart: always
