@@ -9,11 +9,18 @@ services:
       - GRIST_SESSION_SECRET=Mycobacteri@98
       - GRIST_DEFAULT_EMAIL=ianras@yahoo.com
       - GRIST_SINGLE_ORG=rasies
+<<<<<<< HEAD
     image: "gristlabs/grist:latest"
       - GRIST_ALLOWED_HOSTS=https://grist.rasies.com # Replace with webhook target domains
       - GRIST_SINGLE_ORG=myorg
       - GRIST_ALLOWED_HOSTS=https://grist.rasies.com
       - GRIST_LIST_PUBLIC_SITES=false
+=======
+      - GRIST_HIDE_UI_ELEMENTS=billing
+      - GRIST_LIST_PUBLIC_SITES=false
+      - GRIST_ORG_IN_PATH=false
+      - GRIST_SUPPORT_ANON=false
+>>>>>>> 5b664289 (Add wordpress_elderseth)
       - TMPDIR=/persist/tmp
     ports:
       - ${APP_PORT}:8484
@@ -56,6 +63,7 @@ services:
       traefik.http.routers.grist-local.entrypoints: websecure
       traefik.http.routers.grist-local.service: grist
       traefik.http.routers.grist-local.tls: true
+<<<<<<< HEAD
       traefik.http.routers.grist-local.middlewares: grist-https-headers
       runtipi.managed: true
 
@@ -66,3 +74,6 @@ networks:
       # WebSocket support
       traefik.http.middlewares.grist-websocket.headers.customrequestheaders.Upgrade: websocket
       traefik.http.middlewares.grist-websocket.headers.customrequestheaders.Connection: Upgrade
+=======
+
+>>>>>>> 5b664289 (Add wordpress_elderseth)
