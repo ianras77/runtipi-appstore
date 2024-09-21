@@ -6,6 +6,7 @@ services:
     environment:
       - APP_HOME_URL=${APP_PROTOCOL:-http}://${APP_DOMAIN}
       - GRIST_SANDBOX_FLAVOR=${GRIST_SANDBOX_FLAVOR}
+<<<<<<< HEAD
       - GRIST_SESSION_SECRET=Mycobacteri@98
       - GRIST_DEFAULT_EMAIL=ianras@yahoo.com
       - GRIST_SINGLE_ORG=rasies
@@ -15,12 +16,18 @@ services:
       - GRIST_ALLOWED_HOSTS=https://grist.rasies.com
       - GRIST_LIST_PUBLIC_SITES=false
       - TMPDIR=/persist/tmp
+=======
+      - PUID=1000
+      - PGID=1000
+      - SUBDOMAINS=grist
+>>>>>>> 3835ff34 (Add wordpress_elderseth)
     image: gristlabs/grist:1.1.18
     ports:
       - ${APP_PORT}:8484
     restart: always
     volumes:
       - ${APP_DATA_DIR}/data/grist-data:/persist
+      - ${APP_DATA_DIR}/data/tmp:/tmp
     networks:
       - tipi_main_network
     labels:
