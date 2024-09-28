@@ -6,72 +6,40 @@ services:
     environment:
       - APP_HOME_URL=${APP_PROTOCOL:-http}://${APP_DOMAIN}
       - GRIST_SANDBOX_FLAVOR=${GRIST_SANDBOX_FLAVOR}
-<<<<<<< HEAD
-      - GRIST_SESSION_SECRET=Mycobacteri@98
-      - GRIST_DEFAULT_EMAIL=ianras@yahoo.com
-      - GRIST_SINGLE_ORG=rasies
-    image: "gristlabs/grist:latest"
-      - GRIST_ALLOWED_HOSTS=https://grist.rasies.com # Replace with webhook target domains
-      - GRIST_SINGLE_ORG=myorg
-      - GRIST_ALLOWED_HOSTS=https://grist.rasies.com
-      - GRIST_LIST_PUBLIC_SITES=false
-      - TMPDIR=/persist/tmp
-=======
       - PUID=1000
       - PGID=1000
       - SUBDOMAINS=grist
->>>>>>> 3835ff34 (Add wordpress_elderseth)
-    image: gristlabs/grist:1.1.18
+    image: gristlabs/grist:1.2.0
     ports:
       - ${APP_PORT}:8484
     restart: always
     volumes:
       - ${APP_DATA_DIR}/data/grist-data:/persist
-      - ${APP_DATA_DIR}/data/tmp:/tmp
     networks:
       - tipi_main_network
     labels:
-      # Enable Traefik
+      # Main
       traefik.enable: true
-
-      # Service port
+      traefik.http.middlewares.grist-web-redirect.redirectscheme.scheme: https
       traefik.http.services.grist.loadbalancer.server.port: 8484
-
-      # Middleware to set HTTPS headers
-      traefik.http.middlewares.grist-https-headers.headers.customrequestheaders.X-Forwarded-Proto: https
-
-      # Web (HTTP) - Redirect HTTP to HTTPS
+      # Web
       traefik.http.routers.grist-insecure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.grist-insecure.entrypoints: web
       traefik.http.routers.grist-insecure.service: grist
-      traefik.http.routers.grist-insecure.middlewares: grist-https-headers
-
-      # Websecure (HTTPS)
+      traefik.http.routers.grist-insecure.middlewares: grist-web-redirect
+      # Websecure
       traefik.http.routers.grist.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.grist.entrypoints: websecure
-      traefik.http.routers.grist.tls.certresolver: myresolver
       traefik.http.routers.grist.service: grist
-      traefik.http.routers.grist.middlewares: grist-https-headers
-
-      # Local domain (HTTP)
-      traefik.http.routers.grist-local-insecure.rule: Host(`${LOCAL_DOMAIN}`)
+      traefik.http.routers.grist.tls.certresolver: myresolver
+      # Local domain
+      traefik.http.routers.grist-local-insecure.rule: Host(`grist.${LOCAL_DOMAIN}`)
       traefik.http.routers.grist-local-insecure.entrypoints: web
       traefik.http.routers.grist-local-insecure.service: grist
-      traefik.http.routers.grist-local-insecure.middlewares: grist-https-headers
-
-      # Local domain secure (HTTPS)
-      traefik.http.routers.grist-local.rule: Host(`${LOCAL_DOMAIN}`)
+      traefik.http.routers.grist-local-insecure.middlewares: grist-web-redirect
+      # Local domain secure
+      traefik.http.routers.grist-local.rule: Host(`grist.${LOCAL_DOMAIN}`)
       traefik.http.routers.grist-local.entrypoints: websecure
       traefik.http.routers.grist-local.service: grist
       traefik.http.routers.grist-local.tls: true
-      traefik.http.routers.grist-local.middlewares: grist-https-headers
-      runtipi.managed: true
-
-networks:
-  tipi_main_network:
-    driver: bridge
-       # WebSocket support
-      # WebSocket support
-      traefik.http.middlewares.grist-websocket.headers.customrequestheaders.Upgrade: websocket
-      traefik.http.middlewares.grist-websocket.headers.customrequestheaders.Connection: Upgrade
       runtipi.managed: true
