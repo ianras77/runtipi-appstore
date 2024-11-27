@@ -2,10 +2,14 @@
   "$schema": "../app-info-schema.json",
   "name": "Moodist",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "port": 8279,
 =======
   "port": 8229,
 >>>>>>> 1536455b (Add wordpress_elderseth)
+=======
+  "port": 8279,
+>>>>>>> 161e3507 (Add wordpress_elderseth)
   "available": true,
   "exposable": true,
   "dynamic_config": true,
