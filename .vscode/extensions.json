@@ -1,3 +1,7 @@
 {
-  "recommendations": ["biomejs.biome"]
+  "recommendations": [
+    "biomejs.biome",
+    "cheshirecatai.cheshire-cat-ai",
+    "10nates.ollama-autocoder"
+  ]
 }

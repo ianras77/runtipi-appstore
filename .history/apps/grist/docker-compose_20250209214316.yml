@@ -4,17 +4,36 @@ services:
   grist:
     container_name: grist
     environment:
+<<<<<<< HEAD
+      - APP_HOME_URL=${APP_PROTOCOL:-http}://${APP_DOMAIN}
+      - GRIST_SANDBOX_FLAVOR=${GRIST_SANDBOX_FLAVOR}
+    image: "gristlabs/grist:1.3.2"
+      - GRIST_SANDBOX_FLAVOR: gvisor
+      - GRIST_FORWARD_AUTH_HEADER: X-Forwarded-User
+      - GRIST_FORWARD_AUTH_LOGOUT_PATH: _oauth/logout
+      - GRIST_SINGLE_ORG: rasies 
+=======
       - APP_HOME_URL=${APP_PROTOCOL:-https}://${APP_DOMAIN}
       - GRIST_SANDBOX_FLAVOR=${GRIST_SANDBOX_FLAVOR}
+>>>>>>> 36dac953 (Add wordpress_elderseth)
       - GRIST_SESSION_SECRET=Mycobacteri@98
       - GRIST_DEFAULT_EMAIL=ianras@yahoo.com
       - GRIST_SINGLE_ORG=rasies
+<<<<<<< HEAD
+    ports:
+      - "${APP_PORT:-8484}:8484"
+    restart: always
+    volumes:
+      - "${APP_DATA_DIR}/data/grist-data:/persist"
+      - "${APP_DATA_DIR}/data/grist-data/tmp:/persist/tmp"
+=======
     image: gristlabs/grist:1.1.16
     ports:
       - ${APP_PORT}:8484
     restart: always
     volumes:
       - ${APP_DATA_DIR}/data/grist-data:/persist
+>>>>>>> a2a72c49 (Add wordpress_elderseth)
     networks:
       - tipi_main_network
     labels:
