@@ -9,16 +9,10 @@ services:
       - tipi_main_network
     environment:
       GRAMPSWEB_TREE: ${GRAMPSWEB_TREE}
-      GUNICORN_NUM_WORKERS: "8"
-      GUNICORN_CMD_ARGS: "--timeout 3600 --workers 4 --worker-class gthread --threads 4 --limit-request-field_size 32760 --limit-request-line 32760"
-      GRAMPSWEB_LLM_BASE_URL: "http://192.168.1.12:8080"
-      GRAMPSWEB_LLM_MODEL: "deepseek-r1-distill-llama-8b"
-      GRAMPSWEB_LLM_EMBEDDING_MODEL: "bert-embeddings"
-      GRAMPSWEB_EMAIL_HOST: ${GRAMPSWEB_EMAIL_HOST}
-      GRAMPSWEB_EMAIL_PORT: ${GRAMPSWEB_EMAIL_PORT}
-      GRAMPSWEB_HOST_USER: ${GRAMPSWEB_HOST_USER}
-      GRAMPSWEB_HOST_PASSWORD: ${GRAMPSWEB_HOST_PASSWORD}
-      GRAMPSWEB_DEFAULT_FROM_EMAIL: ${GRAMPSWEB_DEFAULT_FROM_EMAIL}
+      GUNICORN_CMD_ARGS: "--timeout 3600 --workers 8 --worker-class gthread --threads 4 --limit-request-field_size 32760 --limit-request-line 32760"
+      GRAMPSWEB_LLM_BASE_URL: "http://192.168.1.224:11435"
+      GRAMPSWEB_LLM_MODEL: "phi4"
+      GRAMPSWEB_LLM_EMBEDDING_MODEL: "nomic-embed-text"
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_GRAMPS} 
     ports:
@@ -30,24 +24,34 @@ services:
       - ${APP_DATA_DIR}/cache:/app/cache
       - ${APP_DATA_DIR}/secret:/app/secret
       - ${APP_DATA_DIR}/db:/root/.gramps/grampsdb
-      - ${APP_DATA_DIR}/media:/app/media
+      - /srdata/runtipi/runtipi/media/data/familytree:/app/media
       - ${APP_DATA_DIR}/tmp:/tmp
     labels:
-      generated: true
+       # Main
+      runtipi.managed: true
       traefik.enable: true
       traefik.http.middlewares.grampsweb-web-redirect.redirectscheme.scheme: https
-      traefik.http.middlewares.grampsweb-web-redirect.headers.customrequestheaders.Content-Length: "10737418240"
-      traefik.http.middlewares.grampsweb-web-redirect.buffering.maxRequestBodyBytes: "10737418240"
-      traefik.http.middlewares.grampsweb-web-redirect.buffering.memRequestBodyBytes: "52428800"
-      traefik.http.services.grampsweb.loadbalancer.server.port: "5000"
+      traefik.http.services.grampsweb.loadbalancer.server.port: 80
+      # Web
       traefik.http.routers.grampsweb-insecure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.grampsweb-insecure.entrypoints: web
       traefik.http.routers.grampsweb-insecure.service: grampsweb
       traefik.http.routers.grampsweb-insecure.middlewares: grampsweb-web-redirect
+      # Websecure
       traefik.http.routers.grampsweb.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.grampsweb.entrypoints: websecure
       traefik.http.routers.grampsweb.service: grampsweb
       traefik.http.routers.grampsweb.tls.certresolver: myresolver
+      # Local domain
+      traefik.http.routers.grampsweb-local-insecure.rule: Host(`grampsweb.${LOCAL_DOMAIN}`)
+      traefik.http.routers.grampsweb-local-insecure.entrypoints: web
+      traefik.http.routers.grampsweb-local-insecure.service: grampsweb
+      traefik.http.routers.grampsweb-local-insecure.middlewares: grampsweb-web-redirect
+      # Local domain secure
+      traefik.http.routers.grampsweb-local.rule: Host(`grampsweb.${LOCAL_DOMAIN}`)
+      traefik.http.routers.grampsweb-local.entrypoints: websecure
+      traefik.http.routers.grampsweb-local.service: grampsweb
+      traefik.http.routers.grampsweb-local.tls: true
 
   postgres_gramps:
     image: ghcr.io/davidmstraub/gramps-postgres:latest
