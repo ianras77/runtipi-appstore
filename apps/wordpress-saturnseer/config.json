@@ -1,7 +1,7 @@
 {
   "name": "WordPress Saturn Seer",
   "available": true,
-  "port": 8277,
+  "port": 8281,
   "exposable": true,
   "id": "wordpress-saturnseer",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
