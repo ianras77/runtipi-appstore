@@ -1,7 +1,11 @@
 version: '3.7'
 services:
   activepieces:
+<<<<<<< HEAD
     image: activepieces/activepieces:0.44.0
+=======
+    image: activepieces/activepieces:0.48.6
+>>>>>>> upstream/master
     container_name: activepieces
     restart: unless-stopped
     ports:
