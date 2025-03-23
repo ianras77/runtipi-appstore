@@ -54,7 +54,13 @@ services:
       traefik.http.routers.grist-local.middlewares: grist-https-headers
       runtipi.managed: true
 
+<<<<<<< HEAD
 networks:
   tipi_main_network:
     driver: bridge
 
+=======
+       # WebSocket support
+      traefik.http.middlewares.grist-websocket.headers.customrequestheaders.Upgrade: websocket
+      traefik.http.middlewares.grist-websocket.headers.customrequestheaders.Connection: Upgrade
+>>>>>>> 4d6e09a5 (Add wordpress_elderseth)
