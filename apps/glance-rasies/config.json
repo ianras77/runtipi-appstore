@@ -4,7 +4,7 @@
   "port": 8568,
   "available": true,
   "exposable": true,
-  "id": "glance",
+  "id": "glance-rasies",
   "tipi_version": 17,
   "version": "0.7.7",
   "categories": ["utilities"],
