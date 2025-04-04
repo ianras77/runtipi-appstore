@@ -2,7 +2,11 @@
   "services": [
     {
       "name": "grist",
+<<<<<<< HEAD
       "image": "gristlabs/grist:1.4.2",
+=======
+      "image": "gristlabs/grist:1.2.1",
+>>>>>>> 3d0d0d81 (Add wordpress_elderseth)
       "isMain": true,
       "internalPort": 8484,
       "environment": {
@@ -16,6 +20,10 @@
         }
       ]
     }
+<<<<<<< HEAD
   ],
   "$schema": "../dynamic-compose-schema.json"
+=======
+  ]
+>>>>>>> 3d0d0d81 (Add wordpress_elderseth)
 }
