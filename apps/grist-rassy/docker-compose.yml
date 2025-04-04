@@ -3,84 +3,52 @@ version: "2.1"
 services:
   grist:
     container_name: grist
-    environment:
-<<<<<<< HEAD
-      - APP_HOME_URL=${APP_PROTOCOL:-http}://${APP_DOMAIN}
-      - GRIST_SANDBOX_FLAVOR=${GRIST_SANDBOX_FLAVOR}
-<<<<<<< HEAD
-      - GRIST_SESSION_SECRET=Mycobacteri@98
-      - GRIST_DEFAULT_EMAIL=ianras@yahoo.com
-      - GRIST_SINGLE_ORG=rasies
     image: "gristlabs/grist:latest"
-      - GRIST_ALLOWED_HOSTS=https://grist.rasies.com # Replace with webhook target domains
-      - GRIST_SINGLE_ORG=myorg
+    environment:
       - GRIST_ALLOWED_HOSTS=https://grist.rasies.com
       - GRIST_LIST_PUBLIC_SITES=false
       - TMPDIR=/persist/tmp
-=======
       - PUID=1000
       - PGID=1000
       - SUBDOMAINS=grist
->>>>>>> 3835ff34 (Add wordpress_elderseth)
-    image: gristlabs/grist:1.1.18
-    ports:
-      - ${APP_PORT}:8484
-    restart: always
-    volumes:
-      - ${APP_DATA_DIR}/data/grist-data:/persist
-      - ${APP_DATA_DIR}/data/tmp:/tmp
-=======
       - APP_HOME_URL=https://grist.rasies.com         # Explicitly set the home URL
       - DEFAULT_BASE_DOMAIN=${APP_DOMAIN}             # Use APP_DOMAIN as the base domain
+      - APP_HOME_URL=https://grist.rasies.com
+      - DEFAULT_BASE_DOMAIN=${APP_DOMAIN}
       - GRIST_SANDBOX_FLAVOR=${GRIST_SANDBOX_FLAVOR}
       - TMPDIR=/persist/tmp
-      - GRIST_SINGLE_ORG=rasies                       # Enforce a lowercase single organization setup
-      - GRIST_FORCE_LOGIN=true                        # Require login for all users
-      - GRIST_SUPPORT_ANON=false                      # Disable anonymous access entirely
-      - GRIST_DEFAULT_EMAIL=ian@rasies.com            # Set your email as the admin
-      - GRIST_SESSION_SECRET=$Mycobacteri@98          # Unique secret for sessions
-      - GRIST_CREATE_ACCOUNTS=true                    # Allow account creation
-      - GRIST_AUTH_SERVICE=email                      # Enable email-based authentication
-    image: "gristlabs/grist:1.2.1"
+      - GRIST_SINGLE_ORG=rasies
+      - GRIST_FORCE_LOGIN=true
+      - GRIST_SUPPORT_ANON=false
+      - GRIST_DEFAULT_EMAIL=ian@rasies.com
+      - GRIST_SESSION_SECRET=$Mycobacteri@98
+      - GRIST_CREATE_ACCOUNTS=true
+      - GRIST_AUTH_SERVICE=email
     ports:
       - "${APP_PORT:-8484}:8484"
     restart: always
     volumes:
       - "${APP_DATA_DIR}/data/grist-data:/persist"
       - "${APP_DATA_DIR}/data/grist-data/tmp:/persist/tmp"
->>>>>>> 3d0d0d81 (Add wordpress_elderseth)
     networks:
       - tipi_main_network
     labels:
-      # Enable Traefik
       traefik.enable: true
-
-      # Service port
       traefik.http.services.grist.loadbalancer.server.port: 8484
-
-      # Middleware to set HTTPS headers
       traefik.http.middlewares.grist-https-headers.headers.customrequestheaders.X-Forwarded-Proto: https
-
-      # Web (HTTP) - Redirect HTTP to HTTPS
       traefik.http.routers.grist-insecure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.grist-insecure.entrypoints: web
       traefik.http.routers.grist-insecure.service: grist
       traefik.http.routers.grist-insecure.middlewares: grist-https-headers
-
-      # Websecure (HTTPS)
       traefik.http.routers.grist.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.grist.entrypoints: websecure
       traefik.http.routers.grist.tls.certresolver: myresolver
       traefik.http.routers.grist.service: grist
       traefik.http.routers.grist.middlewares: grist-https-headers
-
-      # Local domain (HTTP)
       traefik.http.routers.grist-local-insecure.rule: Host(`${LOCAL_DOMAIN}`)
       traefik.http.routers.grist-local-insecure.entrypoints: web
       traefik.http.routers.grist-local-insecure.service: grist
       traefik.http.routers.grist-local-insecure.middlewares: grist-https-headers
-
-      # Local domain secure (HTTPS)
       traefik.http.routers.grist-local.rule: Host(`${LOCAL_DOMAIN}`)
       traefik.http.routers.grist-local.entrypoints: websecure
       traefik.http.routers.grist-local.service: grist
@@ -91,12 +59,7 @@ services:
 networks:
   tipi_main_network:
     driver: bridge
-<<<<<<< HEAD
-       # WebSocket support
       # WebSocket support
       traefik.http.middlewares.grist-websocket.headers.customrequestheaders.Upgrade: websocket
       traefik.http.middlewares.grist-websocket.headers.customrequestheaders.Connection: Upgrade
       runtipi.managed: true
-=======
-
->>>>>>> 3d0d0d81 (Add wordpress_elderseth)
