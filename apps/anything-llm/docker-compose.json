@@ -1,0 +1,28 @@
+{
+  "services": [
+    {
+      "name": "anythingllm",
+      "image": "mintplexlabs/anythingllm:latest",
+      "internalPort": 3001,
+      "isMain": true,
+      "environment": {
+        "JWT_SECRET": "${JWT_SECRET}",
+        "LLM_PROVIDER": "${LLM_PROVIDER}",
+        "OLLAMA_BASE_PATH": "${OLLAMA_BASE_PATH}",
+        "OLLAMA_MODEL_PREF": "${OLLAMA_MODEL_PREF}",
+        "EMBEDDING_ENGINE": "${LLM_PROVIDER}",
+        "EMBEDDING_BASE_PATH": "${OLLAMA_BASE_PATH}",
+        "EMBEDDING_MODEL_PREF": "${EMBEDDING_MODEL_PREF}",
+        "STORAGE_DIR": "/app/server/storage"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/anything-llm",
+          "containerPath": "/app/server/storage",
+          "readOnly": false
+        }
+      ]
+    }
+  ]
+}
+

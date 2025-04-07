@@ -1,0 +1,21 @@
+{
+  "services": [
+    {
+      "name": "ragflow",
+      "image": "infiniflow/ragflow:v0.15.0-slim",
+      "internalPort": 5000,
+      "isMain": true,
+      "environment": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/ragflow",
+          "containerPath": "/app/data",
+          "readOnly": false
+        }
+      ]
+    }
+  ]
+}
+
