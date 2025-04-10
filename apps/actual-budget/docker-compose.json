@@ -3,7 +3,11 @@
   "services": [
     {
       "isMain": true,
+<<<<<<< HEAD
       "image": "actualbudget/actual-server:25.2.1",
+=======
+      "image": "actualbudget/actual-server:25.4.0",
+>>>>>>> upstream/master
       "name": "actual-budget",
       "internalPort": 5006,
       "volumes": [
