@@ -8,6 +8,7 @@ services:
       - DEFAULT_BASE_DOMAIN=${APP_DOMAIN}             # Use APP_DOMAIN as the base domain
       - GRIST_SANDBOX_FLAVOR=${GRIST_SANDBOX_FLAVOR}
 <<<<<<< HEAD
+<<<<<<< HEAD
       - TMPDIR=/persist/tmp
       - GRIST_SINGLE_ORG=rasies                       # Enforce a lowercase single organization setup
       - GRIST_FORCE_LOGIN=true                        # Require login for all users
@@ -19,6 +20,9 @@ services:
     image: "gristlabs/grist:1.2.0"
 =======
     image: "gristlabs/grist:1.5.0"
+>>>>>>> upstream/master
+=======
+    image: "gristlabs/grist:1.5.1"
 >>>>>>> upstream/master
     ports:
       - "${APP_PORT:-8484}:8484"
