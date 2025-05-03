@@ -1,7 +1,7 @@
 {
   "name": "WordPress RASSYS",
   "available": true,
-  "port": 8279,
+  "port": 8289,
   "exposable": true,
   "id": "wordpress-rassys",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
