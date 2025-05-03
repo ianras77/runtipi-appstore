@@ -1,0 +1,51 @@
+{
+  "services": [
+    {
+      "name": "wordpress-jupiterseek",
+      "image": "wordpress:latest",
+      "environment": {
+        "WORDPRESS_DB_HOST": "wordpress-jupiterseek-db",
+        "WORDPRESS_DB_NAME": "wordpress",
+        "WORDPRESS_DB_USER": "tipi",
+        "WORDPRESS_DB_PASSWORD": "${DB_PASSWORD}",
+        "VIRTUAL_HOST": "${APP_DOMAIN}",
+        "SERVER_NAME": "${APP_DOMAIN}"
+      },
+      "internalPort": 80,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/wordpress",
+          "containerPath": "/var/www/html",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "dependsOn": {
+        "wordpress-jupiterseek-db": {
+          "condition": "service_started"
+        }
+      },
+      "isMain": true
+    },
+    {
+      "name": "wordpress-jupiterseek-db",
+      "image": "mariadb:11.1.3",
+      "environment": {
+        "MYSQL_ROOT_PASSWORD": "${DB_ROOT_PASSWORD}",
+        "MYSQL_DATABASE": "wordpress",
+        "MYSQL_USER": "tipi",
+        "MYSQL_PASSWORD": "${DB_PASSWORD}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/mariadb",
+          "containerPath": "/var/lib/mysql",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ]
+    }
+  ]
+}

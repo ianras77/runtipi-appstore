@@ -12,6 +12,8 @@
   "author": "WordPress.org",
   "source": "https://github.com/WordPress/WordPress",
   "website": "https://wordpress.org",
+  "dynamic": true,
+  "dynamic_config": true,
   "form_fields": [
     {
       "type": "random",

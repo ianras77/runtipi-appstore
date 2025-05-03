@@ -1,9 +1,9 @@
 {
-  "name": "WordPress Makes Bakes",
+  "name": "WordPress YoginiList",
   "available": true,
-  "port": 8278,
+  "port": 8232,
   "exposable": true,
-  "id": "wordpress-makesbakes",
+  "id": "wordpress-yoginilist",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
   "tipi_version": 10,
   "version": "6.6.1",
