@@ -1,7 +1,11 @@
 {
   "services": [
     {
+<<<<<<< HEAD
       "image": "activepieces/activepieces:latest",
+=======
+      "image": "activepieces/activepieces:0.50.12",
+>>>>>>> upstream/master
       "name": "activepieces",
       "internalPort": 80,
       "isMain": true,
