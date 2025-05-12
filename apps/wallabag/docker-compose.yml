@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  wallabag-db:
+    image: mariadb:10.3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${database_password:-wallabag_password}
+      MYSQL_DATABASE:       ${database_name:-wallabag}
+      MYSQL_USER:           ${database_user:-wallabag_user}
+      MYSQL_PASSWORD:       ${database_password:-wallabag_password}
+    volumes:
+      - wallabag_db:/var/lib/mysql
+
+  wallabag:
+    image: wallabag/wallabag:latest
+    restart: always
+    environment:
+      SYMFONY_ENV:          prod
+      DATABASE_DRIVER:      pdo_mysql
+      DATABASE_HOST:        ${database_host:-db}
+      DATABASE_PORT:        ${database_port:-3306}
+      DATABASE_NAME:        ${database_name:-wallabag}
+      DATABASE_USER:        ${database_user:-wallabag_user}
+      DATABASE_PASSWORD:    ${database_password:-wallabag_password}
+      FOS_USER_REGISTRATION:   "true"
+      FOS_USER_CONFIRMATION:   "true"
+      MAILER_URL:               ${mailer_url:-null://localhost}
+    ports:
+      - "80:80"
+    volumes:
+      - wallabag_images:/var/www/wallabag/web/assets/images
+    depends_on:
+      - wallabag-db
+
+volumes:
+  wallabag_db:
+  wallabag_images:

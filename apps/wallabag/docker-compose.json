@@ -1,0 +1,26 @@
+{
+  "name": "Wallabag",
+  "id": "wallabag",
+  "available": true,
+  "short_desc": "Self-hosted read-it-later service (Instapaper alternative)",
+  "author": "https://github.com/wallabag",
+  "port": 80,
+  "categories": ["utilities", "content"],
+  "description": "Wallabag is a self-hosted read-it-later service that lets you save web articles for later reading in a clean, distraction-free format. Features include tagging, full-text search, highlights, and multi-device syncing.",
+  "tipi_version": 1,
+  "version": "latest",
+  "source": "https://github.com/wallabag/docker",
+  "website": "https://www.wallabag.org",
+  "exposable": true,
+  "url_suffix": "wallabag",
+  "dynamic": true,
+  "min_tipi_version": "4.0.0",
+  "form_fields": [
+    { "type": "string", "name": "database_host",     "title": "Database Host",     "default": "db" },
+    { "type": "string", "name": "database_port",     "title": "Database Port",     "default": "3306" },
+    { "type": "string", "name": "database_name",     "title": "Database Name",     "default": "wallabag" },
+    { "type": "string", "name": "database_user",     "title": "Database User",     "default": "wallabag_user" },
+    { "type": "string", "name": "database_password", "title": "Database Password", "default": "" },
+    { "type": "string", "name": "mailer_url",        "title": "Mailer URL",        "default": "null://localhost" }
+  ]
+}
