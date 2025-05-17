@@ -6,13 +6,8 @@
   "dynamic_config": true,
   "id": "activepieces",
   "description": "Your friendliest open source all-in-one automation tool.",
-<<<<<<< HEAD
-  "tipi_version": 97,
   "version": "latest",
-=======
   "tipi_version": 99,
-  "version": "0.50.12",
->>>>>>> upstream/master
   "categories": ["automation"],
   "short_desc": "True zapier alternative.",
   "author": "Activepieces",
