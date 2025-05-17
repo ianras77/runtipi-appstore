@@ -22,7 +22,7 @@
         }
       ],
       "dependsOn": {
-        "wordpress-vibesie-db": {
+        "wordpress-elderseth-db": {
           "condition": "service_started"
         }
       },
