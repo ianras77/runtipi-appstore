@@ -22,7 +22,7 @@
         }
       ],
       "dependsOn": {
-        "wordpress-vibesie-db": {
+        "wordpress-puppiesride-db": {
           "condition": "service_started"
         }
       },
