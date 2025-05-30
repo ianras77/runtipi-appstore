@@ -1,10 +1,10 @@
 {
   "services": [
     {
-      "name": "wordpress-wrapess",
+      "name": "wordpress-yoginilist",
       "image": "wordpress:latest",
       "environment": {
-        "WORDPRESS_DB_HOST": "wordpress-wrapess-db",
+        "WORDPRESS_DB_HOST": "wordpress-yoginilist-db",
         "WORDPRESS_DB_NAME": "wordpress",
         "WORDPRESS_DB_USER": "tipi",
         "WORDPRESS_DB_PASSWORD": "${DB_PASSWORD}",
@@ -22,14 +22,14 @@
         }
       ],
       "dependsOn": {
-        "wordpress-wrapess-db": {
+        "wordpress-yoginilist-db": {
           "condition": "service_started"
         }
       },
       "isMain": true
     },
     {
-      "name": "wordpress-wrapess-db",
+      "name": "wordpress-yoginilist-db",
       "image": "mariadb:11.1.3",
       "environment": {
         "MYSQL_ROOT_PASSWORD": "${DB_ROOT_PASSWORD}",
