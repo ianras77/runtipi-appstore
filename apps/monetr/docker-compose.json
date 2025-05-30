@@ -5,11 +5,11 @@
       "image": "ghcr.io/monetr/monetr:v1.4.3",
       "restart": "always",
       "ports": [
-        "80:80"
+        "4000:4000"
       ],
       "environment": {},
       "volumes": [
-        "${ROOT_FOLDER_HOST}/monetr:/app"
+        "${ROOT_FOLDER_HOST}/monetr:/app/data"
       ]
     }
   }

@@ -1,13 +1,38 @@
 {
-  "app": {
-    "name": "monetr",
-    "description": "Runtipi app for monetr",
-    "version": "v1.4.3"
-  },
-  "dynamicCompose": {
-    "components": []
-  },
-  "environment": {
-    "variables": {}
-  }
+  "name": "monetr",
+  "id": "monetr",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "tipi_version": 0,
+  "version": "v1.4.3",
+  "description": "monetr is a budgeting application focused on planning for recurring expenses.",
+  "short_desc": "monetr is a budgeting application focused on planning for recurring expenses",
+  "author": "https://github.com/monetr",
+  "source": "https://github.com/monetr/monetr",
+  "website": null,
+  "categories": [
+    "budgeting",
+    "plaid",
+    "finance-management",
+    "golang",
+    "react",
+    "finance",
+    "financial-independence",
+    "financial-planning",
+    "open-finance",
+    "expense-tracker",
+    "budget",
+    "budget-app",
+    "budget-tool"
+  ],
+  "supported_architectures": [
+    "amd64",
+    "amd64"
+  ],
+  "form_fields": [],
+  "port": 4000,
+  "created_at": 1748627628152,
+  "updated_at": 1748627628152,
+  "$schema": "../app-info-schema.json"
 }
