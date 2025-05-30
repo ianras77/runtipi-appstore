@@ -1,0 +1,13 @@
+{
+  "app": {
+    "name": "monetr",
+    "description": "Runtipi app for monetr",
+    "version": "v1.4.3"
+  },
+  "dynamicCompose": {
+    "components": []
+  },
+  "environment": {
+    "variables": {}
+  }
+}

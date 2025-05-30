@@ -1,0 +1,13 @@
+{
+  "app": {
+    "name": "typemill",
+    "description": "Runtipi app for typemill",
+    "version": "v1.4.3"
+  },
+  "dynamicCompose": {
+    "components": []
+  },
+  "environment": {
+    "variables": {}
+  }
+}

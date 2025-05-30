@@ -1,38 +1,74 @@
+// config.json
 {
   "name": "Grist",
+  "id": "grist",
   "available": true,
-  "port": 8484,
   "exposable": true,
   "dynamic_config": true,
-  "id": "grist",
-  "description": "Grist is a modern relational spreadsheet. It combines the flexibility of a spreadsheet with the robustness of a database to organize your data and make you more productive.",
   "tipi_version": 32,
-  "version": "1.6.0",
-  "categories": ["utilities"],
+  "version": "latest",
+  "description": "Grist is a modern relational spreadsheet. It combines the flexibility of a spreadsheet with the robustness of a database to organize your data and make you more productive.",
   "short_desc": "Grist is the evolution of spreadsheets.",
   "author": "https://github.com/gristlabs",
   "source": "https://github.com/gristlabs/grist-core",
   "website": "https://www.getgrist.com/",
+  "categories": ["utilities"],
+  "supported_architectures": ["arm64", "amd64"],
   "form_fields": [
     {
-      "type": "text",
-      "label": "GRIST_SANDBOX_FLAVOR",
+      "type": "select",
+      "label": "Sandbox Flavor",
       "required": true,
       "options": [
-        {
-          "label": "unsandboxed",
-          "value": "unsandboxed"
-        },
-        {
-          "label": "gvisor",
-          "value": "gvisor"
-        }
+        { "label": "unsandboxed", "value": "unsandboxed" },
+        { "label": "gvisor",      "value": "gvisor" }
       ],
       "env_variable": "GRIST_SANDBOX_FLAVOR"
+    },
+    {
+      "type": "text",
+      "label": "Admin Email",
+      "required": true,
+      "env_variable": "GRIST_DEFAULT_EMAIL"
+    },
+    {
+      "type": "text",
+      "label": "Session Secret",
+      "required": true,
+      "env_variable": "GRIST_SESSION_SECRET"
+    },
+    {
+      "type": "boolean",
+      "label": "Require Login",
+      "required": false,
+      "env_variable": "GRIST_FORCE_LOGIN",
+      "default": true
+    },
+    {
+      "type": "text",
+      "label": "Auth Header",
+      "required": false,
+      "env_variable": "GRIST_FORWARD_AUTH_HEADER",
+      "default": "X-Forwarded-User"
+    },
+    {
+      "type": "text",
+      "label": "Login Path",
+      "required": false,
+      "env_variable": "GRIST_FORWARD_AUTH_LOGIN_PATH",
+      "default": "/auth/login"
+    },
+    {
+      "type": "text",
+      "label": "Logout Path",
+      "required": false,
+      "env_variable": "GRIST_FORWARD_AUTH_LOGOUT_PATH",
+      "default": "/auth/logout"
     }
   ],
-  "supported_architectures": ["arm64", "amd64"],
+  "port": 8484,
   "created_at": 1691943801422,
   "updated_at": 1748550045164,
   "$schema": "../app-info-schema.json"
 }
+
