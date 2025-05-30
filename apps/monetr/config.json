@@ -4,13 +4,13 @@
   "available": true,
   "exposable": true,
   "dynamic_config": true,
-  "tipi_version": 0,
+  "tipi_version": 1,
   "version": "v1.4.3",
   "description": "monetr is a budgeting application focused on planning for recurring expenses.",
   "short_desc": "monetr is a budgeting application focused on planning for recurring expenses",
-  "author": "https://github.com/monetr",
+  "author": "",
   "source": "https://github.com/monetr/monetr",
-  "website": null,
+  "website": "",
   "categories": [
     "budgeting",
     "plaid",
@@ -32,7 +32,7 @@
   ],
   "form_fields": [],
   "port": 4000,
-  "created_at": 1748627628152,
-  "updated_at": 1748627628152,
+  "created_at": 1748633251052,
+  "updated_at": 1748633251052,
   "$schema": "../app-info-schema.json"
 }

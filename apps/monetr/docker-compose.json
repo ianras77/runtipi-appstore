@@ -1,16 +1,19 @@
 {
-  "version": "3",
-  "services": {
-    "monetr": {
+  "services": [
+    {
+      "name": "monetr",
       "image": "ghcr.io/monetr/monetr:v1.4.3",
+      "internalPort": 4000,
+      "isMain": true,
       "restart": "always",
-      "ports": [
-        "4000:4000"
-      ],
+      "addPorts": [],
       "environment": {},
       "volumes": [
-        "${ROOT_FOLDER_HOST}/monetr:/app/data"
+        {
+          "hostPath": "${ROOT_FOLDER_HOST}/monetr",
+          "containerPath": "/app/data"
+        }
       ]
     }
-  }
+  ]
 }
