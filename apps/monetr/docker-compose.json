@@ -1,17 +1,19 @@
 {
+  "$schema": "../dynamic-compose-schema.json",
   "services": [
     {
       "name": "monetr",
       "image": "ghcr.io/monetr/monetr:v1.4.3",
       "internalPort": 4000,
       "isMain": true,
-      "restart": "always",
-      "addPorts": [],
-      "environment": {},
+      "environment": {
+        "GOFLAGS": "${GOFLAGS}"
+      },
       "volumes": [
         {
           "hostPath": "${ROOT_FOLDER_HOST}/monetr",
-          "containerPath": "/app/data"
+          "containerPath": "/app/data",
+          "readOnly": false
         }
       ]
     }
