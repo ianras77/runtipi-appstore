@@ -7,22 +7,7 @@
   "description": "monetr is a budgeting application focused on planning for recurring expenses.",
   "author": "",
   "port": 4000,
-  "categories": [
-    "budgeting",
-    "plaid",
-    "finance-management",
-    "golang",
-    "react",
-    "finance",
-    "financial-independence",
-    "financial-planning",
-    "open-finance",
-    "expense-tracker",
-    "budget",
-    "budget-app",
-    "budget-tool"
-  ],
-  "tipi_version": 3,
+  "categories": 
   "version": "v1.4.3",
   "source": "https://github.com/monetr/monetr",
   "website": "",
