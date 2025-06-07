@@ -7,7 +7,7 @@
       "internalPort": 80,
       "volumes": [
         {
-          "hostPath": "${ROOT_FOLDER_HOST}/media/data/books/spoken",
+          "hostPath": "${ROOT_FOLDER_HOST}/media/data/audiobooks",
           "containerPath": "/audiobooks"
         },
         {
