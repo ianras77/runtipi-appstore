@@ -6,11 +6,6 @@
       "image": "ghcr.io/toeverything/affine-graphql:stable",
       "isMain": true,
       "internalPort": 3010,
-      "command": [
-        "sh",
-        "-c",
-        "mkdir -p /root/.affine/config && echo '{\\\"copilot\\\":{\\\"enabled\\\":true,\\\"providers.openai\\\":{\\\"apiKey\\\":\\\"'\"$OPENAI_API_KEY\"'\\\"}}}' > /root/.affine/config/config.json && node ./scripts/self-host-predeploy && node ./dist/index.js"
-      ],
       "volumes": [
         { "hostPath": \"${APP_DATA_DIR}/data/storage\", \"containerPath\": \"/root/.affine/storage\" },
         { "hostPath": \"${APP_DATA_DIR}/data/config\",   \"containerPath\": \"/root/.affine/config\"  }
