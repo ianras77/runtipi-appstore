@@ -9,7 +9,7 @@
       "command": [
         "sh",
         "-c",
-        "set -e; if [ -n \\\"$OPENAI_API_KEY\\\" ]; then mkdir -p /root/.affine/config && printf '{\"copilot\":{\"enabled\":true,\"providers.openai\":{\"apiKey\":\"%s\"}}}' \"$OPENAI_API_KEY\" > /root/.affine/config/config.json; fi; node ./scripts/self-host-predeploy && node ./dist/index.js"
+        "mkdir -p /root/.affine/config && echo '{\\\"copilot\\\":{\\\"enabled\\\":true,\\\"providers.openai\\\":{\\\"apiKey\\\":\\\"'\"$OPENAI_API_KEY\"'\\\"}}}' > /root/.affine/config/config.json && node ./scripts/self-host-predeploy && node ./dist/index.js"
       ],
       "volumes": [
         { "hostPath": \"${APP_DATA_DIR}/data/storage\", \"containerPath\": \"/root/.affine/storage\" },
