@@ -7,17 +7,16 @@
       "isMain": true,
       "internalPort": 3010,
       "volumes": [
-        { "hostPath": \"${APP_DATA_DIR}/data/storage\", \"containerPath\": \"/root/.affine/storage\" },
-        { "hostPath": \"${APP_DATA_DIR}/data/config\",   \"containerPath\": \"/root/.affine/config\"  }
+	{ "hostPath": "${APP_DATA_DIR}/data/storage", "containerPath": "/root/.affine/storage" },
+  	{ "hostPath": "${APP_DATA_DIR}/data/config", "containerPath": "/root/.affine/config" }
       ],
-      "environment": {
         "REDIS_SERVER_HOST": "affine-redis",
         "DATABASE_URL": "postgresql://tipi:${AFFINE_POSTGRES_PASSWORD}@affine-postgres:5432/affine",
         "NODE_ENV": "production",
         "AFFINE_ADMIN_EMAIL": "${AFFINE_ADMIN_EMAIL}",
         "AFFINE_ADMIN_PASSWORD": "${AFFINE_ADMIN_PASSWORD}",
         "TELEMETRY_ENABLE": "${AFFINE_TELEMETRY_ENABLE}",
-        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+        "COPILOT_OPENAI_API_KEY": "${OPENAI_API_KEY}"
       },
       "dependsOn": {
         "affine-redis": { "condition": "service_healthy" },
@@ -32,12 +31,14 @@
       "volumes": [
         { "hostPath": \"${APP_DATA_DIR}/data/redis\", \"containerPath\": \"/data\" }
       ],
+      
       "healthCheck": {
-        "test": "redis-cli --raw incr ping",
-        "interval": "10s",
-        "timeout": "5s",
-        "retries": 5
+	"test": ["CMD", "redis-cli", "--raw", "incr", "ping"],
+	"interval": "10s",
+	"timeout": "5s",
+	"retries": 5
       }
+      
     },
 
     {
@@ -54,10 +55,10 @@
         "POSTGRES_HOST_AUTH_METHOD": "trust"
       },
       "healthCheck": {
-        "test": "pg_isready -U tipi -d affine",
-        "interval": "10s",
-        "timeout": "5s",
-        "retries": 5
+	"test": ["CMD", "pg_isready", "-U", "tipi", "-d", "affine"],
+	"interval": "10s",
+	"timeout": "5s",
+	"retries": 5     
       }
     }
   ]
