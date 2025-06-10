@@ -3,22 +3,17 @@
   "services": [
     {
       "name": "affine",
-      "image": "ghcr.io/toeverything/affine-graphql:stable",   // or pin to v0.22.2
+      "image": "ghcr.io/toeverything/affine-graphql:stable",
       "isMain": true,
       "internalPort": 3010,
       "command": [
         "sh",
         "-c",
-        "set -e ; \
-if [ -n \"$OPENAI_API_KEY\" ]; then \
-  mkdir -p /root/.affine/config && \
-  echo '{\"$schema\":\"https://github.com/toeverything/affine/releases/latest/download/config.schema.json\",\"copilot\":{\"enabled\":true,\"providers.openai\":{\"apiKey\":\"'$OPENAI_API_KEY'\"}}}' > /root/.affine/config/config.json ; \
-fi ; \
-node ./scripts/self-host-predeploy && node ./dist/index.js"
+        "set -e; if [ -n \\\"$OPENAI_API_KEY\\\" ]; then mkdir -p /root/.affine/config && printf '{\"copilot\":{\"enabled\":true,\"providers.openai\":{\"apiKey\":\"%s\"}}}' \"$OPENAI_API_KEY\" > /root/.affine/config/config.json; fi; node ./scripts/self-host-predeploy && node ./dist/index.js"
       ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/storage", "containerPath": "/root/.affine/storage" },
-        { "hostPath": "${APP_DATA_DIR}/data/config",   "containerPath": "/root/.affine/config"  }
+        { "hostPath": \"${APP_DATA_DIR}/data/storage\", \"containerPath\": \"/root/.affine/storage\" },
+        { "hostPath": \"${APP_DATA_DIR}/data/config\",   \"containerPath\": \"/root/.affine/config\"  }
       ],
       "environment": {
         "REDIS_SERVER_HOST": "affine-redis",
@@ -27,7 +22,6 @@ node ./scripts/self-host-predeploy && node ./dist/index.js"
         "AFFINE_ADMIN_EMAIL": "${AFFINE_ADMIN_EMAIL}",
         "AFFINE_ADMIN_PASSWORD": "${AFFINE_ADMIN_PASSWORD}",
         "TELEMETRY_ENABLE": "${AFFINE_TELEMETRY_ENABLE}",
-        "AFFINE_INDEXER_ENABLED": "false",
         "OPENAI_API_KEY": "${OPENAI_API_KEY}"
       },
       "dependsOn": {
@@ -41,7 +35,7 @@ node ./scripts/self-host-predeploy && node ./dist/index.js"
       "name": "affine-redis",
       "image": "redis:7",
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/redis", "containerPath": "/data" }
+        { "hostPath": \"${APP_DATA_DIR}/data/redis\", \"containerPath\": \"/data\" }
       ],
       "healthCheck": {
         "test": "redis-cli --raw incr ping",
@@ -55,7 +49,7 @@ node ./scripts/self-host-predeploy && node ./dist/index.js"
       "name": "affine-postgres",
       "image": "pgvector/pgvector:pg16",
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/postgres", "containerPath": "/var/lib/postgresql/data" }
+        { "hostPath": \"${APP_DATA_DIR}/data/postgres\", \"containerPath\": \"/var/lib/postgresql/data\" }
       ],
       "environment": {
         "POSTGRES_USER": "tipi",
