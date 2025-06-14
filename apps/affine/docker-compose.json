@@ -6,15 +6,10 @@
       "image": "ghcr.io/toeverything/affine-graphql:stable",
       "isMain": true,
       "internalPort": 3010,
+      "restart": "unless-stopped",
       "volumes": [
-        {
-          "hostPath": "${APP_DATA_DIR}/data/config",
-          "containerPath": "/root/.affine/config"
-        },
-        {
-          "hostPath": "${APP_DATA_DIR}/data/storage",
-          "containerPath": "/root/.affine/storage"
-        }
+        { "hostPath": "${APP_DATA_DIR}/data/config",  "containerPath": "/root/.affine/config" },
+        { "hostPath": "${APP_DATA_DIR}/data/storage", "containerPath": "/root/.affine/storage" }
       ],
       "environment": {
         "AFFINE_CONFIG_PATH": "/root/.affine/config",
@@ -27,34 +22,19 @@
         "COPILOT_OPENAI_API_KEY": "${OPENAI_API_KEY}"
       },
       "dependsOn": {
-        "affine-redis": {
-          "condition": "service_healthy"
-        },
-        "affine-postgres": {
-          "condition": "service_healthy"
-        },
-        "affine-migration": {
-          "condition": "service_completed_successfully"
-        }
+        "affine-redis":    { "condition": "service_healthy" },
+        "affine-postgres": { "condition": "service_healthy" },
+        "affine-migration":{ "condition": "service_completed_successfully" }
       }
     },
     {
       "name": "affine-migration",
       "image": "ghcr.io/toeverything/affine-graphql:stable",
-      "command": [
-        "sh",
-        "-c",
-        "node ./scripts/self-host-predeploy.js"
-      ],
+      "restart": "no",
+      "command": ["sh","-c","node ./scripts/self-host-predeploy.js"],
       "volumes": [
-        {
-          "hostPath": "${APP_DATA_DIR}/data/config",
-          "containerPath": "/root/.affine/config"
-        },
-        {
-          "hostPath": "${APP_DATA_DIR}/data/storage",
-          "containerPath": "/root/.affine/storage"
-        }
+        { "hostPath": "${APP_DATA_DIR}/data/config",  "containerPath": "/root/.affine/config" },
+        { "hostPath": "${APP_DATA_DIR}/data/storage", "containerPath": "/root/.affine/storage" }
       ],
       "environment": {
         "REDIS_SERVER_HOST": "affine-redis",
@@ -62,22 +42,16 @@
         "COPILOT_OPENAI_API_KEY": "${OPENAI_API_KEY}"
       },
       "dependsOn": {
-        "affine-redis": {
-          "condition": "service_healthy"
-        },
-        "affine-postgres": {
-          "condition": "service_healthy"
-        }
+        "affine-redis":    { "condition": "service_healthy" },
+        "affine-postgres": { "condition": "service_healthy" }
       }
     },
     {
       "name": "affine-redis",
       "image": "redis:7",
+      "restart": "unless-stopped",
       "volumes": [
-        {
-          "hostPath": "${APP_DATA_DIR}/data/redis",
-          "containerPath": "/data"
-        }
+        { "hostPath": "${APP_DATA_DIR}/data/redis", "containerPath": "/data" }
       ],
       "healthCheck": {
         "test": "redis-cli --raw incr ping",
@@ -89,11 +63,9 @@
     {
       "name": "affine-postgres",
       "image": "pgvector/pgvector:pg16",
+      "restart": "unless-stopped",
       "volumes": [
-        {
-          "hostPath": "${APP_DATA_DIR}/data/postgres",
-          "containerPath": "/var/lib/postgresql/data"
-        }
+        { "hostPath": "${APP_DATA_DIR}/data/postgres", "containerPath": "/var/lib/postgresql/data" }
       ],
       "environment": {
         "POSTGRES_USER": "affine",
