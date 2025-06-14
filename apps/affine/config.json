@@ -1,17 +1,57 @@
 {
   "name": "AFFiNE",
   "id": "affine",
+
+  "available": true,
+  "short_desc": "Local-first docs, whiteboards & databases",
+  "author": "toeverything",
+  "description": "AFFiNE is an open-source, local-first workspace that merges documents, whiteboards and tables. It’s a privacy-focused alternative to Notion & Miro, with AI Copilot support.",
+
+  "tipi_version": 1,
   "version": "0.22.2",
+  "source": "https://github.com/toeverything/affine",
+  "website": "https://affine.pro",
+
   "port": 3010,
+  "exposable": true,
+  "categories": ["utilities"],
+  "supported_architectures": ["amd64", "arm64"],
+
   "dynamic": true,
   "dynamic_config": true,
-  "categories": ["utilities"],
+
   "form_fields": [
-    { "env_variable": "AFFINE_ADMIN_EMAIL", "label": "Admin Email", "required": true, "type": "text" },
-    { "env_variable": "AFFINE_ADMIN_PASSWORD", "label": "Admin Password", "required": true, "type": "password" },
-    { "env_variable": "AFFINE_TELEMETRY_ENABLE", "label": "Enable telemetry?", "type": "boolean" },
-    { "env_variable": "AFFINE_POSTGRES_PASSWORD", "label": "Postgres Password", "type": "random", "min": 32 }
-  ],
-  "supported_architectures": ["amd64", "arm64"]
+    {
+      "env_variable": "AFFINE_ADMIN_EMAIL",
+      "label": "Admin E-mail",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "env_variable": "AFFINE_ADMIN_PASSWORD",
+      "label": "Admin Password",
+      "required": true,
+      "type": "password",
+      "min": 8,
+      "max": 128
+    },
+    {
+      "env_variable": "AFFINE_TELEMETRY_ENABLE",
+      "label": "Enable telemetry?",
+      "type": "boolean"
+    },
+    {
+      "env_variable": "AFFINE_POSTGRES_PASSWORD",
+      "label": "Postgres Password",
+      "type": "random",
+      "min": 32
+    },
+    {
+      "env_variable": "OPENAI_API_KEY",
+      "label": "OpenAI API Key (optional)",
+      "type": "text",
+      "required": false
+    }
+  ]
 }
 
