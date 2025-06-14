@@ -6,15 +6,18 @@
       "image": "ghcr.io/toeverything/affine-graphql:stable",
       "isMain": true,
       "internalPort": 3010,
+
       "command": [
         "sh",
         "-c",
-        "mkdir -p /root/.affine/config && echo '{\\\"copilot\\\":{\\\"enabled\\\":true,\\\"providers.openai\\\":{\\\"apiKey\\\":\\\"'\"$OPENAI_API_KEY\"'\\\"}}}' > /root/.affine/config/config.json && node ./scripts/self-host-predeploy && node ./dist/index.js"
+        "mkdir -p /root/.affine/config && printf '%s' '{\\\"copilot\\\":{\\\"enabled\\\":true,\\\"providers.openai\\\":{\\\"apiKey\\\":\\\"'\"$OPENAI_API_KEY\"'\\\"}}}' > /root/.affine/config/config.json && node ./scripts/self-host-predeploy.js && node ./dist/index.js"
       ],
+
       "volumes": [
-        { "hostPath": \"${APP_DATA_DIR}/data/storage\", \"containerPath\": \"/root/.affine/storage\" },
-        { "hostPath": \"${APP_DATA_DIR}/data/config\",   \"containerPath\": \"/root/.affine/config\"  }
+        { "hostPath": \"${APP_DATA_DIR}/data/storage\", "containerPath": "/root/.affine/storage" },
+        { "hostPath": \"${APP_DATA_DIR}/data/config\",  "containerPath": "/root/.affine/config"  }
       ],
+
       "environment": {
         "REDIS_SERVER_HOST": "affine-redis",
         "DATABASE_URL": "postgresql://tipi:${AFFINE_POSTGRES_PASSWORD}@affine-postgres:5432/affine",
@@ -24,10 +27,12 @@
         "TELEMETRY_ENABLE": "${AFFINE_TELEMETRY_ENABLE}",
         "OPENAI_API_KEY": "${OPENAI_API_KEY}"
       },
+
       "dependsOn": {
-        "affine-redis": { "condition": "service_healthy" },
+        "affine-redis":    { "condition": "service_healthy" },
         "affine-postgres": { "condition": "service_healthy" }
       },
+
       "logging": { "driver": "json-file", "options": { "max-size": "1000m" } }
     },
 
@@ -35,7 +40,7 @@
       "name": "affine-redis",
       "image": "redis:7",
       "volumes": [
-        { "hostPath": \"${APP_DATA_DIR}/data/redis\", \"containerPath\": \"/data\" }
+        { "hostPath": \"${APP_DATA_DIR}/data/redis\", "containerPath": "/data" }
       ],
       "healthCheck": {
         "test": "redis-cli --raw incr ping",
@@ -49,7 +54,7 @@
       "name": "affine-postgres",
       "image": "pgvector/pgvector:pg16",
       "volumes": [
-        { "hostPath": \"${APP_DATA_DIR}/data/postgres\", \"containerPath\": \"/var/lib/postgresql/data\" }
+        { "hostPath": \"${APP_DATA_DIR}/data/postgres\", "containerPath": "/var/lib/postgresql/data" }
       ],
       "environment": {
         "POSTGRES_USER": "tipi",
