@@ -1,0 +1,42 @@
+{
+  "services": [
+    {
+      "name": "jupyterlab",
+      "image": "quay.io/jupyter/base-notebook:latest",
+      "internalPort": 8888,
+      "isMain": true,
+      "restart": "unless-stopped",
+      "environment": {
+        "JUPYTER_ENABLE_LAB": "yes",
+        "JUPYTER_TOKEN": "${JUPYTER_TOKEN}",
+        "NB_UID": "${NB_UID}",
+        "NB_GID": "${NB_GID}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/notebooks",
+          "containerPath": "/home/jovyan/work",
+          "readOnly": false
+        }
+      ],
+      "healthCheck": {
+        "test": "curl --fail http://localhost:8888 || exit 1",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 3
+      }
+    }
+  ],
+  "overrides": [
+    {
+      "architecture": "arm64",
+      "services": [
+        {
+          "name": "jupyterlab",
+          "image": "quay.io/jupyter/base-notebook:latest"
+        }
+      ]
+    }
+  ]
+}
+
