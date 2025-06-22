@@ -1,7 +1,7 @@
 {
   "name": "WordPress Farm Leadership",
   "available": true,
-  "port": 82467,
+  "port": 8267,
   "exposable": true,
   "id": "wordpress-farmleadership",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
