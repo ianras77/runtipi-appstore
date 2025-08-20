@@ -29,7 +29,7 @@
       "isMain": true
     },
     {
-      "name": "wordpress-ecclesdiasophia-db",
+      "name": "wordpress-ecclesiasophia-db",
       "image": "mariadb:11.1.3",
       "environment": {
         "MYSQL_ROOT_PASSWORD": "${DB_ROOT_PASSWORD}",
