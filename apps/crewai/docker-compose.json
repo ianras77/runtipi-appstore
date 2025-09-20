@@ -1,0 +1,81 @@
+{
+  "services": [
+    {
+      "name": "crewai-studio",
+      "image": "tham0nk/crewai-studio:latest",
+      "isMain": true,
+      "internalPort": 8501,
+      "restart": "unless-stopped",
+      "environment": {
+        "OPENAI_BASE_URL": "${OPENAI_BASE_URL}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "OLLAMA_BASE_URL": "${OLLAMA_BASE_URL}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "GROQ_API_KEY": "${GROQ_API_KEY}",
+        "LMSTUDIO_BASE_URL": "${LMSTUDIO_BASE_URL}",
+
+        /* Qdrant + Redis wiring for your tools/workflows */
+        "QDRANT_URL": "http://qdrant:6333",
+        "QDRANT_GRPC_URL": "http://qdrant:6334",
+        "QDRANT_API_KEY": "${QDRANT_API_KEY}",
+        "QDRANT_COLLECTION": "${QDRANT_COLLECTION}",
+        "REDIS_HOST": "redis",
+        "REDIS_PORT": "6379",
+        "REDIS_PASSWORD": "${REDIS_PASSWORD}",
+        "REDIS_URL": "redis://:${REDIS_PASSWORD}@redis:6379/0",
+
+        "PORT": "8501",
+        "STREAMLIT_SERVER_PORT": "8501"
+      },
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/data" }
+      ],
+      "logging": {
+        "driver": "json-file",
+        "options": { "max-size": "10m", "max-file": "3" }
+      },
+      "dependsOn": {
+        "qdrant": { "condition": "service_healthy" },
+        "redis":  { "condition": "service_healthy" }
+      }
+    },
+
+    {
+      "name": "qdrant",
+      "image": "qdrant/qdrant:latest",
+      "restart": "unless-stopped",
+      "environment": {
+        /* Enable auth only if key is provided */
+        "QDRANT__SERVICE__API_KEY": "${QDRANT_API_KEY}"
+      },
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/qdrant/storage", "containerPath": "/qdrant/storage" }
+      ],
+      "healthCheck": {
+        "test": "curl --fail http://localhost:6333/readyz",
+        "retries": 10,
+        "interval": "5s",
+        "timeout": "3s",
+        "start_period": "10s"
+      }
+    },
+
+    {
+      "name": "redis",
+      "image": "redis:7-alpine",
+      "restart": "unless-stopped",
+      "command": "sh -lc 'exec redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass $REDIS_PASSWORD}'",
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/redis", "containerPath": "/data" }
+      ],
+      "healthCheck": {
+        "test": "sh -lc 'redis-cli ${REDIS_PASSWORD:+-a $REDIS_PASSWORD} ping | grep PONG'",
+        "retries": 15,
+        "interval": "5s",
+        "timeout": "3s",
+        "start_period": "5s"
+      }
+    }
+  ]
+}
+
