@@ -7,7 +7,7 @@
   "port": 8501,
   "categories": ["ai"],
   "description": "CrewAI Studio with built-in Qdrant (vector database) and Redis (cache/queues) so you can do RAG and fast state without extra setup. Uses internal networking; only the Studio is exposed.",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "version": "1.1.0",
   "source": "https://github.com/strnad/CrewAI-Studio",
   "website": "https://docs.crewai.com",
@@ -56,28 +56,26 @@
       "required": false,
       "env_variable": "LMSTUDIO_BASE_URL"
     },
-
-    /* --- Framework (non-LLM) settings --- */
     {
       "type": "text",
-      "label": "Qdrant collection name (used by your tools/workflows)",
+      "label": "Qdrant collection name",
       "required": false,
       "env_variable": "QDRANT_COLLECTION",
       "default": "crewai"
     },
     {
       "type": "password",
-      "label": "Qdrant API key (optional, enables auth on the bundled Qdrant)",
+      "label": "Qdrant API key (optional)",
       "required": false,
       "env_variable": "QDRANT_API_KEY"
     },
     {
       "type": "random",
-      "label": "Redis password (optional, will be generated if left blank)",
+      "label": "Redis password (optional)",
       "required": false,
       "min": 24,
       "env_variable": "REDIS_PASSWORD"
     }
-  ]
+    ]
 }
 
