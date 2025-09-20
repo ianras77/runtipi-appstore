@@ -1,6 +1,6 @@
 {
   "name": "CrewAI Studio (+ Qdrant & Redis)",
-  "id": "crewai-studio",
+  "id": "crewai",
   "available": true,
   "short_desc": "Design and run CrewAI agents. Bundled with Qdrant vector DB and Redis cache.",
   "author": "rasies",
