@@ -1,6 +1,6 @@
 {
   "name": "CrewAI Studio (+ Qdrant & Redis)",
-  "id": "crewai",
+  "id": "crewai-studio",
   "available": true,
   "short_desc": "Design and run CrewAI agents. Bundled with Qdrant vector DB and Redis cache.",
   "author": "rasies",
@@ -8,7 +8,7 @@
   "categories": ["ai"],
   "description": "CrewAI Studio with built-in Qdrant (vector database) and Redis (cache/queues) so you can do RAG and fast state without extra setup. Uses internal networking; only the Studio is exposed.",
   "tipi_version": 2,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "source": "https://github.com/strnad/CrewAI-Studio",
   "website": "https://docs.crewai.com",
   "exposable": true,
@@ -65,7 +65,7 @@
     },
     {
       "type": "password",
-      "label": "Qdrant API key (optional)",
+      "label": "Qdrant API key (optional — only needed if you enable auth later)",
       "required": false,
       "env_variable": "QDRANT_API_KEY"
     },
@@ -76,6 +76,6 @@
       "min": 24,
       "env_variable": "REDIS_PASSWORD"
     }
-    ]
+  ]
 }
 

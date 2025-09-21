@@ -1,0 +1,36 @@
+{
+  "name": "SHOUTcast DNAS (Self-Hosted)",
+  "id": "shoutcast-dnas",
+  "available": true,
+  "short_desc": "Self-hosted SHOUTcast (DNAS) radio server with one-click config.",
+  "author": "rasies",
+  "port": 8000,
+  "categories": ["media", "streaming"],
+  "description": "Runs the official SHOUTcast DNAS server with a generated sc_serv.conf. Configure source/admin passwords, stream metadata, and (optionally) your Self-Hosted licence (userid/licenceid).",
+  "tipi_version": 2,
+  "version": "1.0.0",
+  "source": "https://hub.docker.com/r/vimagick/shoutcast",
+  "website": "https://sc-mirror.shoutca.st/docs/DNAS_Server.html",
+  "exposable": true,
+  "https": true,
+  "supported_architectures": ["amd64"],
+  "dynamic": true,
+  "min_tipi_version": "v3.2.0",
+  "form_fields": [
+    { "type": "text", "label": "Station name", "required": false, "env_variable": "STATION_NAME", "placeholder": "Rassy Radio" },
+    { "type": "text", "label": "Station URL", "required": false, "env_variable": "STATION_URL", "placeholder": "https://radio.rasies.com" },
+    { "type": "text", "label": "Genre", "required": false, "env_variable": "STATION_GENRE", "placeholder": "Eclectic" },
+
+    { "type": "random", "label": "Source password (for encoder)", "min": 20, "env_variable": "SOURCE_PASSWORD" },
+    { "type": "random", "label": "Admin password (DNAS admin UI)", "min": 20, "env_variable": "ADMIN_PASSWORD" },
+
+    { "type": "text", "label": "Max listeners (e.g. 128)", "required": false, "env_variable": "MAX_LISTENERS", "default": "128" },
+    { "type": "text", "label": "Stream ID (sid)", "required": false, "env_variable": "STREAM_ID", "default": "1" },
+    { "type": "text", "label": "Stream path", "required": false, "env_variable": "STREAM_PATH", "default": "/stream" },
+    { "type": "text", "label": "Public server (always/never/default)", "required": false, "env_variable": "PUBLIC_SERVER", "default": "never" },
+
+    { "type": "text", "label": "SHOUTcast userid (optional)", "required": false, "env_variable": "SC_USERID" },
+    { "type": "text", "label": "SHOUTcast licenceid (optional)", "required": false, "env_variable": "SC_LICENCEID" }
+  ]
+}
+

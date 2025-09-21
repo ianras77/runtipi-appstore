@@ -1,0 +1,12 @@
+{
+  "id": "khoj",
+  "name": "Khoj",
+  "version": "1.0.0",
+  "website": "https://khoj.dev",
+  "category": "AI",
+  "description": "Personal AI that indexes your notes & files. Multi-user via admin.",
+  "icon": "logo.jpg",
+  "authors": ["Khoj"],
+  "tipi_version": ">=2.0.0"
+}
+

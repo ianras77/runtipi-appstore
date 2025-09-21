@@ -37,50 +37,36 @@
           "max-file": "3"
         }
       },
-      "dependsOn": {
-        "qdrant": { "condition": "service_healthy" },
-        "redis": { "condition": "service_healthy" }
-      }
+      "dependsOn": [
+        { "name": "qdrant", "condition": "service_started" },
+        { "name": "redis", "condition": "service_started" }
+      ]
     },
     {
       "name": "qdrant",
-      "image": "qdrant/qdrant:latest",
+      "image": "qdrant/qdrant:1.12.4",
       "restart": "unless-stopped",
-      "environment": {
-        "QDRANT__SERVICE__API_KEY": "${QDRANT_API_KEY}"
-      },
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/qdrant/storage",
           "containerPath": "/qdrant/storage"
         }
-      ],
-      "healthCheck": {
-        "test": "curl --fail http://localhost:6333/readyz",
-        "retries": 10,
-        "interval": "5s",
-        "timeout": "3s",
-        "start_period": "10s"
-      }
+      ]
     },
     {
       "name": "redis",
-      "image": "redis:7-alpine",
+      "image": "redis:7.2-alpine",
       "restart": "unless-stopped",
       "command": "sh -lc 'exec redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass $REDIS_PASSWORD}'",
+      "environment": {
+        "REDIS_PASSWORD": "${REDIS_PASSWORD}"
+      },
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/redis",
           "containerPath": "/data"
         }
-      ],
-      "healthCheck": {
-        "test": "sh -lc 'redis-cli ${REDIS_PASSWORD:+-a $REDIS_PASSWORD} ping | grep PONG'",
-        "retries": 15,
-        "interval": "5s",
-        "timeout": "3s",
-        "start_period": "5s"
-      }
+      ]
     }
   ]
 }

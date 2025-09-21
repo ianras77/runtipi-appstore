@@ -1,0 +1,12 @@
+{
+  "id": "dify",
+  "name": "Dify",
+  "version": "1.0.0",
+  "website": "https://dify.ai",
+  "category": "AI",
+  "description": "Open-source LLM app platform with console, API, workers.",
+  "icon": "logo.jpg",
+  "authors": ["LangGenius"],
+  "tipi_version": ">=2.0.0"
+}
+     

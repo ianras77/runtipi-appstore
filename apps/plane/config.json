@@ -1,0 +1,12 @@
+{
+  "id": "plane",
+  "name": "Plane",
+  "version": "1.0.0",
+  "website": "https://plane.so",
+  "category": "Project Management",
+  "description": "Open-source issue tracking and roadmaps.",
+  "icon": "logo.jpg",
+  "authors": ["MakePlane"],
+  "tipi_version": ">=2.0.0"
+}
+

@@ -1,0 +1,12 @@
+{
+  "id": "anythingllm",
+  "name": "AnythingLLM",
+  "version": "1.0.0",
+  "website": "https://anythingllm.com",
+  "category": "AI",
+  "description": "Self-hosted chat over your docs. Supports local/hosted LLMs, many vector DBs.",
+  "icon": "logo.jpg",
+  "authors": ["Mintplex Labs"],
+  "tipi_version": ">=2.0.0"
+}
+

@@ -1,0 +1,12 @@
+{
+  "id": "astroluma",
+  "name": "Astroluma",
+  "version": "1.0.0",
+  "website": "https://getastroluma.com",
+  "category": "Media",
+  "description": "Self-hosted media dashboard with streams & listings.",
+  "icon": "logo.jpg",
+  "authors": ["Astroluma"],
+  "tipi_version": ">=2.0.0"
+}
+

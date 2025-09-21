@@ -1,0 +1,41 @@
+{
+  "name": "Huginn",
+  "id": "huginn",
+  "available": true,
+  "short_desc": "Self-hosted automation (IFTTT/Zapier-like) with agents.",
+  "author": "rasies",
+  "port": 3000,
+  "categories": ["automation", "productivity"],
+  "description": "Huginn is a system for building agents that watch the web and act for you. This app ships with a bundled MariaDB and production defaults.",
+  "tipi_version": 2,
+  "version": "1.0.0",
+  "source": "https://github.com/huginn/huginn",
+  "website": "https://github.com/huginn/huginn",
+  "exposable": true,
+  "https": true,
+  "supported_architectures": ["amd64"],
+  "dynamic": true,
+  "min_tipi_version": "v3.2.0",
+  "form_fields": [
+    { "type": "text", "label": "Domain (used in links/emails)", "env_variable": "DOMAIN", "placeholder": "radio.example.com", "required": false },
+    { "type": "random", "label": "APP_SECRET_TOKEN", "env_variable": "APP_SECRET_TOKEN", "min": 64 },
+    { "type": "random", "label": "Invitation code (for signup)", "env_variable": "INVITATION_CODE", "min": 16 },
+    { "type": "text", "label": "Skip invitation code? (true/false)", "env_variable": "SKIP_INVITATION_CODE", "default": "false", "required": false },
+
+    { "type": "text", "label": "From email address", "env_variable": "EMAIL_FROM_ADDRESS", "placeholder": "huginn@yourdomain.com", "required": false },
+
+    { "type": "text", "label": "SMTP domain", "env_variable": "SMTP_DOMAIN", "required": false },
+    { "type": "text", "label": "SMTP server", "env_variable": "SMTP_SERVER", "required": false },
+    { "type": "text", "label": "SMTP port", "env_variable": "SMTP_PORT", "default": "587", "required": false },
+    { "type": "text", "label": "SMTP auth (plain/login/none)", "env_variable": "SMTP_AUTHENTICATION", "default": "plain", "required": false },
+    { "type": "text", "label": "SMTP STARTTLS? (true/false)", "env_variable": "SMTP_ENABLE_STARTTLS_AUTO", "default": "true", "required": false },
+    { "type": "text", "label": "SMTP username", "env_variable": "SMTP_USER_NAME", "required": false },
+    { "type": "password", "label": "SMTP password", "env_variable": "SMTP_PASSWORD", "required": false },
+
+    { "type": "random", "label": "DB root password", "env_variable": "MARIADB_ROOT_PASSWORD", "min": 24 },
+    { "type": "text", "label": "DB name", "env_variable": "MARIADB_DATABASE", "default": "huginn", "required": true },
+    { "type": "text", "label": "DB user", "env_variable": "MARIADB_USER", "default": "huginn", "required": true },
+    { "type": "random", "label": "DB user password", "env_variable": "MARIADB_PASSWORD", "min": 24 }
+  ]
+}
+

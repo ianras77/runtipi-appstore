@@ -1,0 +1,72 @@
+{
+  "services": [
+    {
+      "name": "web",
+      "image": "makeplane/plane-frontend:latest",
+      "isMain": true,
+      "internalPort": 80,
+      "environment": {
+        "WEB_URL": "https://${APP_DOMAIN}",
+        "API_URL": "http://backend:8000"
+      },
+      "dependsOn": [{ "name": "backend", "condition": "service_started" }],
+      "healthCheck": { "path": "/", "interval": 10, "timeout": 5, "retries": 20 }
+    },
+    {
+      "name": "backend",
+      "image": "makeplane/plane-backend:latest",
+      "environment": {
+        "PG_URL": "postgres://plane:${POSTGRES_PASSWORD}@db:5432/plane",
+        "REDIS_URL": "redis://redis:6379/0",
+        "MINIO_ENDPOINT": "minio:9000",
+        "MINIO_ACCESS_KEY": "${MINIO_ACCESS_KEY}",
+        "MINIO_SECRET_KEY": "${MINIO_SECRET_KEY}",
+        "MINIO_BUCKET": "plane"
+      },
+      "dependsOn": [
+        { "name": "db", "condition": "service_healthy" },
+        { "name": "redis", "condition": "service_started" },
+        { "name": "minio", "condition": "service_started" }
+      ]
+    },
+    {
+      "name": "worker",
+      "image": "makeplane/plane-worker:latest",
+      "environment": {
+        "PG_URL": "postgres://plane:${POSTGRES_PASSWORD}@db:5432/plane",
+        "REDIS_URL": "redis://redis:6379/0"
+      },
+      "dependsOn": [
+        { "name": "db", "condition": "service_healthy" },
+        { "name": "redis", "condition": "service_started" }
+      ]
+    },
+    {
+      "name": "db",
+      "image": "postgres:15-alpine",
+      "environment": {
+        "POSTGRES_DB": "plane",
+        "POSTGRES_USER": "plane",
+        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}"
+      },
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data" }
+      ],
+      "healthCheck": { "cmd": ["CMD-SHELL", "pg_isready -U plane -d plane"], "interval": 10, "timeout": 5, "retries": 20 }
+    },
+    { "name": "redis", "image": "redis:7-alpine" },
+    {
+      "name": "minio",
+      "image": "minio/minio:latest",
+      "command": "server /data --console-address :9001",
+      "environment": {
+        "MINIO_ROOT_USER": "${MINIO_ACCESS_KEY}",
+        "MINIO_ROOT_PASSWORD": "${MINIO_SECRET_KEY}"
+      },
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/minio", "containerPath": "/data" }
+      ]
+    }
+  ]
+}
+
