@@ -1,12 +1,24 @@
 {
-  "id": "anythingllm",
   "name": "AnythingLLM",
+  "id": "anythingllm",
+  "available": true,
+  "short_desc": "Self-hosted chat over your data.",
+  "author": "Community",
+  "port": 3001,
+  "categories": ["ai"],
+  "description": "Upload files, crawl sites, or connect sources; then chat with them using local or hosted LLMs.",
+  "tipi_version": 2,
   "version": "1.0.0",
+  "source": "https://github.com/Mintplex-Labs/anything-llm",
   "website": "https://anythingllm.com",
-  "category": "AI",
-  "description": "Self-hosted chat over your docs. Supports local/hosted LLMs, many vector DBs.",
-  "icon": "logo.jpg",
-  "authors": ["Mintplex Labs"],
-  "tipi_version": ">=2.0.0"
+  "exposable": true,
+  "https": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "dynamic": true,
+  "min_tipi_version": "v3.2.0",
+  "form_fields": [
+    { "type": "random", "label": "JWT secret", "env_variable": "JWT_SECRET", "min": 32 },
+    { "type": "text", "label": "Allow registration (true/false)", "env_variable": "ALLOW_REGISTRATION", "default": "true", "required": false }
+  ]
 }
 
