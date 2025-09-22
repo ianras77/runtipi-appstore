@@ -2,19 +2,34 @@
   "name": "Appwrite",
   "id": "appwrite",
   "available": true,
-  "short_desc": "Open-source backend platform for web & mobile apps.",
+  "short_desc": "Self-hosted backend server for web & mobile apps.",
   "author": "community",
-  "port": 80,
-  "categories": ["developer-tools", "backend", "utilities"],
-  "description": "Appwrite is an end-to-end backend platform with auth, DB, storage, and functions. This lightweight setup exposes the main HTTP service and includes Redis & MariaDB for local development.",
+  "port": 8250,
+  "categories": ["development", "backend"],
+  "description": "Appwrite is an open-source backend-as-a-service with auth, DB, storage, functions, and more.",
   "tipi_version": 1,
-  "version": "1.7.x",
+  "version": "latest",
   "source": "https://github.com/appwrite/appwrite",
   "website": "https://appwrite.io",
   "exposable": true,
-  "https": false,
   "supported_architectures": ["amd64", "arm64"],
-  "dynamic": true,
-  "form_fields": []
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "Database password (MariaDB)",
+      "required": true,
+      "min": 8,
+      "env_variable": "APPWRITE_DB_PASSWORD"
+    },
+    {
+      "type": "random",
+      "label": "Appwrite OpenSSL key",
+      "required": true,
+      "min": 64,
+      "encoding": "hex",
+      "env_variable": "APPWRITE_OPENSSL_KEY"
+    }
+  ],
+  "dynamic": true
 }
 

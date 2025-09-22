@@ -2,19 +2,21 @@
   "name": "Plane",
   "id": "plane",
   "available": true,
-  "short_desc": "Open-source project planning tool.",
+  "short_desc": "Open-source project & issue tracking.",
   "author": "community",
-  "port": 8080,
-  "categories": ["productivity", "project-management"],
-  "description": "Plane is an open-source alternative for planning and tracking issues. This minimal setup runs the web app and API behind a single container suitable for testing.",
+  "port": 8280,
+  "categories": ["project-management", "productivity"],
+  "description": "Plane is a simple, extensible project management tool (issues, cycles, roadmaps). This setup uses the official containers (proxy, web, api) plus Postgres, Redis and MinIO.",
   "tipi_version": 1,
-  "version": "0.x",
+  "version": "latest",
   "source": "https://github.com/makeplane/plane",
   "website": "https://plane.so",
   "exposable": true,
-  "https": false,
   "supported_architectures": ["amd64", "arm64"],
-  "dynamic": true,
-  "form_fields": []
+  "form_fields": [
+    { "type": "random", "label": "Postgres password", "required": true, "min": 24, "encoding": "hex", "env_variable": "PLANE_DB_PASSWORD" },
+    { "type": "text", "label": "Public URL (used by frontend CORS)", "required": false, "default": "http://localhost:8280", "env_variable": "PLANE_PUBLIC_URL" }
+  ],
+  "dynamic": true
 }
 

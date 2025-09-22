@@ -5,39 +5,42 @@
       "image": "appwrite/appwrite:latest",
       "isMain": true,
       "internalPort": 80,
+      "restart": "unless-stopped",
+      "dependsOn": {
+        "mariadb": { "condition": "service_started" },
+        "redis": { "condition": "service_started" }
+      },
       "environment": {
         "_APP_ENV": "production",
-        "_APP_OPTION_FORCE_HTTPS": "disabled",
-        "_APP_DB_HOST": "db",
-        "_APP_DB_PORT": "3306",
-        "_APP_DB_SCHEMA": "appwrite",
-        "_APP_DB_USER": "appwrite",
-        "_APP_DB_PASS": "${APPWRITE_DB_PASS:-appwritepass}",
-        "_APP_REDIS_HOST": "redis",
-        "_APP_REDIS_PORT": "6379"
+        "_APP_LOCALE": "en",
+        "_APP_DOMAIN": "localhost",
+        "_APP_DOMAIN_TARGET": "localhost",
+        "_APP_OPENSSL_KEY_V1": "${APPWRITE_OPENSSL_KEY}",
+        "_DB_HOST": "mariadb",
+        "_DB_PORT": "3306",
+        "_DB_USER": "appwrite",
+        "_DB_PASS": "${APPWRITE_DB_PASSWORD}",
+        "_DB_SCHEMA": "appwrite",
+        "_REDIS_HOST": "redis",
+        "_REDIS_PORT": "6379"
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/appwrite/storage", "containerPath": "/storage" }
-      ],
-      "dependsOn": {
-        "db": { "condition": "service_started" },
-        "redis": { "condition": "service_started" }
-      },
-      "restart": "unless-stopped"
+      ]
     },
     {
-      "name": "db",
-      "image": "mariadb:11",
+      "name": "mariadb",
+      "image": "mariadb:10.11",
+      "restart": "unless-stopped",
       "environment": {
-        "MYSQL_ROOT_PASSWORD": "${APPWRITE_DB_ROOT:-rootpass}",
+        "MYSQL_ROOT_PASSWORD": "${APPWRITE_DB_PASSWORD}",
         "MYSQL_DATABASE": "appwrite",
         "MYSQL_USER": "appwrite",
-        "MYSQL_PASSWORD": "${APPWRITE_DB_PASS:-appwritepass}"
+        "MYSQL_PASSWORD": "${APPWRITE_DB_PASSWORD}"
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/appwrite/db", "containerPath": "/var/lib/mysql" }
-      ],
-      "restart": "unless-stopped"
+      ]
     },
     {
       "name": "redis",
