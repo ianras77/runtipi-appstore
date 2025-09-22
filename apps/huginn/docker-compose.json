@@ -5,63 +5,43 @@
       "image": "huginn/huginn:latest",
       "isMain": true,
       "internalPort": 3000,
-      "restart": "unless-stopped",
       "environment": {
-        "RAILS_ENV": "production",
-        "PORT": "3000",
-
-        "APP_SECRET_TOKEN": "${APP_SECRET_TOKEN}",
-        "DOMAIN": "${DOMAIN}",
-        "INVITATION_CODE": "${INVITATION_CODE}",
-        "SKIP_INVITATION_CODE": "${SKIP_INVITATION_CODE}",
-
-        "EMAIL_FROM_ADDRESS": "${EMAIL_FROM_ADDRESS}",
-        "SMTP_DOMAIN": "${SMTP_DOMAIN}",
-        "SMTP_SERVER": "${SMTP_SERVER}",
-        "SMTP_PORT": "${SMTP_PORT}",
-        "SMTP_AUTHENTICATION": "${SMTP_AUTHENTICATION}",
-        "SMTP_ENABLE_STARTTLS_AUTO": "${SMTP_ENABLE_STARTTLS_AUTO}",
-        "SMTP_USER_NAME": "${SMTP_USER_NAME}",
-        "SMTP_PASSWORD": "${SMTP_PASSWORD}",
-
         "DATABASE_ADAPTER": "mysql2",
-        "DATABASE_ENCODING": "utf8mb4",
-        "DATABASE_RECONNECT": "true",
-        "DATABASE_NAME": "${MARIADB_DATABASE}",
-        "DATABASE_USERNAME": "${MARIADB_USER}",
-        "DATABASE_PASSWORD": "${MARIADB_PASSWORD}",
         "DATABASE_HOST": "db",
-        "DATABASE_PORT": "3306",
-        "DATABASE_POOL": "20"
+        "DATABASE_NAME": "huginn",
+        "DATABASE_USERNAME": "huginn",
+        "DATABASE_PASSWORD": "${HUGINN_DB_PASS:-huginnpass}",
+        "REDIS_URL": "redis://redis:6379",
+        "INVITATION_CODE": "${HUGINN_INVITE:-}",
+        "FORCE_SSL": "false"
       },
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/huginn/data", "containerPath": "/var/lib/mysql-files" }
+      ],
       "dependsOn": {
-        "db": { "condition": "service_healthy" }
+        "db": { "condition": "service_started" },
+        "redis": { "condition": "service_started" }
       },
-      "logging": {
-        "driver": "json-file",
-        "options": { "max-size": "10m", "max-file": "3" }
-      }
+      "restart": "unless-stopped"
     },
     {
       "name": "db",
       "image": "mariadb:11",
-      "restart": "unless-stopped",
       "environment": {
-        "MARIADB_DATABASE": "${MARIADB_DATABASE}",
-        "MARIADB_USER": "${MARIADB_USER}",
-        "MARIADB_PASSWORD": "${MARIADB_PASSWORD}",
-        "MARIADB_ROOT_PASSWORD": "${MARIADB_ROOT_PASSWORD}"
+        "MYSQL_ROOT_PASSWORD": "${HUGINN_DB_ROOT:-rootpass}",
+        "MYSQL_DATABASE": "huginn",
+        "MYSQL_USER": "huginn",
+        "MYSQL_PASSWORD": "${HUGINN_DB_PASS:-huginnpass}"
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/db", "containerPath": "/var/lib/mysql" }
+        { "hostPath": "${APP_DATA_DIR}/huginn/db", "containerPath": "/var/lib/mysql" }
       ],
-      "healthCheck": {
-        "test": "sh -lc 'mysqladmin ping -h 127.0.0.1 -u\"$MARIADB_USER\" -p\"$MARIADB_PASSWORD\" --silent'",
-        "retries": 15,
-        "interval": "5s",
-        "timeout": "3s",
-        "start_period": "10s"
-      }
+      "restart": "unless-stopped"
+    },
+    {
+      "name": "redis",
+      "image": "redis:7-alpine",
+      "restart": "unless-stopped"
     }
   ]
 }

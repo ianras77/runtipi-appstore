@@ -1,25 +1,20 @@
 {
-  "name": "Plane (Community)",
+  "name": "Plane",
   "id": "plane",
   "available": true,
-  "short_desc": "Open-source issue tracking & roadmaps.",
-  "author": "Community",
-  "port": 80,
-  "categories": ["project-management"],
-  "description": "Frontend + backend + worker, with Postgres, Redis, and MinIO.",
-  "tipi_version": 2,
-  "version": "1.0.0",
+  "short_desc": "Open-source project planning tool.",
+  "author": "community",
+  "port": 8080,
+  "categories": ["productivity", "project-management"],
+  "description": "Plane is an open-source alternative for planning and tracking issues. This minimal setup runs the web app and API behind a single container suitable for testing.",
+  "tipi_version": 1,
+  "version": "0.x",
   "source": "https://github.com/makeplane/plane",
   "website": "https://plane.so",
   "exposable": true,
-  "https": true,
+  "https": false,
   "supported_architectures": ["amd64", "arm64"],
   "dynamic": true,
-  "min_tipi_version": "v3.2.0",
-  "form_fields": [
-    { "type": "random", "label": "Postgres password", "env_variable": "POSTGRES_PASSWORD", "min": 24 },
-    { "type": "random", "label": "MinIO access key", "env_variable": "MINIO_ACCESS_KEY", "min": 8 },
-    { "type": "random", "label": "MinIO secret key", "env_variable": "MINIO_SECRET_KEY", "min": 16 }
-  ]
+  "form_fields": []
 }
 

@@ -1,80 +1,15 @@
 {
   "services": [
     {
-      "name": "web",
-      "image": "makeplane/plane-frontend:latest",
+      "name": "plane",
+      "image": "makeplane/plane-standalone:latest",
       "isMain": true,
-      "internalPort": 80,
-      "restart": "unless-stopped",
-      "environment": {
-        "WEB_URL": "https://${APP_DOMAIN}",
-        "API_URL": "http://backend:8000"
-      },
-      "dependsOn": {
-        "backend": { "condition": "service_started" }
-      }
-    },
-    {
-      "name": "backend",
-      "image": "makeplane/plane-backend:latest",
-      "restart": "unless-stopped",
-      "environment": {
-        "PG_URL": "postgres://plane:${POSTGRES_PASSWORD}@db:5432/plane",
-        "REDIS_URL": "redis://redis:6379/0",
-        "MINIO_ENDPOINT": "minio:9000",
-        "MINIO_ACCESS_KEY": "${MINIO_ACCESS_KEY}",
-        "MINIO_SECRET_KEY": "${MINIO_SECRET_KEY}",
-        "MINIO_BUCKET": "plane"
-      },
-      "dependsOn": {
-        "db": { "condition": "service_started" },
-        "redis": { "condition": "service_started" },
-        "minio": { "condition": "service_started" }
-      }
-    },
-    {
-      "name": "worker",
-      "image": "makeplane/plane-worker:latest",
-      "restart": "unless-stopped",
-      "environment": {
-        "PG_URL": "postgres://plane:${POSTGRES_PASSWORD}@db:5432/plane",
-        "REDIS_URL": "redis://redis:6379/0"
-      },
-      "dependsOn": {
-        "db": { "condition": "service_started" },
-        "redis": { "condition": "service_started" }
-      }
-    },
-    {
-      "name": "db",
-      "image": "postgres:15-alpine",
-      "restart": "unless-stopped",
-      "environment": {
-        "POSTGRES_DB": "plane",
-        "POSTGRES_USER": "plane",
-        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}"
-      },
+      "internalPort": 8080,
+      "environment": {},
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data" }
-      ]
-    },
-    {
-      "name": "redis",
-      "image": "redis:7-alpine",
+        { "hostPath": "${APP_DATA_DIR}/plane/data", "containerPath": "/opt/plane/data" }
+      ],
       "restart": "unless-stopped"
-    },
-    {
-      "name": "minio",
-      "image": "minio/minio:latest",
-      "restart": "unless-stopped",
-      "command": "server /data --console-address :9001",
-      "environment": {
-        "MINIO_ROOT_USER": "${MINIO_ACCESS_KEY}",
-        "MINIO_ROOT_PASSWORD": "${MINIO_SECRET_KEY}"
-      },
-      "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/minio", "containerPath": "/data" }
-      ]
     }
   ]
 }

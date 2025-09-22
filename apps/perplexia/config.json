@@ -2,22 +2,19 @@
   "name": "Perplexica",
   "id": "perplexica",
   "available": true,
-  "short_desc": "Open-source AI meta-search engine.",
-  "author": "Community",
+  "short_desc": "Open-source AI-powered search engine.",
+  "author": "community",
   "port": 3000,
   "categories": ["ai", "search"],
-  "description": "Modern AI search UI and server with Postgres + Redis.",
-  "tipi_version": 2,
-  "version": "1.0.0",
+  "description": "Perplexica provides an AI-powered search experience with a TypeScript frontend, a backend API, and SearxNG for meta-search. This setup exposes the web UI on port 3000.",
+  "tipi_version": 1,
+  "version": "1.x",
   "source": "https://github.com/ItzCrazyKns/Perplexica",
   "website": "https://github.com/ItzCrazyKns/Perplexica",
   "exposable": true,
-  "https": true,
+  "https": false,
   "supported_architectures": ["amd64", "arm64"],
   "dynamic": true,
-  "min_tipi_version": "v3.2.0",
-  "form_fields": [
-    { "type": "random", "label": "Postgres password", "env_variable": "POSTGRES_PASSWORD", "min": 24 }
-  ]
+  "form_fields": []
 }
 

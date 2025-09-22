@@ -1,115 +1,20 @@
 {
-  "id": "appwrite",
   "name": "Appwrite",
-  "version": "1.7.4",
-  "tipi_version": 2,
-  "min_tipi_version": "v3.2.0",
-  "categories": ["developer-tools", "backend", "databases"],
-  "description": "Self-hosted backend platform (auth, DB, storage, functions) with MariaDB + Redis.",
-  "short_desc": "Open-source backend platform.",
-  "svg": "logo.jpg",
-  "website": "https://appwrite.io/",
+  "id": "appwrite",
+  "available": true,
+  "short_desc": "Open-source backend platform for web & mobile apps.",
+  "author": "community",
+  "port": 80,
+  "categories": ["developer-tools", "backend", "utilities"],
+  "description": "Appwrite is an end-to-end backend platform with auth, DB, storage, and functions. This lightweight setup exposes the main HTTP service and includes Redis & MariaDB for local development.",
+  "tipi_version": 1,
+  "version": "1.7.x",
   "source": "https://github.com/appwrite/appwrite",
-  "supported_architectures": ["amd64", "arm64"],
+  "website": "https://appwrite.io",
   "exposable": true,
-  "port_map": 0,
-  "form_fields": [
-    {
-      "type": "text",
-      "label": "Primary Domain",
-      "env_variable": "_APP_DOMAIN",
-      "default": "appwrite.example.com",
-      "required": true
-    },
-    {
-      "type": "text",
-      "label": "Functions subdomain (optional)",
-      "env_variable": "_APP_DOMAIN_FUNCTIONS",
-      "placeholder": "functions.example.com",
-      "required": false
-    },
-    {
-      "type": "text",
-      "label": "Sites subdomain (optional, 1.7+)",
-      "env_variable": "_APP_DOMAIN_SITES",
-      "placeholder": "sites.example.com",
-      "required": false
-    },
-    {
-      "type": "text",
-      "label": "CNAME target (1.7+)",
-      "env_variable": "_APP_DOMAIN_TARGET_CNAME",
-      "default": "appwrite.example.com",
-      "required": true
-    },
-    {
-      "type": "text",
-      "label": "IPv4 A target (optional, 1.7+)",
-      "env_variable": "_APP_DOMAIN_TARGET_A",
-      "placeholder": "1.2.3.4",
-      "required": false
-    },
-    {
-      "type": "password",
-      "label": "MariaDB user password",
-      "env_variable": "DB_PASSWORD",
-      "generate": true,
-      "required": true
-    },
-    {
-      "type": "password",
-      "label": "MariaDB root password",
-      "env_variable": "DB_ROOT_PASSWORD",
-      "generate": true,
-      "required": true
-    },
-    {
-      "type": "password",
-      "label": "Redis password",
-      "env_variable": "REDIS_PASSWORD",
-      "generate": true,
-      "required": true
-    },
-    {
-      "type": "random",
-      "label": "Appwrite OpenSSL key (64 hex chars)",
-      "env_variable": "_APP_OPENSSL_KEY_V1",
-      "min": 64,
-      "max": 64,
-      "required": true
-    },
-    {
-      "type": "text",
-      "label": "SMTP Host (optional)",
-      "env_variable": "_APP_SMTP_HOST",
-      "required": false
-    },
-    {
-      "type": "text",
-      "label": "SMTP Username",
-      "env_variable": "_APP_SMTP_USERNAME",
-      "required": false
-    },
-    {
-      "type": "password",
-      "label": "SMTP Password",
-      "env_variable": "_APP_SMTP_PASSWORD",
-      "required": false
-    },
-    {
-      "type": "text",
-      "label": "SMTP Port",
-      "env_variable": "_APP_SMTP_PORT",
-      "default": "587",
-      "required": false
-    },
-    {
-      "type": "text",
-      "label": "SMTP Secure (tls/ssl)",
-      "env_variable": "_APP_SMTP_SECURE",
-      "default": "tls",
-      "required": false
-    }
-  ]
+  "https": false,
+  "supported_architectures": ["amd64", "arm64"],
+  "dynamic": true,
+  "form_fields": []
 }
 

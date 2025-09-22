@@ -1,48 +1,36 @@
 {
   "services": [
     {
-      "name": "web",
-      "image": "itzcrazykns/perplexica-web:latest",
+      "name": "frontend",
+      "image": "itzcrazykns1337/perplexica-frontend:v1.9.3",
       "isMain": true,
       "internalPort": 3000,
-      "restart": "unless-stopped",
       "environment": {
-        "API_URL": "http://server:3001"
+        "NEXT_PUBLIC_API_URL": "http://backend:3001/api",
+        "NEXT_PUBLIC_WS_URL": "ws://backend:3001"
       },
-      "dependsOn": {
-        "server": { "condition": "service_started" }
-      }
+      "dependsOn": { "backend": { "condition": "service_started" } },
+      "restart": "unless-stopped"
     },
     {
-      "name": "server",
-      "image": "itzcrazykns/perplexica-server:latest",
-      "restart": "unless-stopped",
+      "name": "backend",
+      "image": "itzcrazykns1337/perplexica-backend:main",
       "environment": {
-        "NODE_ENV": "production",
-        "DATABASE_URL": "postgres://perplexica:${POSTGRES_PASSWORD}@db:5432/perplexica",
-        "REDIS_URL": "redis://redis:6379"
-      },
-      "dependsOn": {
-        "db": { "condition": "service_started" },
-        "redis": { "condition": "service_started" }
-      }
-    },
-    {
-      "name": "db",
-      "image": "postgres:15-alpine",
-      "restart": "unless-stopped",
-      "environment": {
-        "POSTGRES_DB": "perplexica",
-        "POSTGRES_USER": "perplexica",
-        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}"
+        "SEARXNG_API_URL": "http://searxng:8080"
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data" }
-      ]
+        { "hostPath": "${APP_DATA_DIR}/perplexica/data", "containerPath": "/home/perplexica/data" },
+        { "hostPath": "${APP_DATA_DIR}/perplexica/uploads", "containerPath": "/home/perplexica/uploads" }
+      ],
+      "dependsOn": { "searxng": { "condition": "service_started" } },
+      "restart": "unless-stopped"
     },
     {
-      "name": "redis",
-      "image": "redis:7-alpine",
+      "name": "searxng",
+      "image": "searxng/searxng:latest",
+      "environment": {
+        "SEARXNG_BASE_URL": "http://searxng:8080/"
+      },
       "restart": "unless-stopped"
     }
   ]

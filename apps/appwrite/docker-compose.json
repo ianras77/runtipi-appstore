@@ -2,100 +2,48 @@
   "services": [
     {
       "name": "appwrite",
-      "image": "appwrite/appwrite:1.7.4",
-      "restart": "unless-stopped",
-      "depends_on": [
-        { "name": "mariadb", "condition": "service_healthy" },
-        { "name": "redis", "condition": "service_healthy" }
-      ],
-      "env": [
-        { "name": "_APP_ENV", "value": "production" },
-        { "name": "_APP_OPENSSL_KEY_V1", "fromForm": "_APP_OPENSSL_KEY_V1" },
-        { "name": "_APP_DOMAIN", "fromForm": "_APP_DOMAIN" },
-        { "name": "_APP_DOMAIN_TARGET_CNAME", "fromForm": "_APP_DOMAIN_TARGET_CNAME" },
-        { "name": "_APP_DOMAIN_TARGET_A", "fromForm": "_APP_DOMAIN_TARGET_A" },
-        { "name": "_APP_DOMAIN_FUNCTIONS", "fromForm": "_APP_DOMAIN_FUNCTIONS" },
-        { "name": "_APP_DOMAIN_SITES", "fromForm": "_APP_DOMAIN_SITES" },
-
-        { "name": "_APP_REDIS_HOST", "value": "redis" },
-        { "name": "_APP_REDIS_PORT", "value": "6379" },
-        { "name": "_APP_REDIS_PASS", "fromForm": "REDIS_PASSWORD" },
-
-        { "name": "_APP_DB_HOST", "value": "mariadb" },
-        { "name": "_APP_DB_PORT", "value": "3306" },
-        { "name": "_APP_DB_SCHEMA", "value": "appwrite" },
-        { "name": "_APP_DB_USER", "value": "appwrite" },
-        { "name": "_APP_DB_PASS", "fromForm": "DB_PASSWORD" },
-
-        { "name": "_APP_USAGE_STATS", "value": "disabled" },
-
-        { "name": "_APP_SMTP_HOST", "fromForm": "_APP_SMTP_HOST" },
-        { "name": "_APP_SMTP_PORT", "fromForm": "_APP_SMTP_PORT" },
-        { "name": "_APP_SMTP_SECURE", "fromForm": "_APP_SMTP_SECURE" },
-        { "name": "_APP_SMTP_USERNAME", "fromForm": "_APP_SMTP_USERNAME" },
-        { "name": "_APP_SMTP_PASSWORD", "fromForm": "_APP_SMTP_PASSWORD" }
-      ],
-      "volumes": [
-        { "name": "uploads", "mount": "/storage/uploads" },
-        { "name": "cache", "mount": "/storage/cache" },
-        { "name": "config", "mount": "/storage/config" },
-        { "name": "certificates", "mount": "/storage/certificates" },
-        { "name": "functions", "mount": "/storage/functions" }
-      ],
+      "image": "appwrite/appwrite:latest",
       "isMain": true,
-      "internalPort": 80
+      "internalPort": 80,
+      "environment": {
+        "_APP_ENV": "production",
+        "_APP_OPTION_FORCE_HTTPS": "disabled",
+        "_APP_DB_HOST": "db",
+        "_APP_DB_PORT": "3306",
+        "_APP_DB_SCHEMA": "appwrite",
+        "_APP_DB_USER": "appwrite",
+        "_APP_DB_PASS": "${APPWRITE_DB_PASS:-appwritepass}",
+        "_APP_REDIS_HOST": "redis",
+        "_APP_REDIS_PORT": "6379"
+      },
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/appwrite/storage", "containerPath": "/storage" }
+      ],
+      "dependsOn": {
+        "db": { "condition": "service_started" },
+        "redis": { "condition": "service_started" }
+      },
+      "restart": "unless-stopped"
     },
     {
-      "name": "mariadb",
+      "name": "db",
       "image": "mariadb:11",
-      "restart": "unless-stopped",
-      "env": [
-        { "name": "MARIADB_DATABASE", "value": "appwrite" },
-        { "name": "MARIADB_USER", "value": "appwrite" },
-        { "name": "MARIADB_PASSWORD", "fromForm": "DB_PASSWORD" },
-        { "name": "MARIADB_ROOT_PASSWORD", "fromForm": "DB_ROOT_PASSWORD" }
-      ],
+      "environment": {
+        "MYSQL_ROOT_PASSWORD": "${APPWRITE_DB_ROOT:-rootpass}",
+        "MYSQL_DATABASE": "appwrite",
+        "MYSQL_USER": "appwrite",
+        "MYSQL_PASSWORD": "${APPWRITE_DB_PASS:-appwritepass}"
+      },
       "volumes": [
-        { "name": "db", "mount": "/var/lib/mysql" }
+        { "hostPath": "${APP_DATA_DIR}/appwrite/db", "containerPath": "/var/lib/mysql" }
       ],
-      "health_check": {
-        "test": ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u root -p\"$MARIADB_ROOT_PASSWORD\" || exit 1"],
-        "interval": "10s",
-        "timeout": "5s",
-        "retries": 10
-      }
+      "restart": "unless-stopped"
     },
     {
       "name": "redis",
       "image": "redis:7-alpine",
-      "restart": "unless-stopped",
-      "command": [
-        "sh",
-        "-c",
-        "exec redis-server --appendonly yes --requirepass \"$REDIS_PASSWORD\""
-      ],
-      "env": [
-        { "name": "REDIS_PASSWORD", "fromForm": "REDIS_PASSWORD" }
-      ],
-      "volumes": [
-        { "name": "redis", "mount": "/data" }
-      ],
-      "health_check": {
-        "test": ["CMD-SHELL", "redis-cli -a \"$REDIS_PASSWORD\" ping | grep PONG || exit 1"],
-        "interval": "10s",
-        "timeout": "5s",
-        "retries": 10
-      }
+      "restart": "unless-stopped"
     }
-  ],
-  "volumes": [
-    { "name": "uploads", "host": "appwrite_uploads" },
-    { "name": "cache", "host": "appwrite_cache" },
-    { "name": "config", "host": "appwrite_config" },
-    { "name": "certificates", "host": "appwrite_certificates" },
-    { "name": "functions", "host": "appwrite_functions" },
-    { "name": "db", "host": "appwrite_db" },
-    { "name": "redis", "host": "appwrite_redis" }
   ]
 }
 

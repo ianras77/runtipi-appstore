@@ -2,23 +2,19 @@
   "name": "Leantime",
   "id": "leantime",
   "available": true,
-  "short_desc": "Open-source project management for teams.",
-  "author": "Community",
+  "short_desc": "Project management for startups & SMBs.",
+  "author": "community",
   "port": 8080,
-  "categories": ["project-management"],
-  "description": "Kanban, tasks, roadmap, timesheets — backed by MySQL.",
-  "tipi_version": 2,
-  "version": "1.0.0",
+  "categories": ["productivity", "project-management"],
+  "description": "Leantime is an open source project management system. This recipe runs the PHP app with a MariaDB database. The UI is served on port 8080.",
+  "tipi_version": 1,
+  "version": "3.x",
   "source": "https://github.com/Leantime/leantime",
   "website": "https://leantime.io",
   "exposable": true,
-  "https": true,
+  "https": false,
   "supported_architectures": ["amd64", "arm64"],
   "dynamic": true,
-  "min_tipi_version": "v3.2.0",
-  "form_fields": [
-    { "type": "random", "label": "MySQL password", "env_variable": "MYSQL_PASSWORD", "min": 24 },
-    { "type": "text", "label": "App URL", "env_variable": "LEANTIME_APP_URL", "placeholder": "https://pm.example.com" }
-  ]
+  "form_fields": []
 }
 

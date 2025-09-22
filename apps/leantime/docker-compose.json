@@ -5,37 +5,29 @@
       "image": "leantime/leantime:latest",
       "isMain": true,
       "internalPort": 8080,
-      "restart": "unless-stopped",
       "environment": {
-        "LEANTIME_DB_HOST": "mysql",
-        "LEANTIME_DB_USER": "lean",
-        "LEANTIME_DB_PASSWORD": "${MYSQL_PASSWORD}",
+        "LEANTIME_DB_HOST": "db",
+        "LEANTIME_DB_USER": "leantime",
+        "LEANTIME_DB_PASSWORD": "${LEANTIME_DB_PASS:-leantimepass}",
         "LEANTIME_DB_DATABASE": "leantime",
-        "LEANTIME_APP_URL": "${LEANTIME_APP_URL}"
+        "LEANTIME_DB_PORT": "3306"
       },
-      "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/public_userfiles", "containerPath": "/var/www/html/public/userfiles" },
-        { "hostPath": "${APP_DATA_DIR}/userfiles", "containerPath": "/var/www/html/userfiles" },
-        { "hostPath": "${APP_DATA_DIR}/plugins", "containerPath": "/var/www/html/app/Plugins" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/var/www/html/storage/logs" }
-      ],
-      "dependsOn": {
-        "mysql": { "condition": "service_started" }
-      }
+      "dependsOn": { "db": { "condition": "service_started" } },
+      "restart": "unless-stopped"
     },
     {
-      "name": "mysql",
-      "image": "mysql:8.4",
-      "restart": "unless-stopped",
+      "name": "db",
+      "image": "mariadb:11",
       "environment": {
+        "MYSQL_ROOT_PASSWORD": "${LEANTIME_DB_ROOT:-rootpass}",
         "MYSQL_DATABASE": "leantime",
-        "MYSQL_USER": "lean",
-        "MYSQL_PASSWORD": "${MYSQL_PASSWORD}",
-        "MYSQL_ROOT_PASSWORD": "${MYSQL_PASSWORD}"
+        "MYSQL_USER": "leantime",
+        "MYSQL_PASSWORD": "${LEANTIME_DB_PASS:-leantimepass}"
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/mysql", "containerPath": "/var/lib/mysql" }
-      ]
+        { "hostPath": "${APP_DATA_DIR}/leantime/db", "containerPath": "/var/lib/mysql" }
+      ],
+      "restart": "unless-stopped"
     }
   ]
 }
