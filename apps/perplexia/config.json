@@ -1,12 +1,23 @@
 {
-  "id": "perplexica",
   "name": "Perplexica",
+  "id": "perplexica",
+  "available": true,
+  "short_desc": "Open-source AI meta-search engine.",
+  "author": "Community",
+  "port": 3000,
+  "categories": ["ai", "search"],
+  "description": "Modern AI search UI and server with Postgres + Redis.",
+  "tipi_version": 2,
   "version": "1.0.0",
+  "source": "https://github.com/ItzCrazyKns/Perplexica",
   "website": "https://github.com/ItzCrazyKns/Perplexica",
-  "category": "Search",
-  "description": "Open-source AI meta-search engine with a web UI.",
-  "icon": "logo.jpg",
-  "authors": ["ItzCrazyKns"],
-  "tipi_version": ">=2.0.0"
+  "exposable": true,
+  "https": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "dynamic": true,
+  "min_tipi_version": "v3.2.0",
+  "form_fields": [
+    { "type": "random", "label": "Postgres password", "env_variable": "POSTGRES_PASSWORD", "min": 24 }
+  ]
 }
 

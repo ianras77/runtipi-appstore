@@ -5,26 +5,28 @@
       "image": "leantime/leantime:latest",
       "isMain": true,
       "internalPort": 8080,
+      "restart": "unless-stopped",
       "environment": {
-        "LEAN_DB_HOST": "mysql",
-        "LEAN_DB_USER": "lean",
-        "LEAN_DB_PASSWORD": "${MYSQL_PASSWORD}",
-        "LEAN_DB_DATABASE": "leantime",
-        "LEAN_SESSION_PASSWORD": "${SESSION_PASSWORD}",
-        "LEAN_APP_URL": "https://${APP_DOMAIN}"
+        "LEANTIME_DB_HOST": "mysql",
+        "LEANTIME_DB_USER": "lean",
+        "LEANTIME_DB_PASSWORD": "${MYSQL_PASSWORD}",
+        "LEANTIME_DB_DATABASE": "leantime",
+        "LEANTIME_APP_URL": "${LEANTIME_APP_URL}"
       },
-      "dependsOn": [{ "name": "mysql", "condition": "service_healthy" }],
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/public_userfiles", "containerPath": "/var/www/html/public/userfiles" },
         { "hostPath": "${APP_DATA_DIR}/userfiles", "containerPath": "/var/www/html/userfiles" },
         { "hostPath": "${APP_DATA_DIR}/plugins", "containerPath": "/var/www/html/app/Plugins" },
         { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/var/www/html/storage/logs" }
       ],
-      "healthCheck": { "path": "/", "interval": 10, "timeout": 5, "retries": 30 }
+      "dependsOn": {
+        "mysql": { "condition": "service_started" }
+      }
     },
     {
       "name": "mysql",
       "image": "mysql:8.4",
+      "restart": "unless-stopped",
       "environment": {
         "MYSQL_DATABASE": "leantime",
         "MYSQL_USER": "lean",
@@ -33,8 +35,7 @@
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/mysql", "containerPath": "/var/lib/mysql" }
-      ],
-      "healthCheck": { "cmd": ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p${MYSQL_PASSWORD}"], "interval": 10, "timeout": 5, "retries": 20 }
+      ]
     }
   ]
 }

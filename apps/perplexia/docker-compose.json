@@ -5,29 +5,32 @@
       "image": "itzcrazykns/perplexica-web:latest",
       "isMain": true,
       "internalPort": 3000,
+      "restart": "unless-stopped",
       "environment": {
         "API_URL": "http://server:3001"
       },
-      "dependsOn": [{ "name": "server", "condition": "service_started" }],
-      "healthCheck": { "path": "/", "interval": 10, "timeout": 5, "retries": 10 }
+      "dependsOn": {
+        "server": { "condition": "service_started" }
+      }
     },
     {
       "name": "server",
       "image": "itzcrazykns/perplexica-server:latest",
-      "internalPort": 3001,
+      "restart": "unless-stopped",
       "environment": {
         "NODE_ENV": "production",
         "DATABASE_URL": "postgres://perplexica:${POSTGRES_PASSWORD}@db:5432/perplexica",
         "REDIS_URL": "redis://redis:6379"
       },
-      "dependsOn": [
-        { "name": "db", "condition": "service_healthy" },
-        { "name": "redis", "condition": "service_started" }
-      ]
+      "dependsOn": {
+        "db": { "condition": "service_started" },
+        "redis": { "condition": "service_started" }
+      }
     },
     {
       "name": "db",
       "image": "postgres:15-alpine",
+      "restart": "unless-stopped",
       "environment": {
         "POSTGRES_DB": "perplexica",
         "POSTGRES_USER": "perplexica",
@@ -35,12 +38,12 @@
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data" }
-      ],
-      "healthCheck": { "cmd": ["CMD-SHELL", "pg_isready -U perplexica -d perplexica"], "interval": 10, "timeout": 5, "retries": 20 }
+      ]
     },
     {
       "name": "redis",
-      "image": "redis:7-alpine"
+      "image": "redis:7-alpine",
+      "restart": "unless-stopped"
     }
   ]
 }

@@ -1,12 +1,23 @@
 {
-  "id": "astroluma",
   "name": "Astroluma",
+  "id": "astroluma",
+  "available": true,
+  "short_desc": "Self-hosted media dashboard.",
+  "author": "Community",
+  "port": 8000,
+  "categories": ["media"],
+  "description": "MERN app for media dashboards. Includes MongoDB.",
+  "tipi_version": 2,
   "version": "1.0.0",
+  "source": "https://github.com/sanjeet990/astroluma",
   "website": "https://getastroluma.com",
-  "category": "Media",
-  "description": "Self-hosted media dashboard with streams & listings.",
-  "icon": "logo.jpg",
-  "authors": ["Astroluma"],
-  "tipi_version": ">=2.0.0"
+  "exposable": true,
+  "https": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "dynamic": true,
+  "min_tipi_version": "v3.2.0",
+  "form_fields": [
+    { "type": "random", "label": "Secret key", "env_variable": "SECRET_KEY", "min": 32 }
+  ]
 }
 

@@ -1,12 +1,23 @@
 {
-  "id": "dify",
   "name": "Dify",
+  "id": "dify",
+  "available": true,
+  "short_desc": "Open-source LLM app platform (Console, API, Worker).",
+  "author": "Community",
+  "port": 3000,
+  "categories": ["ai"],
+  "description": "Ships with Postgres, Redis, and Qdrant. Console on 3000; API on 5001.",
+  "tipi_version": 2,
   "version": "1.0.0",
+  "source": "https://github.com/langgenius/dify",
   "website": "https://dify.ai",
-  "category": "AI",
-  "description": "Open-source LLM app platform with console, API, workers.",
-  "icon": "logo.jpg",
-  "authors": ["LangGenius"],
-  "tipi_version": ">=2.0.0"
+  "exposable": true,
+  "https": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "dynamic": true,
+  "min_tipi_version": "v3.2.0",
+  "form_fields": [
+    { "type": "random", "label": "Postgres password", "env_variable": "POSTGRES_PASSWORD", "min": 24 }
+  ]
 }
-     
+

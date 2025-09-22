@@ -1,12 +1,27 @@
 {
-  "id": "khoj",
   "name": "Khoj",
+  "id": "khoj",
+  "available": true,
+  "short_desc": "Personal AI that indexes your notes & files.",
+  "author": "Community",
+  "port": 42110,
+  "categories": ["ai"],
+  "description": "Index notes/files and query them via a fast semantic assistant.",
+  "tipi_version": 2,
   "version": "1.0.0",
+  "source": "https://github.com/khoj-ai/khoj",
   "website": "https://khoj.dev",
-  "category": "AI",
-  "description": "Personal AI that indexes your notes & files. Multi-user via admin.",
-  "icon": "logo.jpg",
-  "authors": ["Khoj"],
-  "tipi_version": ">=2.0.0"
+  "exposable": true,
+  "https": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "dynamic": true,
+  "min_tipi_version": "v3.2.0",
+  "form_fields": [
+    { "type": "text", "label": "Admin email", "env_variable": "KHOJ_ADMIN_EMAIL", "required": true },
+    { "type": "password", "label": "Admin password", "env_variable": "KHOJ_ADMIN_PASSWORD", "required": true },
+    { "type": "random", "label": "Django secret key", "env_variable": "KHOJ_DJANGO_SECRET_KEY", "min": 32 },
+    { "type": "random", "label": "Postgres password", "env_variable": "POSTGRES_PASSWORD", "min": 24 },
+    { "type": "text", "label": "Public domain (optional)", "env_variable": "KHOJ_DOMAIN", "required": false }
+  ]
 }
 

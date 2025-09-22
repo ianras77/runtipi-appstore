@@ -5,23 +5,26 @@
       "image": "khojdev/khoj:latest",
       "isMain": true,
       "internalPort": 42110,
+      "restart": "unless-stopped",
       "environment": {
         "KHOJ_ADMIN_EMAIL": "${KHOJ_ADMIN_EMAIL}",
         "KHOJ_ADMIN_PASSWORD": "${KHOJ_ADMIN_PASSWORD}",
         "KHOJ_DJANGO_SECRET_KEY": "${KHOJ_DJANGO_SECRET_KEY}",
-        "KHOJ_DOMAIN": "${APP_DOMAIN}",
+        "KHOJ_DOMAIN": "${KHOJ_DOMAIN}",
         "KHOJ_NO_HTTPS": "true",
         "DATABASE_URL": "postgres://khoj:${POSTGRES_PASSWORD}@db:5432/khoj"
       },
-      "dependsOn": [{ "name": "db", "condition": "service_healthy" }],
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/root/.khoj" }
       ],
-      "healthCheck": { "path": "/", "interval": 10, "timeout": 5, "retries": 20 }
+      "dependsOn": {
+        "db": { "condition": "service_started" }
+      }
     },
     {
       "name": "db",
       "image": "postgres:15-alpine",
+      "restart": "unless-stopped",
       "environment": {
         "POSTGRES_DB": "khoj",
         "POSTGRES_USER": "khoj",
@@ -29,8 +32,7 @@
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data" }
-      ],
-      "healthCheck": { "cmd": ["CMD-SHELL", "pg_isready -U khoj -d khoj"], "interval": 10, "timeout": 5, "retries": 20 }
+      ]
     }
   ]
 }

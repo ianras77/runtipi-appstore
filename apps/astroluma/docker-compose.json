@@ -5,21 +5,24 @@
       "image": "sanjeet990/astroluma:latest",
       "isMain": true,
       "internalPort": 8000,
+      "restart": "unless-stopped",
       "environment": {
         "PORT": "8000",
         "NODE_ENV": "production",
         "SECRET_KEY": "${SECRET_KEY}",
         "MONGODB_URI": "mongodb://mongo:27017/astroluma"
       },
-      "dependsOn": [{ "name": "mongo", "condition": "service_started" }],
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/uploads", "containerPath": "/app/storage/uploads" }
       ],
-      "healthCheck": { "path": "/login", "interval": 10, "timeout": 5, "retries": 20 }
+      "dependsOn": {
+        "mongo": { "condition": "service_started" }
+      }
     },
     {
       "name": "mongo",
       "image": "mongo:6.0",
+      "restart": "unless-stopped",
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/mongo", "containerPath": "/data/db" }
       ]
