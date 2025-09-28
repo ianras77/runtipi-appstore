@@ -1,23 +1,23 @@
 {
-  "name": "Perplexia",
-  "id": "perplexia",
+  "name": "Perplexica",
+  "id": "perplexica",
   "available": true,
-  "short_desc": "Self-hosted AI-powered metasearch (Perplexica).",
-  "author": "community",
-  "port": 8270,
-  "categories": ["ai", "search"],
-  "description": "Perplexica is an AI-assisted metasearch engine that uses SearxNG for results, adds reranking & sources, and supports local/cloud LLM backends.",
+  "short_desc": "Open-source AI research assistant (search, RAG, chat).",
+  "author": "ItzCrazyKns",
+  "port": 8784,
+  "categories": ["ai", "productivity"],
+  "description": "Perplexica is an open-source AI research assistant that searches the web, aggregates results and lets you chat with findings.",
   "tipi_version": 1,
-  "version": "latest",
+  "version": "1.9.0",
   "source": "https://github.com/ItzCrazyKns/Perplexica",
-  "website": "https://anythingllm.com",
+  "website": "https://perplexica.com/",
   "exposable": true,
-  "supported_architectures": ["amd64", "arm64"],
+  "dynamic_config": true,
   "form_fields": [
-    { "type": "text", "label": "Frontend base URL (for links)", "required": false, "default": "http://localhost:8270", "env_variable": "PERPLEX_FRONTEND_URL" },
-    { "type": "text", "label": "Backend external URL", "required": false, "default": "http://perplexia-backend:3001", "env_variable": "PERPLEX_BACKEND_URL" },
-    { "type": "text", "label": "SearxNG URL", "required": false, "default": "http://searxng:8080", "env_variable": "SEARXNG_URL" }
+    { "type": "random", "label": "Postgres password", "min": 16, "required": true, "env_variable": "PERPLEXICA_DB_PASSWORD" }
   ],
-  "dynamic": true
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1727481600000,
+  "updated_at": 1727481600000
 }
 

@@ -2,34 +2,50 @@
   "name": "Appwrite",
   "id": "appwrite",
   "available": true,
-  "short_desc": "Self-hosted backend server for web & mobile apps.",
-  "author": "community",
-  "port": 8250,
-  "categories": ["development", "backend"],
-  "description": "Appwrite is an open-source backend-as-a-service with auth, DB, storage, functions, and more.",
+  "short_desc": "Self-hosted backend server with auth, DB, storage, functions & more.",
+  "author": "appwrite",
+  "port": 8781,
+  "categories": ["developer", "databases"],
+  "description": "Appwrite is a self-hosted backend platform offering authentication, databases, storage, functions, and more — all via REST/GraphQL/Realtime APIs.",
   "tipi_version": 1,
-  "version": "latest",
+  "version": "1.7.0",
   "source": "https://github.com/appwrite/appwrite",
-  "website": "https://appwrite.io",
+  "website": "https://appwrite.io/",
   "exposable": true,
-  "supported_architectures": ["amd64", "arm64"],
+  "dynamic_config": true,
   "form_fields": [
     {
-      "type": "password",
-      "label": "Database password (MariaDB)",
+      "type": "random",
+      "label": "Appwrite OpenSSL Key",
+      "min": 64,
       "required": true,
-      "min": 8,
+      "env_variable": "APPWRITE_OPENSSL_KEY_V1",
+      "encoding": "hex"
+    },
+    {
+      "type": "random",
+      "label": "MariaDB root password",
+      "min": 16,
+      "required": true,
+      "env_variable": "MARIADB_ROOT_PASSWORD"
+    },
+    {
+      "type": "random",
+      "label": "MariaDB appwrite password",
+      "min": 16,
+      "required": true,
       "env_variable": "APPWRITE_DB_PASSWORD"
     },
     {
       "type": "random",
-      "label": "Appwrite OpenSSL key",
+      "label": "Redis password",
+      "min": 16,
       "required": true,
-      "min": 64,
-      "encoding": "hex",
-      "env_variable": "APPWRITE_OPENSSL_KEY"
+      "env_variable": "APPWRITE_REDIS_PASSWORD"
     }
   ],
-  "dynamic": true
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1727481600000,
+  "updated_at": 1727481600000
 }
 

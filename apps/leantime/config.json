@@ -2,22 +2,23 @@
   "name": "Leantime",
   "id": "leantime",
   "available": true,
-  "short_desc": "Open-source project management for innovators.",
-  "author": "community",
-  "port": 8260,
+  "short_desc": "Open-source project management for non-PMs: goals, roadmaps, tasks.",
+  "author": "leantime",
+  "port": 8782,
   "categories": ["productivity", "project-management"],
-  "description": "Leantime is an open-source project management system with ideas, research, tasks, timesheets and retros—optimized for product teams.",
+  "description": "Leantime is an open-source project management system designed for non-project managers — combining strategy, roadmaps, ideas, and task execution.",
   "tipi_version": 1,
-  "version": "latest",
+  "version": "3.5.12",
   "source": "https://github.com/Leantime/leantime",
-  "website": "https://leantime.io",
+  "website": "https://leantime.io/",
   "exposable": true,
-  "supported_architectures": ["amd64", "arm64"],
+  "dynamic_config": true,
   "form_fields": [
-    { "type": "text", "label": "Leantime Site Name", "required": false, "default": "Leantime", "env_variable": "LEANTIME_NAME" },
-    { "type": "password", "label": "MySQL root password", "required": true, "min": 8, "env_variable": "LEANTIME_DB_ROOT_PASSWORD" },
-    { "type": "password", "label": "MySQL user password", "required": true, "min": 8, "env_variable": "LEANTIME_DB_PASSWORD" }
+    { "type": "random", "label": "MySQL root password", "min": 16, "required": true, "env_variable": "MYSQL_ROOT_PASSWORD" },
+    { "type": "random", "label": "MySQL leantime user password", "min": 16, "required": true, "env_variable": "MYSQL_PASSWORD" }
   ],
-  "dynamic": true
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1727481600000,
+  "updated_at": 1727481600000
 }
 

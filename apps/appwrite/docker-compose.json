@@ -2,50 +2,77 @@
   "services": [
     {
       "name": "appwrite",
-      "image": "appwrite/appwrite:latest",
+      "image": "appwrite/appwrite:1.7.0",
       "isMain": true,
       "internalPort": 80,
-      "restart": "unless-stopped",
-      "dependsOn": {
-        "mariadb": { "condition": "service_started" },
-        "redis": { "condition": "service_started" }
-      },
       "environment": {
         "_APP_ENV": "production",
-        "_APP_LOCALE": "en",
-        "_APP_DOMAIN": "localhost",
-        "_APP_DOMAIN_TARGET": "localhost",
-        "_APP_OPENSSL_KEY_V1": "${APPWRITE_OPENSSL_KEY}",
-        "_DB_HOST": "mariadb",
-        "_DB_PORT": "3306",
-        "_DB_USER": "appwrite",
-        "_DB_PASS": "${APPWRITE_DB_PASSWORD}",
-        "_DB_SCHEMA": "appwrite",
-        "_REDIS_HOST": "redis",
-        "_REDIS_PORT": "6379"
+        "_APP_OPENSSL_KEY_V1": "${APPWRITE_OPENSSL_KEY_V1}",
+        "_APP_DOMAIN": "${APP_DOMAIN}",
+        "_APP_DOMAIN_TARGET": "${APP_DOMAIN}",
+        "_APP_OPTIONS_FORCE_HTTPS": "false",
+
+        "_APP_DB_HOST": "mariadb",
+        "_APP_DB_PORT": "3306",
+        "_APP_DB_SCHEMA": "appwrite",
+        "_APP_DB_USER": "appwrite",
+        "_APP_DB_PASS": "${APPWRITE_DB_PASSWORD}",
+
+        "_APP_REDIS_HOST": "redis",
+        "_APP_REDIS_PORT": "6379",
+        "_APP_REDIS_USER": "",
+        "_APP_REDIS_PASS": "${APPWRITE_REDIS_PASSWORD}"
+      },
+      "dependsOn": {
+        "mariadb": { "condition": "service_healthy" },
+        "redis": { "condition": "service_started" }
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/appwrite/storage", "containerPath": "/storage" }
-      ]
+        { "hostPath": "${APP_DATA_DIR}/appwrite/var", "containerPath": "/var/lib/appwrite" },
+        { "hostPath": "${APP_DATA_DIR}/appwrite/uploads", "containerPath": "/storage/uploads" },
+        { "hostPath": "${APP_DATA_DIR}/appwrite/config", "containerPath": "/usr/src/code/app/config", "readOnly": false }
+      ],
+      "restart": "always",
+      "healthCheck": {
+        "test": "curl -fsS http://localhost/v1/health || exit 1",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 10,
+        "start_period": "40s"
+      }
     },
     {
       "name": "mariadb",
-      "image": "mariadb:10.11",
-      "restart": "unless-stopped",
+      "image": "mariadb:11.4",
       "environment": {
-        "MYSQL_ROOT_PASSWORD": "${APPWRITE_DB_PASSWORD}",
-        "MYSQL_DATABASE": "appwrite",
-        "MYSQL_USER": "appwrite",
-        "MYSQL_PASSWORD": "${APPWRITE_DB_PASSWORD}"
+        "MARIADB_ROOT_PASSWORD": "${MARIADB_ROOT_PASSWORD}",
+        "MARIADB_DATABASE": "appwrite",
+        "MARIADB_USER": "appwrite",
+        "MARIADB_PASSWORD": "${APPWRITE_DB_PASSWORD}"
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/appwrite/db", "containerPath": "/var/lib/mysql" }
-      ]
+        { "hostPath": "${APP_DATA_DIR}/mariadb", "containerPath": "/var/lib/mysql" }
+      ],
+      "restart": "always",
+      "healthCheck": {
+        "test": "healthcheck.sh --su=mysql --connect --innodb_initialized",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 10,
+        "start_period": "30s"
+      }
     },
     {
       "name": "redis",
-      "image": "redis:7-alpine",
-      "restart": "unless-stopped"
+      "image": "redis:7.2",
+      "command": [
+        "redis-server",
+        "--requirepass", "${APPWRITE_REDIS_PASSWORD}"
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/redis", "containerPath": "/data" }
+      ],
+      "restart": "always"
     }
   ]
 }

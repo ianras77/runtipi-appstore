@@ -1,0 +1,29 @@
+{
+  "name": "LangChain (LangServe)",
+  "id": "langserve",
+  "available": true,
+  "short_desc": "Serve LangChain runnables as REST APIs via LangServe.",
+  "author": "langchain",
+  "port": 8785,
+  "categories": ["ai", "developer"],
+  "description": "A minimal LangServe runner. Mount your LangChain runnable app code to start serving REST endpoints immediately.",
+  "tipi_version": 1,
+  "version": "0.1.0",
+  "source": "https://github.com/langchain-ai/langserve",
+  "website": "https://python.langchain.com/docs/langserve/",
+  "exposable": true,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "LangServe app (module:var, e.g., server:app)",
+      "required": true,
+      "env_variable": "LANGSERVE_MODULE",
+      "default": "server:app"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1727481600000,
+  "updated_at": 1727481600000
+}
+

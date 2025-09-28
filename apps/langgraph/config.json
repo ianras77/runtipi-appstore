@@ -1,0 +1,23 @@
+{
+  "name": "LangGraph (Server)",
+  "id": "langgraph",
+  "available": true,
+  "short_desc": "Starter stack for LangGraph Server/API with Redis & Postgres.",
+  "author": "langchain",
+  "port": 8786,
+  "categories": ["ai", "developer"],
+  "description": "Boot LangGraph Server/API with Redis and Postgres pre-wired. Mount or deploy your LangGraph app to start building agentic workflows.",
+  "tipi_version": 1,
+  "version": "0.4.27",
+  "source": "https://github.com/langchain-ai/langgraph",
+  "website": "https://docs.langchain.com/langgraph-platform/",
+  "exposable": true,
+  "dynamic_config": true,
+  "form_fields": [
+    { "type": "random", "label": "Postgres password", "min": 16, "required": true, "env_variable": "LANGGRAPH_DB_PASSWORD" }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1727481600000,
+  "updated_at": 1727481600000
+}
+
