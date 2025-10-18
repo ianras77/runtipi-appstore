@@ -7,20 +7,12 @@
       "isMain": true,
       "internalPort": 80,
       "environment": {
-        "PYTHONUNBUFFERED": "1",
-        "WATCHFILES_FORCE_POLLING": "true",
-        "CCAT_CORE_HOST": "",
-        "CCAT_CORE_PORT": "1865",
-        "CCAT_CORE_USE_SECURE_PROTOCOLS": "false",
-        "CCAT_HTTPS_PROXY_MODE": "true",
-        "CCAT_CORS_ALLOWED_ORIGINS": "*",
         "CCAT_QDRANT_HOST": "qdrant",
-        "CCAT_QDRANT_PORT": "6333",
-        "CCAT_QDRANT_API_KEY": "",
-        "CCAT_DEBUG": "false"
+        "CCAT_QDRANT_PORT": "6333"
       },
       "dependsOn": {
-        "qdrant": { "condition": "service_started" }
+        "qdrant": { "condition": "service_started" },
+        "redis": { "condition": "service_started" }
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/static",  "containerPath": "/app/cat/static" },
@@ -34,6 +26,14 @@
       "internalPort": 6333,
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/qdrant", "containerPath": "/qdrant/storage" }
+      ]
+    },
+    {
+      "name": "redis",
+      "image": "redis:7.2-alpine",
+      "internalPort": 6379,
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/redis-data", "containerPath": "/data" }
       ]
     }
   ]
