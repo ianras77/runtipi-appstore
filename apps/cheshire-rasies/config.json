@@ -1,0 +1,106 @@
+{
+  "name": "Cheshire Cat:Rasies",
+  "id": "cheshire-rasies",
+  "available": true,
+  "short_desc": "Build site-specific AI agents with memory, plugins, and REST/WebSocket APIs.",
+  "author": "cheshire-cat-ai",
+  "port": 1850,
+  "categories": ["ai", "productivity"],
+  "description": "Cheshire Cat is a production-ready AI agent framework. Use it to power WordPress sites with domain-specific memory (Qdrant), plugins/tools, and local LLMs via Ollama. This package exposes the admin at /admin and the REST/WS APIs, with optional API key and JWT auth.",
+  "tipi_version": 1,
+  "version": "1.9.2",
+  "source": "https://github.com/cheshire-cat-ai/core",
+  "website": "https://cheshirecat.ai/",
+  "exposable": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "dynamic": true,
+  "form_fields": [
+    {
+      "type": "fqdnip",
+      "label": "Public host (for admin UI links)",
+      "hint": "Used by the admin portal. Set to your domain/FQDN if exposing via Traefik (e.g., ai.example.com).",
+      "required": false,
+      "env_variable": "CCAT_CORE_HOST"
+    },
+    {
+      "type": "number",
+      "label": "Public port",
+      "hint": "External port Cheshire Cat will be reachable on. Leave 1865 unless you have a conflict.",
+      "required": false,
+      "default": 1850,
+      "env_variable": "CCAT_CORE_PORT"
+    },
+    {
+      "type": "boolean",
+      "label": "Behind HTTPS proxy (Traefik/NGINX)",
+      "hint": "Enable if Cat is served via HTTPS in front (avoids redirect issues).",
+      "required": false,
+      "default": true,
+      "env_variable": "CCAT_HTTPS_PROXY_MODE"
+    },
+    {
+      "type": "text",
+      "label": "CORS allowed origins",
+      "hint": "Comma-separated origins allowed to call the API (e.g., https://www.example.com). Use * for any.",
+      "required": false,
+      "default": "*",
+      "env_variable": "CORS_ALLOW_ORIGINS"
+    },
+    {
+      "type": "random",
+      "label": "HTTP API key (locks REST API)",
+      "hint": "If set, REST endpoints require Authorization: Bearer <key>. Use JWT for browsers.",
+      "required": false,
+      "min": 40,
+      "encoding": "hex",
+      "env_variable": "CCAT_API_KEY"
+    },
+    {
+      "type": "random",
+      "label": "WebSocket API key (locks WS endpoints)",
+      "hint": "If set, WS endpoints require ?token=<key>.",
+      "required": false,
+      "min": 32,
+      "encoding": "hex",
+      "env_variable": "CCAT_API_KEY_WS"
+    },
+    {
+      "type": "random",
+      "label": "JWT secret",
+      "hint": "Used to sign JWTs if you enable JWT auth.",
+      "required": false,
+      "min": 48,
+      "encoding": "hex",
+      "env_variable": "CCAT_JWT_SECRET"
+    },
+    {
+      "type": "boolean",
+      "label": "Disable dev auto-reload",
+      "hint": "Turn off file-watch reloads in production.",
+      "required": false,
+      "default": false,
+      "env_variable": "CCAT_DEBUG"
+    },
+    {
+      "type": "fqdnip",
+      "label": "Qdrant host (optional)",
+      "hint": "Leave blank to use embedded local vector DB. Set if using external Qdrant container.",
+      "required": false,
+      "env_variable": "CCAT_QDRANT_HOST"
+    },
+    {
+      "type": "number",
+      "label": "Qdrant port",
+      "required": false,
+      "default": 6333,
+      "env_variable": "CCAT_QDRANT_PORT"
+    },
+    {
+      "type": "text",
+      "label": "Qdrant API key (optional)",
+      "required": false,
+      "env_variable": "CCAT_QDRANT_API_KEY"
+    }
+  ]
+}
+

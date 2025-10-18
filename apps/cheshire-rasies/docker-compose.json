@@ -1,0 +1,57 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "cheshire-cat-ai",
+      "image": "ghcr.io/cheshire-cat-ai/core:1.9.2",
+      "isMain": true,
+      "internalPort": 1865,
+      "environment": {
+        "PYTHONUNBUFFERED": "1",
+        "WATCHFILES_FORCE_POLLING": "true",
+        "CORS_ALLOW_ORIGINS": "*",
+        "CACHE_TYPE": "redis",
+        "CACHE_REDIS_URL": "redis://redis:6379/0",
+        "OLLAMA_BASE_URL": "http://ollama:11434",
+        "OLLAMA_DEFAULT_MODEL": "llama3.1:8b"
+      },
+      "depends_on": ["redis", "qdrant"],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/static",
+          "containerPath": "/app/cat/static"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/plugins",
+          "containerPath": "/app/cat/plugins"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/data",
+          "containerPath": "/app/cat/data"
+        }
+      ]
+    },
+    {
+      "name": "redis",
+      "image": "redis:7.2-alpine",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/redis-data",
+          "containerPath": "/data"
+        }
+      ]
+    },
+    {
+      "name": "qdrant",
+      "image": "qdrant/qdrant:v1.12.0",
+      "internalPort": 6333,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/qdrant",
+          "containerPath": "/qdrant/storage"
+        }
+      ]
+    }
+  ]
+}
+
