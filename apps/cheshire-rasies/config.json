@@ -1,5 +1,5 @@
 {
-  "name": "Cheshire Cat:Rasies",
+  "name": "Cheshire Cat AI",
   "id": "cheshire-rasies",
   "available": true,
   "short_desc": "Build site-specific AI agents with memory, plugins, and REST/WebSocket APIs.",
