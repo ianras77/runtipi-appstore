@@ -9,15 +9,15 @@
       "environment": {
         "PYTHONUNBUFFERED": "1",
         "WATCHFILES_FORCE_POLLING": "true",
-        "CCAT_CORE_HOST": "${CCAT_CORE_HOST:-localhost}",
-        "CCAT_CORE_PORT": "${CCAT_CORE_PORT:-1865}",
-        "CCAT_CORE_USE_SECURE_PROTOCOLS": "${CCAT_CORE_USE_SECURE_PROTOCOLS:-false}",
-        "CCAT_HTTPS_PROXY_MODE": "${CCAT_HTTPS_PROXY_MODE:-true}",
-        "CCAT_CORS_ALLOWED_ORIGINS": "${CCAT_CORS_ALLOWED_ORIGINS:-*}",
-        "CCAT_QDRANT_HOST": "${CCAT_QDRANT_HOST:-qdrant}",
-        "CCAT_QDRANT_PORT": "${CCAT_QDRANT_PORT:-6333}",
-        "CCAT_QDRANT_API_KEY": "${CCAT_QDRANT_API_KEY:-}",
-        "CCAT_DEBUG": "${CCAT_DEBUG:-false}"
+        "CCAT_CORE_HOST": "",
+        "CCAT_CORE_PORT": "1865",
+        "CCAT_CORE_USE_SECURE_PROTOCOLS": "false",
+        "CCAT_HTTPS_PROXY_MODE": "true",
+        "CCAT_CORS_ALLOWED_ORIGINS": "*",
+        "CCAT_QDRANT_HOST": "qdrant",
+        "CCAT_QDRANT_PORT": "6333",
+        "CCAT_QDRANT_API_KEY": "",
+        "CCAT_DEBUG": "false"
       },
       "dependsOn": {
         "qdrant": { "condition": "service_started" }
