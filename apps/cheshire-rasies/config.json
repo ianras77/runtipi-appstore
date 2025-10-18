@@ -1,114 +1,22 @@
 {
   "name": "Cheshire Cat AI",
-  "id": "cheshire-rasies",
   "available": true,
-  "short_desc": "Production-ready AI agent for your sites with memory, plugins, REST/WS APIs.",
-  "author": "cheshire-cat-ai",
   "port": 1865,
-  "categories": ["ai", "productivity"],
-  "description": "Cheshire Cat powers site-specific AI agents. This package exposes the Admin (/admin) and REST/WS APIs. Vector memory via Qdrant is pre-wired.",
-  "tipi_version": 1,
-  "version": "1.9.2",
-  "source": "https://github.com/cheshire-cat-ai/core",
-  "website": "https://cheshirecat.ai/",
   "exposable": true,
+  "dynamic_config": true,
+  "id": "cheshire-rasies",
+  "description": "The Cheshire Cat is an open-source, hackable and production-ready framework that allows developing intelligent personal AI assistant agents on top of Large Language Models (LLM).",
+  "tipi_version": 11,
+  "version": "1.9.2",
+  "categories": ["ai"],
+  "short_desc": "A production-ready AI framework to develop AI agents.",
+  "author": "pieroit",
+  "source": "https://github.com/cheshire-cat-ai/core",
+  "website": "https://cheshirecat.ai",
+  "form_fields": [],
+  "url_suffix": "/admin",
   "supported_architectures": ["amd64", "arm64"],
-  "dynamic": true,
-  "form_fields": [
-    {
-      "type": "fqdnip",
-      "label": "Public host for admin/API",
-      "hint": "e.g. ai.example.com (used by the Admin portal)",
-      "required": false,
-      "env_variable": "CCAT_CORE_HOST"
-    },
-    {
-      "type": "number",
-      "label": "Public port",
-      "hint": "External port Runtipi exposes (maps to container 80).",
-      "required": false,
-      "default": 1865,
-      "env_variable": "CCAT_CORE_PORT"
-    },
-    {
-      "type": "boolean",
-      "label": "HTTPS proxy mode",
-      "hint": "Enable when fronted by Traefik/Nginx with TLS to fix redirect/headers.",
-      "required": false,
-      "default": true,
-      "env_variable": "CCAT_HTTPS_PROXY_MODE"
-    },
-    {
-      "type": "boolean",
-      "label": "Use secure protocols",
-      "hint": "Set true if Cat is served via HTTPS/WSS.",
-      "required": false,
-      "default": true,
-      "env_variable": "CCAT_CORE_USE_SECURE_PROTOCOLS"
-    },
-    {
-      "type": "text",
-      "label": "CORS allowed origins",
-      "hint": "Comma-separated origins; * allows all.",
-      "required": false,
-      "default": "*",
-      "env_variable": "CCAT_CORS_ALLOWED_ORIGINS"
-    },
-    {
-      "type": "random",
-      "label": "HTTP API key",
-      "hint": "Locks HTTP endpoints (Authorization: Bearer <key>).",
-      "required": false,
-      "min": 40,
-      "encoding": "hex",
-      "env_variable": "CCAT_API_KEY"
-    },
-    {
-      "type": "random",
-      "label": "WebSocket API key",
-      "hint": "Locks WS (?token=<key>).",
-      "required": false,
-      "min": 32,
-      "encoding": "hex",
-      "env_variable": "CCAT_API_KEY_WS"
-    },
-    {
-      "type": "random",
-      "label": "JWT secret",
-      "hint": "Used to sign JWTs for browser clients.",
-      "required": false,
-      "min": 48,
-      "encoding": "hex",
-      "env_variable": "CCAT_JWT_SECRET"
-    },
-    {
-      "type": "boolean",
-      "label": "Disable dev auto-reload",
-      "hint": "Set false (production) to avoid restarts on file changes.",
-      "required": false,
-      "default": false,
-      "env_variable": "CCAT_DEBUG"
-    },
-    {
-      "type": "fqdnip",
-      "label": "Qdrant host",
-      "hint": "Defaults to the bundled qdrant service name.",
-      "required": false,
-      "env_variable": "CCAT_QDRANT_HOST"
-    },
-    {
-      "type": "number",
-      "label": "Qdrant port",
-      "required": false,
-      "default": 6333,
-      "env_variable": "CCAT_QDRANT_PORT"
-    },
-    {
-      "type": "text",
-      "label": "Qdrant API key",
-      "required": false,
-      "env_variable": "CCAT_QDRANT_API_KEY"
-    }
-  ]
+  "created_at": 1691943801422,
+  "updated_at": 1744307161000,
+  "$schema": "../app-info-schema.json"
 }
-
