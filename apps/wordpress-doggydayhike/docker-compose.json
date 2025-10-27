@@ -22,7 +22,7 @@
         }
       ],
       "dependsOn": {
-        "wordpress-aidanras-db": {
+        "wordpress-doggydayhike-db": {
           "condition": "service_started"
         }
       },
