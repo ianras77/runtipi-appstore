@@ -7,7 +7,7 @@
   "dynamic_config": true,
   "id": "stirling-pdf",
   "tipi_version": 83,
-  "version": "0.45.6",
+  "version": "1.5.0",
   "categories": ["data", "utilities"],
   "description": "Locally hosted web application that allows you to perform various operations on PDF files.",
   "short_desc": "Powerful locally hosted web based PDF manipulation tool.",
