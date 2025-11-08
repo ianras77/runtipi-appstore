@@ -7,7 +7,7 @@
   "author": "toeverything",
   "description": "AFFiNE is an open-source, local-first workspace that merges documents, whiteboards and tables. It’s a privacy-focused alternative to Notion & Miro, with AI Copilot support.",
 
-  "tipi_version": 1,
+  "tipi_version": 150,
   "version": "0.22.2",
   "source": "https://github.com/toeverything/affine",
   "website": "https://affine.pro",
