@@ -8,7 +8,9 @@
       "internalPort": 80,
       "environment": {
         "CCAT_QDRANT_HOST": "qdrant",
-        "CCAT_QDRANT_PORT": "6333"
+        "CCAT_QDRANT_PORT": "6333",
+	"PYTHONUNBUFFERED": "1",
+	"WATCHFILES_FORCE_POLLING": "true"
       },
       "dependsOn": {
         "qdrant": { "condition": "service_started" },
