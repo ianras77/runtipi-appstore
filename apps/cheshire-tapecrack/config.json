@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/config.schema.json",
+  "$schema": "../app-info-schema.json",
   "schema": "2",
   "name": "Cheshire Cat AI: TapeCrack",
   "available": true,
