@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "lodestone-core",
-      "image": "ghcr.io/lodestone-team/lodestone_core:latest",
+      "image": "ghcr.io/lodestone-team/lodestone_core",
       "isMain": true,
       "internalPort": 16662,
       "addPorts": [
