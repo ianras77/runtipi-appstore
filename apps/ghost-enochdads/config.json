@@ -1,5 +1,6 @@
 {
   "$schema": "../schema.json",
+  "schema": "2",
   "name": "Ghost Enoch Dads",
   "port": 8118,
   "available": true,

@@ -1,4 +1,6 @@
 {
+  "$schema": "../schema/config.schema.json",
+  "schema": "2",
   "name": "WordPress Puppies Ride",
   "available": true,
   "port": 8293,

@@ -1,6 +1,8 @@
 {
   "services": [
     {
+      "$schema": "../dynamic-compose-schema.json",
+      "schema": "2",
       "name": "ghost-ed",
       "image": "ghost:latest",
       "environment": {

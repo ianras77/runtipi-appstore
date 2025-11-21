@@ -1,4 +1,6 @@
 {
+  "$schema": "../schema/config.schema.json",
+  "schema": "2",
   "name": "Cheshire Cat AI: Rassys",
   "available": true,
   "port": 1865,

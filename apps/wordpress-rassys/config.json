@@ -1,4 +1,6 @@
 {
+  "$schema": "../schema/config.schema.json",
+  "schema": "2",
   "name": "WordPress RASSYS",
   "available": true,
   "port": 8289,

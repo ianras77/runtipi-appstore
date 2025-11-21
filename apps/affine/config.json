@@ -1,4 +1,7 @@
+
 {
+  "$schema": "../schema/config.schema.json",
+  "schema": "2",
   "name": "AFFiNE",
   "id": "affine",
 

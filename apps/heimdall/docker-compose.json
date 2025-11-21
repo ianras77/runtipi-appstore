@@ -18,5 +18,6 @@
       ]
     }
   ],
-  "$schema": "../dynamic-compose-schema.json"
+  "$schema": "../dynamic-compose-schema.json",
+  "schema": "2"
 }

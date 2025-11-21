@@ -1,4 +1,6 @@
 {
+  "$schema": "../schema/config.schema.json",
+  "schema": "2",
   "name": "Windows",
   "available": true,
   "port": 8006,

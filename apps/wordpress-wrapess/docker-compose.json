@@ -1,4 +1,6 @@
 {
+  "$schema": "../dynamic-compose-schema.json",
+  "schema": "2",
   "services": [
     {
       "name": "wordpress-wrapess",
