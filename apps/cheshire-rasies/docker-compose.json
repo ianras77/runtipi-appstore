@@ -12,8 +12,8 @@
         { "key": "CCAT_QDRANT_PORT", "value": 6333 }
       ],
       "dependsOn": {
-        "qdrant": { "condition": "service_healthy" },
-        "redis": { "condition": "service_healthy" }
+        "qdrant": { "condition": "service_started" },
+        "redis": { "condition": "service_started" }
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/static",  "containerPath": "/app/cat/static" },
@@ -44,13 +44,6 @@
       ],
       "ulimits": {
         "nofile": { "soft": 1048576, "hard": 1048576 }
-      },
-      "healthCheck": {
-        "test": "wget -qO- http://localhost:6333/healthz || exit 1",
-        "interval": "15s",
-        "timeout": "5s",
-        "retries": 20,
-        "startPeriod": "20s"
       },
       "logging": {
         "driver": "json-file",
