@@ -1,4 +1,3 @@
-
 {
   "$schema": "../app-info-schema.json",
   "schema": "2",
@@ -51,7 +50,7 @@
     },
     {
       "env_variable": "OPENAI_API_KEY",
-      "label": "OpenAI API Key (optional)",
+      "label": "OpenAI API Key (optional, used for Copilot AI)",
       "type": "text",
       "required": false
     }
