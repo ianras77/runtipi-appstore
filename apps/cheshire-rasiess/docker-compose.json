@@ -41,6 +41,11 @@
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/qdrant", "containerPath": "/qdrant/storage" }
       ],
+      "ulimits": {
+    	"nofile": {
+	  "soft": 262144,
+          "hard": 262144
+      },
       "healthCheck": {
         "test": "wget -qO- http://localhost:6333/healthz || exit 1",
         "interval": "15s",

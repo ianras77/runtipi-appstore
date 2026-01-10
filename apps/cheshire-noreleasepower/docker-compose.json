@@ -16,9 +16,9 @@
         "redis": { "condition": "service_started" }
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/static",  "containerPath": "/app/cat/static" },
+        { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/app/cat/static" },
         { "hostPath": "${APP_DATA_DIR}/data/plugins", "containerPath": "/app/cat/plugins" },
-        { "hostPath": "${APP_DATA_DIR}/data/data",    "containerPath": "/app/cat/data" }
+        { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }
       ],
       "healthCheck": {
         "test": "wget -qO- http://localhost/healthz || exit 1",
@@ -38,12 +38,20 @@
     {
       "name": "qdrant",
       "image": "qdrant/qdrant:v1.12.0",
-      "internalPort": 6333,
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/qdrant", "containerPath": "/qdrant/storage" }
       ],
       "ulimits": {
-        "nofile": { "soft": 1048576, "hard": 1048576 }
+    	"nofile": {
+	  "soft": 262144,
+          "hard": 262144
+      },
+      "healthCheck": {
+        "test": "wget -qO- http://localhost:6333/healthz || exit 1",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "20s"
       },
       "logging": {
         "driver": "json-file",
@@ -55,16 +63,19 @@
     },
     {
       "name": "redis",
-      "image": "redis:7.2-alpine",
-      "internalPort": 6379,
-      "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/redis", "containerPath": "/data" }
+      "image": "redis:7-alpine",
+      "command": [
+        "redis-server",
+        "--save",
+        "",
+        "--appendonly",
+        "no"
       ],
       "healthCheck": {
-        "test": "redis-cli ping | grep -q PONG",
-        "interval": "10s",
-        "timeout": "3s",
-        "retries": 30,
+        "test": "redis-cli ping | grep -q PONG || exit 1",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10,
         "startPeriod": "10s"
       },
       "logging": {
