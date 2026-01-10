@@ -1,0 +1,106 @@
+{
+  "services": [
+    {
+      "name": "console",
+      "image": "langgenius/dify-web:latest",
+      "isMain": true,
+      "internalPort": 3000,
+      "restart": "unless-stopped",
+      "environment": {
+        "CONSOLE_API_BASE_URL": "http://api:5001",
+        "NEXT_PUBLIC_API_BASE_URL": "http://api:5001"
+      },
+      "dependsOn": {
+        "api": {
+          "condition": "service_started"
+        }
+      }
+    },
+    {
+      "name": "api",
+      "image": "langgenius/dify-api:latest",
+      "restart": "unless-stopped",
+      "environment": {
+        "DB_URI": "postgresql+psycopg2://dify:${POSTGRES_PASSWORD}@postgres:5432/dify",
+        "REDIS_URL": "redis://redis:6379/0",
+        "STORAGE_TYPE": "local",
+        "STORAGE_LOCAL_PATH": "/app/api/storage",
+        "VECTOR_STORE": "qdrant",
+        "QDRANT_URL": "http://qdrant:6333",
+        "MIGRATION_ENABLED": "true",
+        "CONSOLE_URL": "http://console:3000"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/storage",
+          "containerPath": "/app/api/storage"
+        }
+      ],
+      "dependsOn": {
+        "postgres": {
+          "condition": "service_started"
+        },
+        "redis": {
+          "condition": "service_started"
+        },
+        "qdrant": {
+          "condition": "service_started"
+        }
+      }
+    },
+    {
+      "name": "worker",
+      "image": "langgenius/dify-worker:latest",
+      "restart": "unless-stopped",
+      "environment": {
+        "DB_URI": "postgresql+psycopg2://dify:${POSTGRES_PASSWORD}@postgres:5432/dify",
+        "REDIS_URL": "redis://redis:6379/0",
+        "VECTOR_STORE": "qdrant",
+        "QDRANT_URL": "http://qdrant:6333"
+      },
+      "dependsOn": {
+        "postgres": {
+          "condition": "service_started"
+        },
+        "redis": {
+          "condition": "service_started"
+        },
+        "qdrant": {
+          "condition": "service_started"
+        }
+      }
+    },
+    {
+      "name": "postgres",
+      "image": "postgres:15-alpine",
+      "restart": "unless-stopped",
+      "environment": {
+        "POSTGRES_DB": "dify",
+        "POSTGRES_USER": "dify",
+        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        }
+      ]
+    },
+    {
+      "name": "redis",
+      "image": "redis:7-alpine",
+      "restart": "unless-stopped"
+    },
+    {
+      "name": "qdrant",
+      "image": "qdrant/qdrant:1.12.4",
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/qdrant",
+          "containerPath": "/qdrant/storage"
+        }
+      ]
+    }
+  ]
+}

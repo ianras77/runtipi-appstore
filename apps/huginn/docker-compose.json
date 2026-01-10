@@ -5,36 +5,82 @@
       "image": "huginn/huginn:latest",
       "isMain": true,
       "internalPort": 3000,
-      "environment": {
-        "DATABASE_ADAPTER": "mysql2",
-        "DATABASE_HOST": "db",
-        "DATABASE_NAME": "huginn",
-        "DATABASE_USERNAME": "huginn",
-        "DATABASE_PASSWORD": "${HUGINN_DB_PASS:-huginnpass}",
-        "REDIS_URL": "redis://redis:6379",
-        "INVITATION_CODE": "${HUGINN_INVITE:-}",
-        "FORCE_SSL": "false"
-      },
+      "environment": [
+        {
+          "key": "DATABASE_ADAPTER",
+          "value": "mysql2"
+        },
+        {
+          "key": "DATABASE_HOST",
+          "value": "db"
+        },
+        {
+          "key": "DATABASE_NAME",
+          "value": "huginn"
+        },
+        {
+          "key": "DATABASE_USERNAME",
+          "value": "huginn"
+        },
+        {
+          "key": "DATABASE_PASSWORD",
+          "value": "${HUGINN_DB_PASS:-huginnpass}"
+        },
+        {
+          "key": "REDIS_URL",
+          "value": "redis://redis:6379"
+        },
+        {
+          "key": "INVITATION_CODE",
+          "value": "${HUGINN_INVITE:-}"
+        },
+        {
+          "key": "FORCE_SSL",
+          "value": "false"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/huginn/data", "containerPath": "/var/lib/mysql-files" }
+        {
+          "hostPath": "${APP_DATA_DIR}/huginn/data",
+          "containerPath": "/var/lib/mysql-files"
+        }
       ],
       "dependsOn": {
-        "db": { "condition": "service_started" },
-        "redis": { "condition": "service_started" }
+        "db": {
+          "condition": "service_started"
+        },
+        "redis": {
+          "condition": "service_started"
+        }
       },
       "restart": "unless-stopped"
     },
     {
       "name": "db",
       "image": "mariadb:11",
-      "environment": {
-        "MYSQL_ROOT_PASSWORD": "${HUGINN_DB_ROOT:-rootpass}",
-        "MYSQL_DATABASE": "huginn",
-        "MYSQL_USER": "huginn",
-        "MYSQL_PASSWORD": "${HUGINN_DB_PASS:-huginnpass}"
-      },
+      "environment": [
+        {
+          "key": "MYSQL_ROOT_PASSWORD",
+          "value": "${HUGINN_DB_ROOT:-rootpass}"
+        },
+        {
+          "key": "MYSQL_DATABASE",
+          "value": "huginn"
+        },
+        {
+          "key": "MYSQL_USER",
+          "value": "huginn"
+        },
+        {
+          "key": "MYSQL_PASSWORD",
+          "value": "${HUGINN_DB_PASS:-huginnpass}"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/huginn/db", "containerPath": "/var/lib/mysql" }
+        {
+          "hostPath": "${APP_DATA_DIR}/huginn/db",
+          "containerPath": "/var/lib/mysql"
+        }
       ],
       "restart": "unless-stopped"
     },
@@ -43,6 +89,6 @@
       "image": "redis:7-alpine",
       "restart": "unless-stopped"
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-

@@ -5,11 +5,16 @@
       "image": "itzcrazykns/perplexica-frontend:1.9.0",
       "isMain": true,
       "internalPort": 3000,
-      "environment": {
-        "NEXT_PUBLIC_API_URL": "http://${APP_DOMAIN}/api"
-      },
+      "environment": [
+        {
+          "key": "NEXT_PUBLIC_API_URL",
+          "value": "http://${APP_DOMAIN}/api"
+        }
+      ],
       "dependsOn": {
-        "backend": { "condition": "service_started" }
+        "backend": {
+          "condition": "service_started"
+        }
       },
       "restart": "always",
       "healthCheck": {
@@ -24,12 +29,20 @@
       "name": "backend",
       "image": "itzcrazykns/perplexica-backend:1.9.0",
       "internalPort": 3001,
-      "environment": {
-        "DATABASE_URL": "postgresql://perplexica:${PERPLEXICA_DB_PASSWORD}@postgres:5432/perplexica",
-        "NODE_ENV": "production"
-      },
+      "environment": [
+        {
+          "key": "DATABASE_URL",
+          "value": "postgresql://perplexica:${PERPLEXICA_DB_PASSWORD}@postgres:5432/perplexica"
+        },
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        }
+      ],
       "dependsOn": {
-        "postgres": { "condition": "service_healthy" }
+        "postgres": {
+          "condition": "service_healthy"
+        }
       },
       "restart": "always",
       "healthCheck": {
@@ -43,13 +56,25 @@
     {
       "name": "postgres",
       "image": "postgres:16",
-      "environment": {
-        "POSTGRES_DB": "perplexica",
-        "POSTGRES_USER": "perplexica",
-        "POSTGRES_PASSWORD": "${PERPLEXICA_DB_PASSWORD}"
-      },
+      "environment": [
+        {
+          "key": "POSTGRES_DB",
+          "value": "perplexica"
+        },
+        {
+          "key": "POSTGRES_USER",
+          "value": "perplexica"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "${PERPLEXICA_DB_PASSWORD}"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data" }
+        {
+          "hostPath": "${APP_DATA_DIR}/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        }
       ],
       "restart": "always",
       "healthCheck": {
@@ -60,6 +85,6 @@
         "start_period": "30s"
       }
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-

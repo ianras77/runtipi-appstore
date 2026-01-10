@@ -20,10 +20,16 @@
         }
       ],
       "hostname": "${SYNCTHING_HOSTNAME:-tipi}",
-      "environment": {
-        "PUID": "1000",
-        "PGID": "1000"
-      },
+      "environment": [
+        {
+          "key": "PUID",
+          "value": "1000"
+        },
+        {
+          "key": "PGID",
+          "value": "1000"
+        }
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
@@ -36,5 +42,6 @@
       ],
       "stopGracePeriod": "1m"
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

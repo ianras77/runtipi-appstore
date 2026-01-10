@@ -5,13 +5,29 @@
       "image": "langchain/langserve:0.1.0",
       "isMain": true,
       "internalPort": 8000,
-      "environment": {
-        "PORT": "8000",
-        "LANGSERVE_APP": "${LANGSERVE_MODULE}"
-      },
-      "command": ["uvicorn", "${LANGSERVE_MODULE}", "--host", "0.0.0.0", "--port", "8000"],
+      "environment": [
+        {
+          "key": "PORT",
+          "value": "8000"
+        },
+        {
+          "key": "LANGSERVE_APP",
+          "value": "${LANGSERVE_MODULE}"
+        }
+      ],
+      "command": [
+        "uvicorn",
+        "${LANGSERVE_MODULE}",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000"
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/app", "containerPath": "/app" }
+        {
+          "hostPath": "${APP_DATA_DIR}/app",
+          "containerPath": "/app"
+        }
       ],
       "restart": "always",
       "healthCheck": {
@@ -22,6 +38,6 @@
         "start_period": "30s"
       }
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-

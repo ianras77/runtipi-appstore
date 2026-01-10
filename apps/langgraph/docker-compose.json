@@ -5,14 +5,27 @@
       "image": "langchain/langgraph-api:3.12",
       "isMain": true,
       "internalPort": 8123,
-      "environment": {
-        "PORT": "8123",
-        "REDIS_URI": "redis://redis:6379/0",
-        "DATABASE_URL": "postgresql://langgraph:${LANGGRAPH_DB_PASSWORD}@postgres:5432/langgraph"
-      },
+      "environment": [
+        {
+          "key": "PORT",
+          "value": "8123"
+        },
+        {
+          "key": "REDIS_URI",
+          "value": "redis://redis:6379/0"
+        },
+        {
+          "key": "DATABASE_URL",
+          "value": "postgresql://langgraph:${LANGGRAPH_DB_PASSWORD}@postgres:5432/langgraph"
+        }
+      ],
       "dependsOn": {
-        "postgres": { "condition": "service_healthy" },
-        "redis": { "condition": "service_started" }
+        "postgres": {
+          "condition": "service_healthy"
+        },
+        "redis": {
+          "condition": "service_started"
+        }
       },
       "restart": "always",
       "healthCheck": {
@@ -26,13 +39,25 @@
     {
       "name": "postgres",
       "image": "postgres:16",
-      "environment": {
-        "POSTGRES_DB": "langgraph",
-        "POSTGRES_USER": "langgraph",
-        "POSTGRES_PASSWORD": "${LANGGRAPH_DB_PASSWORD}"
-      },
+      "environment": [
+        {
+          "key": "POSTGRES_DB",
+          "value": "langgraph"
+        },
+        {
+          "key": "POSTGRES_USER",
+          "value": "langgraph"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "${LANGGRAPH_DB_PASSWORD}"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data" }
+        {
+          "hostPath": "${APP_DATA_DIR}/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        }
       ],
       "restart": "always",
       "healthCheck": {
@@ -47,10 +72,13 @@
       "name": "redis",
       "image": "redis:7.2",
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/redis", "containerPath": "/data" }
+        {
+          "hostPath": "${APP_DATA_DIR}/redis",
+          "containerPath": "/data"
+        }
       ],
       "restart": "always"
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-

@@ -1,0 +1,23 @@
+{
+  "services": [
+    {
+      "name": "heimdall",
+      "image": "lscr.io/linuxserver/heimdall:2.7.6",
+      "isMain": true,
+      "internalPort": 80,
+      "environment": {
+        "PUID": "1000",
+        "PGID": "1000",
+        "TZ": "${TZ}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/config",
+          "containerPath": "/config"
+        }
+      ]
+    }
+  ],
+  "$schema": "../dynamic-compose-schema.json",
+  "schema": "2"
+}

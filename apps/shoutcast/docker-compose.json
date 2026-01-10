@@ -5,16 +5,28 @@
       "image": "murderousone/shoutcast:latest",
       "isMain": true,
       "internalPort": 8000,
-      "environment": {
-        "ADMIN_PASSWORD": "${SC_ADMIN_PASS:-changeme}",
-        "STREAM_PASSWORD": "${SC_SOURCE_PASS:-changeme}"
-      },
+      "environment": [
+        {
+          "key": "ADMIN_PASSWORD",
+          "value": "${SC_ADMIN_PASS:-changeme}"
+        },
+        {
+          "key": "STREAM_PASSWORD",
+          "value": "${SC_SOURCE_PASS:-changeme}"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/shoutcast/config", "containerPath": "/etc/shoutcast" },
-        { "hostPath": "${APP_DATA_DIR}/shoutcast/data", "containerPath": "/var/lib/shoutcast" }
+        {
+          "hostPath": "${APP_DATA_DIR}/shoutcast/config",
+          "containerPath": "/etc/shoutcast"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/shoutcast/data",
+          "containerPath": "/var/lib/shoutcast"
+        }
       ],
       "restart": "unless-stopped"
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-

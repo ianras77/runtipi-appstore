@@ -6,17 +6,34 @@
       "isMain": true,
       "internalPort": 8000,
       "restart": "unless-stopped",
-      "environment": {
-        "PORT": "8000",
-        "NODE_ENV": "production",
-        "SECRET_KEY": "${SECRET_KEY}",
-        "MONGODB_URI": "mongodb://mongo:27017/astroluma"
-      },
+      "environment": [
+        {
+          "key": "PORT",
+          "value": "8000"
+        },
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "SECRET_KEY",
+          "value": "${SECRET_KEY}"
+        },
+        {
+          "key": "MONGODB_URI",
+          "value": "mongodb://mongo:27017/astroluma"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/uploads", "containerPath": "/app/storage/uploads" }
+        {
+          "hostPath": "${APP_DATA_DIR}/uploads",
+          "containerPath": "/app/storage/uploads"
+        }
       ],
       "dependsOn": {
-        "mongo": { "condition": "service_started" }
+        "mongo": {
+          "condition": "service_started"
+        }
       }
     },
     {
@@ -24,9 +41,12 @@
       "image": "mongo:6.0",
       "restart": "unless-stopped",
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/mongo", "containerPath": "/data/db" }
+        {
+          "hostPath": "${APP_DATA_DIR}/mongo",
+          "containerPath": "/data/db"
+        }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-

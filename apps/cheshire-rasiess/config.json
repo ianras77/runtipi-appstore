@@ -1,7 +1,7 @@
 {
   "$schema": "../app-info-schema.json",
   "schema": "2",
-  "name": "Cheshire Cat AI: RasiesMain",
+  "name": "Cheshire Cat AI: Rasiess",
   "available": true,
   "port": 1867,
   "exposable": true,

@@ -6,34 +6,69 @@
       "isMain": true,
       "internalPort": 42110,
       "restart": "unless-stopped",
-      "environment": {
-        "KHOJ_ADMIN_EMAIL": "${KHOJ_ADMIN_EMAIL}",
-        "KHOJ_ADMIN_PASSWORD": "${KHOJ_ADMIN_PASSWORD}",
-        "KHOJ_DJANGO_SECRET_KEY": "${KHOJ_DJANGO_SECRET_KEY}",
-        "KHOJ_DOMAIN": "${KHOJ_DOMAIN}",
-        "KHOJ_NO_HTTPS": "true",
-        "DATABASE_URL": "postgres://khoj:${POSTGRES_PASSWORD}@db:5432/khoj"
-      },
+      "environment": [
+        {
+          "key": "KHOJ_ADMIN_EMAIL",
+          "value": "${KHOJ_ADMIN_EMAIL}"
+        },
+        {
+          "key": "KHOJ_ADMIN_PASSWORD",
+          "value": "${KHOJ_ADMIN_PASSWORD}"
+        },
+        {
+          "key": "KHOJ_DJANGO_SECRET_KEY",
+          "value": "${KHOJ_DJANGO_SECRET_KEY}"
+        },
+        {
+          "key": "KHOJ_DOMAIN",
+          "value": "${KHOJ_DOMAIN}"
+        },
+        {
+          "key": "KHOJ_NO_HTTPS",
+          "value": "true"
+        },
+        {
+          "key": "DATABASE_URL",
+          "value": "postgres://khoj:${POSTGRES_PASSWORD}@db:5432/khoj"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/root/.khoj" }
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/root/.khoj"
+        }
       ],
       "dependsOn": {
-        "db": { "condition": "service_started" }
+        "db": {
+          "condition": "service_started"
+        }
       }
     },
     {
       "name": "db",
       "image": "postgres:15-alpine",
       "restart": "unless-stopped",
-      "environment": {
-        "POSTGRES_DB": "khoj",
-        "POSTGRES_USER": "khoj",
-        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}"
-      },
+      "environment": [
+        {
+          "key": "POSTGRES_DB",
+          "value": "khoj"
+        },
+        {
+          "key": "POSTGRES_USER",
+          "value": "khoj"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "${POSTGRES_PASSWORD}"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data" }
+        {
+          "hostPath": "${APP_DATA_DIR}/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-

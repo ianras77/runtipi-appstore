@@ -6,15 +6,27 @@
       "isMain": true,
       "internalPort": 3001,
       "restart": "unless-stopped",
-      "environment": {
-        "JWT_SECRET": "${JWT_SECRET}",
-        "ALLOW_REGISTRATION": "${ALLOW_REGISTRATION}",
-        "STORAGE_DIR": "/app/server/storage"
-      },
+      "environment": [
+        {
+          "key": "JWT_SECRET",
+          "value": "${JWT_SECRET}"
+        },
+        {
+          "key": "ALLOW_REGISTRATION",
+          "value": "${ALLOW_REGISTRATION}"
+        },
+        {
+          "key": "STORAGE_DIR",
+          "value": "/app/server/storage"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/storage", "containerPath": "/app/server/storage" }
+        {
+          "hostPath": "${APP_DATA_DIR}/storage",
+          "containerPath": "/app/server/storage"
+        }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-

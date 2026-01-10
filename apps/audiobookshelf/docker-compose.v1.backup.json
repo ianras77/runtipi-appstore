@@ -1,0 +1,30 @@
+{
+  "services": [
+    {
+      "name": "audiobookshelf",
+      "image": "ghcr.io/advplyr/audiobookshelf:2.30.0",
+      "isMain": true,
+      "internalPort": 80,
+      "volumes": [
+        {
+          "hostPath": "${ROOT_FOLDER_HOST}/media/data/audiobooks",
+          "containerPath": "/audiobooks"
+        },
+        {
+          "hostPath": "${ROOT_FOLDER_HOST}/media/data/podcasts",
+          "containerPath": "/podcasts"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/config",
+          "containerPath": "/config"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/metadata",
+          "containerPath": "/metadata"
+        }
+      ]
+    }
+  ],
+  "$schema": "../dynamic-compose-schema.json",
+  "schema": "2"
+}

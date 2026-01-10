@@ -5,32 +5,86 @@
       "image": "appwrite/appwrite:1.7.0",
       "isMain": true,
       "internalPort": 80,
-      "environment": {
-        "_APP_ENV": "production",
-        "_APP_OPENSSL_KEY_V1": "${APPWRITE_OPENSSL_KEY_V1}",
-        "_APP_DOMAIN": "${APP_DOMAIN}",
-        "_APP_DOMAIN_TARGET": "${APP_DOMAIN}",
-        "_APP_OPTIONS_FORCE_HTTPS": "false",
-
-        "_APP_DB_HOST": "mariadb",
-        "_APP_DB_PORT": "3306",
-        "_APP_DB_SCHEMA": "appwrite",
-        "_APP_DB_USER": "appwrite",
-        "_APP_DB_PASS": "${APPWRITE_DB_PASSWORD}",
-
-        "_APP_REDIS_HOST": "redis",
-        "_APP_REDIS_PORT": "6379",
-        "_APP_REDIS_USER": "",
-        "_APP_REDIS_PASS": "${APPWRITE_REDIS_PASSWORD}"
-      },
+      "environment": [
+        {
+          "key": "_APP_ENV",
+          "value": "production"
+        },
+        {
+          "key": "_APP_OPENSSL_KEY_V1",
+          "value": "${APPWRITE_OPENSSL_KEY_V1}"
+        },
+        {
+          "key": "_APP_DOMAIN",
+          "value": "${APP_DOMAIN}"
+        },
+        {
+          "key": "_APP_DOMAIN_TARGET",
+          "value": "${APP_DOMAIN}"
+        },
+        {
+          "key": "_APP_OPTIONS_FORCE_HTTPS",
+          "value": "false"
+        },
+        {
+          "key": "_APP_DB_HOST",
+          "value": "mariadb"
+        },
+        {
+          "key": "_APP_DB_PORT",
+          "value": "3306"
+        },
+        {
+          "key": "_APP_DB_SCHEMA",
+          "value": "appwrite"
+        },
+        {
+          "key": "_APP_DB_USER",
+          "value": "appwrite"
+        },
+        {
+          "key": "_APP_DB_PASS",
+          "value": "${APPWRITE_DB_PASSWORD}"
+        },
+        {
+          "key": "_APP_REDIS_HOST",
+          "value": "redis"
+        },
+        {
+          "key": "_APP_REDIS_PORT",
+          "value": "6379"
+        },
+        {
+          "key": "_APP_REDIS_USER",
+          "value": ""
+        },
+        {
+          "key": "_APP_REDIS_PASS",
+          "value": "${APPWRITE_REDIS_PASSWORD}"
+        }
+      ],
       "dependsOn": {
-        "mariadb": { "condition": "service_healthy" },
-        "redis": { "condition": "service_started" }
+        "mariadb": {
+          "condition": "service_healthy"
+        },
+        "redis": {
+          "condition": "service_started"
+        }
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/appwrite/var", "containerPath": "/var/lib/appwrite" },
-        { "hostPath": "${APP_DATA_DIR}/appwrite/uploads", "containerPath": "/storage/uploads" },
-        { "hostPath": "${APP_DATA_DIR}/appwrite/config", "containerPath": "/usr/src/code/app/config", "readOnly": false }
+        {
+          "hostPath": "${APP_DATA_DIR}/appwrite/var",
+          "containerPath": "/var/lib/appwrite"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/appwrite/uploads",
+          "containerPath": "/storage/uploads"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/appwrite/config",
+          "containerPath": "/usr/src/code/app/config",
+          "readOnly": false
+        }
       ],
       "restart": "always",
       "healthCheck": {
@@ -44,14 +98,29 @@
     {
       "name": "mariadb",
       "image": "mariadb:11.4",
-      "environment": {
-        "MARIADB_ROOT_PASSWORD": "${MARIADB_ROOT_PASSWORD}",
-        "MARIADB_DATABASE": "appwrite",
-        "MARIADB_USER": "appwrite",
-        "MARIADB_PASSWORD": "${APPWRITE_DB_PASSWORD}"
-      },
+      "environment": [
+        {
+          "key": "MARIADB_ROOT_PASSWORD",
+          "value": "${MARIADB_ROOT_PASSWORD}"
+        },
+        {
+          "key": "MARIADB_DATABASE",
+          "value": "appwrite"
+        },
+        {
+          "key": "MARIADB_USER",
+          "value": "appwrite"
+        },
+        {
+          "key": "MARIADB_PASSWORD",
+          "value": "${APPWRITE_DB_PASSWORD}"
+        }
+      ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/mariadb", "containerPath": "/var/lib/mysql" }
+        {
+          "hostPath": "${APP_DATA_DIR}/mariadb",
+          "containerPath": "/var/lib/mysql"
+        }
       ],
       "restart": "always",
       "healthCheck": {
@@ -67,13 +136,17 @@
       "image": "redis:7.2",
       "command": [
         "redis-server",
-        "--requirepass", "${APPWRITE_REDIS_PASSWORD}"
+        "--requirepass",
+        "${APPWRITE_REDIS_PASSWORD}"
       ],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/redis", "containerPath": "/data" }
+        {
+          "hostPath": "${APP_DATA_DIR}/redis",
+          "containerPath": "/data"
+        }
       ],
       "restart": "always"
     }
-  ]
+  ],
+  "schemaVersion": 2
 }
-
