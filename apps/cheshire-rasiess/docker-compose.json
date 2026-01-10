@@ -3,7 +3,7 @@
   "schemaVersion": 2,
   "services": [
     {
-      "name": "cheshire-rasies2",
+      "name": "cheshire-rasiess",
       "image": "ghcr.io/cheshire-cat-ai/core:1.9.2",
       "isMain": true,
       "internalPort": 80,
@@ -22,7 +22,7 @@
         { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/app/cat/static" },
         { "hostPath": "${APP_DATA_DIR}/data/plugins", "containerPath": "/app/cat/plugins" },
         { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }
-      },
+      ],
       "ulimits": {
         "nofile": { "soft": 1048576, "hard": 1048576 }
       },
