@@ -6,7 +6,7 @@
   "port": 1865,
   "exposable": true,
   "dynamic_config": true,
-  "id": "cheshire-rasies2",
+  "id": "cheshire-rasiesM",
   "description": "The Cheshire Cat is an open-source, hackable and production-ready framework that allows developing intelligent personal AI assistant agents on top of Large Language Models (LLM).",
   "tipi_version": 13,
   "version": "1.9.2",

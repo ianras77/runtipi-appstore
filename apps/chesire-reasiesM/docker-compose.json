@@ -3,7 +3,7 @@
   "schemaVersion": 2,
   "services": [
     {
-      "name": "cheshire-rasies2",
+      "name": "cheshire-rasiesM",
       "image": "ghcr.io/cheshire-cat-ai/core:1.9.2",
       "isMain": true,
       "internalPort": 80,
