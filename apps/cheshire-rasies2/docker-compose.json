@@ -7,33 +7,25 @@
       "image": "ghcr.io/cheshire-cat-ai/core:1.9.2",
       "isMain": true,
       "internalPort": 80,
-
       "restart": "unless-stopped",
-
       "environment": [
         { "key": "CCAT_QDRANT_HOST", "value": "qdrant" },
         { "key": "CCAT_QDRANT_PORT", "value": 6333 },
-
         { "key": "CCAT_REDIS_HOST", "value": "redis" },
         { "key": "CCAT_REDIS_PORT", "value": 6379 }
-
       ],
-
       "dependsOn": {
         "qdrant": { "condition": "service_started" },
         "redis": { "condition": "service_started" }
       },
-
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/static",  "containerPath": "/app/cat/static" },
+        { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/app/cat/static" },
         { "hostPath": "${APP_DATA_DIR}/data/plugins", "containerPath": "/app/cat/plugins" },
-        { "hostPath": "${APP_DATA_DIR}/data/data",    "containerPath": "/app/cat/data" }
-      ],
-
+        { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }
+      },
       "ulimits": {
         "nofile": { "soft": 1048576, "hard": 1048576 }
       },
-
       "command": [
         "gunicorn",
         "-k",
@@ -54,7 +46,6 @@
         "-",
         "cat.main:app"
       ],
-
       "healthCheck": {
         "test": "wget -qO- http://localhost/healthz || exit 1",
         "interval": "30s",
@@ -62,7 +53,6 @@
         "retries": 10,
         "startPeriod": "30s"
       },
-
       "logging": {
         "driver": "json-file",
         "options": {
@@ -71,21 +61,16 @@
         }
       }
     },
-
     {
       "name": "qdrant",
       "image": "qdrant/qdrant:v1.12.0",
-
       "restart": "unless-stopped",
-
       "ulimits": {
         "nofile": { "soft": 1048576, "hard": 1048576 }
       },
-
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/qdrant", "containerPath": "/qdrant/storage" }
       ],
-
       "healthCheck": {
         "test": "wget -qO- http://localhost:6333/healthz || exit 1",
         "interval": "15s",
@@ -93,7 +78,6 @@
         "retries": 10,
         "startPeriod": "20s"
       },
-
       "logging": {
         "driver": "json-file",
         "options": {
@@ -102,13 +86,10 @@
         }
       }
     },
-
     {
       "name": "redis",
       "image": "redis:7-alpine",
-
       "restart": "unless-stopped",
-
       "command": [
         "redis-server",
         "--save",
@@ -120,7 +101,6 @@
         "--maxmemory-policy",
         "allkeys-lru"
       ],
-
       "healthCheck": {
         "test": "redis-cli ping | grep -q PONG || exit 1",
         "interval": "15s",
@@ -128,7 +108,6 @@
         "retries": 10,
         "startPeriod": "10s"
       },
-
       "logging": {
         "driver": "json-file",
         "options": {
