@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "cheshire-rasiess",
-      "image": "ghcr.io/cheshire-cat-ai/core:1.9.2",
+      "image": "ghcr.io/cheshire-cat-ai/core:latest",
       "isMain": true,
       "internalPort": 80,
       "environment": [
