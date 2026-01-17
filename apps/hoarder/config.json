@@ -8,8 +8,8 @@
   "port": 8685,
   "categories": ["utilities", "ai"],
   "description": "A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search",
-  "tipi_version": 14,
-  "version": "0.24.1",
+  "tipi_version": 15,
+  "version": "0.30",
   "source": "https://github.com/hoarder-app/hoarder",
   "website": "https://hoarder.app",
   "form_fields": [

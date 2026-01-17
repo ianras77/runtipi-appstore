@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "vaultwarden",
-      "image": "vaultwarden/server:1.33.2",
+      "image": "vaultwarden/server:latest",
       "isMain": true,
       "internalPort": 80,
       "environment": [
