@@ -1,6 +1,12 @@
 {
   "$schema": "../dynamic-compose-schema.json",
   "schemaVersion": 2,
+  "networks": [
+    {
+      "name": "runtipi_tipi_main_network",
+      "external": true
+    }
+  ],
   "services": [
     {
       "name": "cheshire-rpg",

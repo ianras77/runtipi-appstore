@@ -1,24 +1,41 @@
 {
   "$schema": "../dynamic-compose-schema.json",
   "schemaVersion": 2,
+  "networks": [
+    {
+      "name": "runtipi_tipi_main_network",
+      "external": true
+    }
+  ],
   "services": [
     {
-      "name": "cheshire-cat-ai",
+      "name": "cheshire-rasies",
       "image": "ghcr.io/cheshire-cat-ai/core:latest",
       "isMain": true,
       "internalPort": 80,
       "environment": [
-        { "key": "CCAT_QDRANT_HOST", "value": "qdrant" },
-        { "key": "CCAT_QDRANT_PORT", "value": 6333 }
+        { "key": "CCAT_QDRANT_HOST", "value": "qdrant-rpg" },
+        { "key": "CCAT_QDRANT_PORT", "value": "6333" },
+
+        { "key": "CCAT_CORE_HOST", "value": "${APP_DOMAIN}" },
+        { "key": "CCAT_CORE_PORT", "value": "443" },
+
+        { "key": "CCAT_CORE_USE_SECURE_PROTOCOLS", "value": "true" },
+        { "key": "CCAT_HTTPS_PROXY_MODE", "value": "true" },
+
+        { "key": "CCAT_CORS_ALLOWED_ORIGINS", "value": "*" },
+        { "key": "CCAT_CORS_FORWARDED_ALLOW_IPS", "value": "*" },
+
+        { "key": "CCAT_LOG_LEVEL", "value": "INFO" }
       ],
       "dependsOn": {
-        "qdrant": { "condition": "service_started" },
-        "redis": { "condition": "service_started" }
+        "qdrant-rasies": { "condition": "service_started" },
+        "redis-rasies": { "condition": "service_started" }
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/static",  "containerPath": "/app/cat/static" },
+        { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/app/cat/static" },
         { "hostPath": "${APP_DATA_DIR}/data/plugins", "containerPath": "/app/cat/plugins" },
-        { "hostPath": "${APP_DATA_DIR}/data/data",    "containerPath": "/app/cat/data" }
+        { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }
       ],
       "healthCheck": {
         "test": "wget -qO- http://localhost/healthz || exit 1",
@@ -26,55 +43,36 @@
         "timeout": "5s",
         "retries": 10,
         "startPeriod": "30s"
-      },
-      "logging": {
-        "driver": "json-file",
-        "options": {
-          "max-size": "10m",
-          "max-file": "5"
-        }
       }
     },
     {
-      "name": "qdrant",
+      "name": "qdrant-rasies",
       "image": "qdrant/qdrant:v1.12.0",
-      "internalPort": 6333,
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/qdrant", "containerPath": "/qdrant/storage" }
       ],
       "ulimits": {
-        "nofile": { "soft": 1048576, "hard": 1048576 }
+        "nofile": { "soft": 524288, "hard": 524288 }
       },
-      "logging": {
-        "driver": "json-file",
-        "options": {
-          "max-size": "10m",
-          "max-file": "5"
-        }
+      "healthCheck": {
+        "test": "wget -qO- http://localhost:6333/healthz || exit 1",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "20s"
       }
     },
     {
-      "name": "redis",
-      "image": "redis:7.2-alpine",
-      "internalPort": 6379,
-      "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/redis", "containerPath": "/data" }
-      ],
+      "name": "redis-rasies",
+      "image": "redis:7-alpine",
+      "command": ["redis-server", "--save", "", "--appendonly", "no"],
       "healthCheck": {
-        "test": "redis-cli ping | grep -q PONG",
-        "interval": "10s",
-        "timeout": "3s",
-        "retries": 30,
+        "test": "redis-cli ping | grep -q PONG || exit 1",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10,
         "startPeriod": "10s"
-      },
-      "logging": {
-        "driver": "json-file",
-        "options": {
-          "max-size": "10m",
-          "max-file": "5"
-        }
       }
     }
   ]
 }
-
