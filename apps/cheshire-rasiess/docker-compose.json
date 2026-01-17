@@ -23,8 +23,8 @@
         { "key": "CCAT_LOG_LEVEL", "value": "INFO" }
       ],
       "dependsOn": {
-        "qdrant-rasiess": { "condition": "service_healthy" },
-        "redis-rasiess": { "condition": "service_healthy" }
+        "qdrant-rasiess": { "condition": "service_started" },
+        "redis-rasiess": { "condition": "service_started" }
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/app/cat/static" },
