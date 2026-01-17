@@ -10,23 +10,26 @@
       "environment": [
         { "key": "CCAT_QDRANT_HOST", "value": "qdrant" },
         { "key": "CCAT_QDRANT_PORT", "value": "6333" },
-        { "key": "CCAT_CORE_HOST", "value": "cheshire-rasiess" },
-        { "key": "CCAT_CORE_PORT", "value": "80" },
+
+        { "key": "CCAT_CORE_HOST", "value": "${APP_DOMAIN}" },
+        { "key": "CCAT_CORE_PORT", "value": "443" },
+
         { "key": "CCAT_CORE_USE_SECURE_PROTOCOLS", "value": "true" },
         { "key": "CCAT_HTTPS_PROXY_MODE", "value": "true" },
+
         { "key": "CCAT_CORS_ALLOWED_ORIGINS", "value": "*" },
-        { "key": "CCAT_REDIS_HOST", "value": "redis" },
-        { "key": "CCAT_REDIS_PORT", "value": "6379" },
+        { "key": "CCAT_CORS_FORWARDED_ALLOW_IPS", "value": "*" },
+
         { "key": "CCAT_LOG_LEVEL", "value": "INFO" }
       ],
       "dependsOn": {
-        "qdrant": { "condition": "service_started" },
-        "redis": { "condition": "service_started" }
+        "qdrant": { "condition": "service_healthy" },
+        "redis": { "condition": "service_healthy" }
       },
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/app/cat/static" },
         { "hostPath": "${APP_DATA_DIR}/data/plugins", "containerPath": "/app/cat/plugins" },
-        { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }	
+        { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }
       ],
       "healthCheck": {
         "test": "wget -qO- http://localhost/healthz || exit 1",
@@ -44,7 +47,7 @@
       }
     },
     {
-      "name": "qdrant",
+      "name": "qdrant-rasiess",
       "image": "qdrant/qdrant:v1.12.0",
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/qdrant", "containerPath": "/qdrant/storage" }
@@ -71,15 +74,9 @@
       }
     },
     {
-      "name": "redis",
+      "name": "redis-rasiess",
       "image": "redis:7-alpine",
-      "command": [
-        "redis-server",
-        "--save",
-        "",
-        "--appendonly",
-        "no"
-      ],
+      "command": ["redis-server", "--save", "", "--appendonly", "no"],
       "healthCheck": {
         "test": "redis-cli ping | grep -q PONG || exit 1",
         "interval": "15s",
@@ -90,11 +87,4 @@
       "logging": {
         "driver": "json-file",
         "options": {
-          "max-size": "10m",
-          "max-file": "5"
-        }
-      }
-    }
-  ]
-}
-
+          "max-size"
