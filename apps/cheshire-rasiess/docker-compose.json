@@ -26,7 +26,7 @@
       "volumes": [
         { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/app/cat/static" },
         { "hostPath": "${APP_DATA_DIR}/data/plugins", "containerPath": "/app/cat/plugins" },
-        { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }
+        { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }	
       ],
       "healthCheck": {
         "test": "wget -qO- http://localhost/healthz || exit 1",
