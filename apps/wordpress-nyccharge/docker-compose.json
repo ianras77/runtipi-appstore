@@ -40,7 +40,7 @@
         }
       ],
       "dependsOn": {
-        "wordpress-aidanras-db": {
+        "wordpress-nyccharge-db": {
           "condition": "service_started"
         }
       },
