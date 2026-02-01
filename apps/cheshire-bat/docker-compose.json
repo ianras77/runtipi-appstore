@@ -1,0 +1,126 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "networks": [
+    {
+      "name": "runtipi_tipi_main_network",
+      "external": true
+    }
+  ],
+  "services": [
+    {
+      "name": "cheshire-bat",
+      "image": "ghcr.io/cheshire-cat-ai/core:latest",
+      "isMain": true,
+      "internalPort": 80,
+      "environment": [
+        {
+          "key": "CCAT_QDRANT_HOST",
+          "value": "qdrant-bat"
+        },
+        {
+          "key": "CCAT_QDRANT_PORT",
+          "value": "6333"
+        },
+        {
+          "key": "CCAT_CORE_HOST",
+          "value": "${APP_DOMAIN}"
+        },
+        {
+          "key": "CCAT_CORE_PORT",
+          "value": "443"
+        },
+        {
+          "key": "CCAT_CORE_USE_SECURE_PROTOCOLS",
+          "value": "true"
+        },
+        {
+          "key": "CCAT_HTTPS_PROXY_MODE",
+          "value": "true"
+        },
+        {
+          "key": "CCAT_CORS_ALLOWED_ORIGINS",
+          "value": "*"
+        },
+        {
+          "key": "CCAT_CORS_FORWARDED_ALLOW_IPS",
+          "value": "*"
+        },
+        {
+          "key": "CCAT_LOG_LEVEL",
+          "value": "INFO"
+        }
+      ],
+      "dependsOn": {
+        "qdrant-bat": {
+          "condition": "service_started"
+        },
+        "redis-bat": {
+          "condition": "service_started"
+        }
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/static",
+          "containerPath": "/app/cat/static"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/plugins",
+          "containerPath": "/app/cat/plugins"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/data",
+          "containerPath": "/app/cat/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "wget -qO- http://localhost/healthz || exit 1",
+        "interval": "30s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "30s"
+      }
+    },
+    {
+      "name": "qdrant-bat",
+      "image": "qdrant/qdrant:v1.12.0",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/qdrant",
+          "containerPath": "/qdrant/storage"
+        }
+      ],
+      "ulimits": {
+        "nofile": {
+          "soft": 524288,
+          "hard": 524288
+        }
+      },
+      "healthCheck": {
+        "test": "wget -qO- http://localhost:6333/healthz || exit 1",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "20s"
+      }
+    },
+    {
+      "name": "redis-bat",
+      "image": "redis:7-alpine",
+      "command": [
+        "redis-server",
+        "--save",
+        "",
+        "--appendonly",
+        "no"
+      ],
+      "healthCheck": {
+        "test": "redis-cli ping | grep -q PONG || exit 1",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "10s"
+      }
+    }
+  ]
+}
