@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "ghost",
-      "image": "ghost:6.13.2",
+      "image": "ghost:6.14.0",
       "dependsOn": [
         "ghostdb"
       ],
@@ -69,7 +69,7 @@
     },
     {
       "name": "ghostdb",
-      "image": "mariadb:latest",
+      "image": "mariadb:12.1.2",
       "environment": [
         {
           "key": "MYSQL_ROOT_PASSWORD",

@@ -20,7 +20,7 @@
         },
         {
           "key": "HOARDER_VERSION",
-          "value": "0.20.0"
+          "value": "0.30.0"
         },
         {
           "key": "OPENAI_API_KEY",
@@ -60,7 +60,7 @@
     },
     {
       "name": "hoarder-meilisearch",
-      "image": "getmeili/meilisearch:v1.12",
+      "image": "getmeili/meilisearch:v1.32.1",
       "environment": [
         {
           "key": "MEILI_NO_ANALYTICS",

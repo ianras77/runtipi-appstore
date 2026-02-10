@@ -10,7 +10,7 @@
   "services": [
     {
       "name": "cheshire-bat",
-      "image": "ghcr.io/cheshire-cat-ai/core:latest",
+      "image": "ghcr.io/cheshire-cat-ai/core:1.9.2",
       "isMain": true,
       "internalPort": 80,
       "environment": [
@@ -83,7 +83,7 @@
     },
     {
       "name": "qdrant-bat",
-      "image": "qdrant/qdrant:v1.12.0",
+      "image": "qdrant/qdrant:v1.16.3",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/qdrant",
@@ -106,7 +106,7 @@
     },
     {
       "name": "redis-bat",
-      "image": "redis:7-alpine",
+      "image": "redis:8.4.0-alpine",
       "command": [
         "redis-server",
         "--save",

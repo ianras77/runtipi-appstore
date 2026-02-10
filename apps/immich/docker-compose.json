@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "immich",
-      "image": "ghcr.io/immich-app/immich-server:v2.2.2",
+      "image": "ghcr.io/immich-app/immich-server:v2.4.1",
       "isMain": true,
       "internalPort": 2283,
       "environment": [
@@ -54,7 +54,7 @@
     },
     {
       "name": "immich-machine-learning",
-      "image": "ghcr.io/immich-app/immich-machine-learning:v1.130.3",
+      "image": "ghcr.io/immich-app/immich-machine-learning:v2.4.1",
       "environment": [
         {
           "key": "NODE_ENV",
@@ -97,14 +97,14 @@
     },
     {
       "name": "immich-redis",
-      "image": "redis:6.2",
+      "image": "redis:8.4.0",
       "healthCheck": {
         "test": "redis-cli ping || exit 1"
       }
     },
     {
       "name": "immich-db",
-      "image": "tensorchord/pgvecto-rs:pg14-v0.2.0",
+      "image": "tensorchord/pgvecto-rs:pg14-v0.2.1",
       "environment": [
         {
           "key": "POSTGRES_PASSWORD",

@@ -10,32 +10,68 @@
   "services": [
     {
       "name": "cheshire-rasiess",
-      "image": "ghcr.io/cheshire-cat-ai/core:latest",
+      "image": "ghcr.io/cheshire-cat-ai/core:1.9.2",
       "isMain": true,
       "internalPort": 80,
       "environment": [
-        { "key": "CCAT_QDRANT_HOST", "value": "qdrant-rasiess" },
-        { "key": "CCAT_QDRANT_PORT", "value": "6333" },
-
-        { "key": "CCAT_CORE_HOST", "value": "${APP_DOMAIN}" },
-        { "key": "CCAT_CORE_PORT", "value": "443" },
-
-        { "key": "CCAT_CORE_USE_SECURE_PROTOCOLS", "value": "true" },
-        { "key": "CCAT_HTTPS_PROXY_MODE", "value": "true" },
-
-        { "key": "CCAT_CORS_ALLOWED_ORIGINS", "value": "*" },
-        { "key": "CCAT_CORS_FORWARDED_ALLOW_IPS", "value": "*" },
-
-        { "key": "CCAT_LOG_LEVEL", "value": "INFO" }
+        {
+          "key": "CCAT_QDRANT_HOST",
+          "value": "qdrant-rasiess"
+        },
+        {
+          "key": "CCAT_QDRANT_PORT",
+          "value": "6333"
+        },
+        {
+          "key": "CCAT_CORE_HOST",
+          "value": "${APP_DOMAIN}"
+        },
+        {
+          "key": "CCAT_CORE_PORT",
+          "value": "443"
+        },
+        {
+          "key": "CCAT_CORE_USE_SECURE_PROTOCOLS",
+          "value": "true"
+        },
+        {
+          "key": "CCAT_HTTPS_PROXY_MODE",
+          "value": "true"
+        },
+        {
+          "key": "CCAT_CORS_ALLOWED_ORIGINS",
+          "value": "*"
+        },
+        {
+          "key": "CCAT_CORS_FORWARDED_ALLOW_IPS",
+          "value": "*"
+        },
+        {
+          "key": "CCAT_LOG_LEVEL",
+          "value": "INFO"
+        }
       ],
       "dependsOn": {
-        "qdrant-rasiess": { "condition": "service_started" },
-        "redis-rasiess": { "condition": "service_started" }
+        "qdrant-rasiess": {
+          "condition": "service_started"
+        },
+        "redis-rasiess": {
+          "condition": "service_started"
+        }
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/app/cat/static" },
-        { "hostPath": "${APP_DATA_DIR}/data/plugins", "containerPath": "/app/cat/plugins" },
-        { "hostPath": "${APP_DATA_DIR}/data/data", "containerPath": "/app/cat/data" }
+        {
+          "hostPath": "${APP_DATA_DIR}/data/static",
+          "containerPath": "/app/cat/static"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/plugins",
+          "containerPath": "/app/cat/plugins"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/data",
+          "containerPath": "/app/cat/data"
+        }
       ],
       "healthCheck": {
         "test": "wget -qO- http://localhost/healthz || exit 1",
@@ -47,12 +83,18 @@
     },
     {
       "name": "qdrant-rasiess",
-      "image": "qdrant/qdrant:v1.12.0",
+      "image": "qdrant/qdrant:v1.16.3",
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/data/qdrant", "containerPath": "/qdrant/storage" }
+        {
+          "hostPath": "${APP_DATA_DIR}/data/qdrant",
+          "containerPath": "/qdrant/storage"
+        }
       ],
       "ulimits": {
-        "nofile": { "soft": 524288, "hard": 524288 }
+        "nofile": {
+          "soft": 524288,
+          "hard": 524288
+        }
       },
       "healthCheck": {
         "test": "wget -qO- http://localhost:6333/healthz || exit 1",
@@ -64,8 +106,14 @@
     },
     {
       "name": "redis-rasiess",
-      "image": "redis:7-alpine",
-      "command": ["redis-server", "--save", "", "--appendonly", "no"],
+      "image": "redis:8.4.0-alpine",
+      "command": [
+        "redis-server",
+        "--save",
+        "",
+        "--appendonly",
+        "no"
+      ],
       "healthCheck": {
         "test": "redis-cli ping | grep -q PONG || exit 1",
         "interval": "15s",
