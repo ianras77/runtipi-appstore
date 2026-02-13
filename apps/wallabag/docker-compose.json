@@ -1,0 +1,26 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "wallabag",
+      "image": "wallabag/wallabag:2.6.12",
+      "isMain": true,
+      "internalPort": 80,
+      "environment": {
+        "SYMFONY__ENV__DOMAIN_NAME": "https://${APP_DOMAIN}",
+        "SYMFONY__ENV__FOSUSER_REGISTRATION": "${ALLOW_USER_REGISTRATION}",
+        "TZ": "${TZ}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/data",
+          "containerPath": "/var/www/wallabag/data"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/images",
+          "containerPath": "/var/www/wallabag/web/assets/images"
+        }
+      ]
+    }
+  ]
+}

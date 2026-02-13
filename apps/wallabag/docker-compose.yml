@@ -1,0 +1,53 @@
+services:
+  wallabag:
+    image: wallabag/wallabag:2.6.12
+    restart: unless-stopped
+    networks:
+      wallabag_official-redux_network:
+        gw_priority: 0
+      tipi_main_network:
+        gw_priority: 1
+    environment:
+      SYMFONY__ENV__DOMAIN_NAME: https://${APP_DOMAIN}
+      SYMFONY__ENV__FOSUSER_REGISTRATION: ${ALLOW_USER_REGISTRATION}
+      TZ: ${TZ}
+    ports:
+      - ${APP_PORT}:80
+    volumes:
+      - ${APP_DATA_DIR}/data/data:/var/www/wallabag/data
+      - ${APP_DATA_DIR}/data/images:/var/www/wallabag/web/assets/images
+    labels:
+      generated: true
+      traefik.enable: true
+      traefik.docker.network: runtipi_tipi_main_network
+      traefik.http.middlewares.wallabag-official-redux-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.wallabag-official-redux.loadbalancer.server.port: "80"
+      traefik.http.routers.wallabag-official-redux-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.wallabag-official-redux-insecure.entrypoints: web
+      traefik.http.routers.wallabag-official-redux-insecure.service: wallabag-official-redux
+      traefik.http.routers.wallabag-official-redux-insecure.middlewares: wallabag-official-redux-web-redirect
+      traefik.http.routers.wallabag-official-redux.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.wallabag-official-redux.entrypoints: websecure
+      traefik.http.routers.wallabag-official-redux.service: wallabag-official-redux
+      traefik.http.routers.wallabag-official-redux.tls.certresolver: myresolver
+      traefik.http.routers.wallabag-official-redux-local-insecure.rule: Host(`wallabag.${LOCAL_DOMAIN}`)
+      traefik.http.routers.wallabag-official-redux-local-insecure.entrypoints: web
+      traefik.http.routers.wallabag-official-redux-local-insecure.service: wallabag-official-redux
+      traefik.http.routers.wallabag-official-redux-local-insecure.middlewares: wallabag-official-redux-web-redirect
+      traefik.http.routers.wallabag-official-redux-local.rule: Host(`wallabag.${LOCAL_DOMAIN}`)
+      traefik.http.routers.wallabag-official-redux-local.entrypoints: websecure
+      traefik.http.routers.wallabag-official-redux-local.service: wallabag-official-redux
+      traefik.http.routers.wallabag-official-redux-local.tls: true
+      runtipi.managed: true
+      runtipi.appurn: wallabag:official-redux
+networks:
+  tipi_main_network:
+    name: runtipi_tipi_main_network
+    external: true
+  wallabag_official-redux_network:
+    name: wallabag_official-redux_network
+    external: false
+    ipam:
+      config:
+        - subnet: 10.128.81.0/24
+

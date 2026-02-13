@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schemas.runtipi.io/v2/dynamic-compose.json",
+  "services": [
+    {
+      "name": "miniflux",
+      "image": "ghcr.io/miniflux/miniflux:2.2.16",
+      "internalPort": 8080,
+      "isMain": true,
+      "environment": [
+        {
+          "key": "DATABASE_URL",
+          "value": "postgres://miniflux:${MINIFLUX_DB_PASSWORD}@miniflux-db/miniflux?sslmode=disable"
+        },
+        {
+          "key": "RUN_MIGRATIONS",
+          "value": "1"
+        },
+        {
+          "key": "CREATE_ADMIN",
+          "value": "1"
+        },
+        {
+          "key": "ADMIN_USERNAME",
+          "value": "${MINIFLUX_ADMIN_USERNAME}"
+        },
+        {
+          "key": "ADMIN_PASSWORD",
+          "value": "${MINIFLUX_ADMIN_PASSWORD}"
+        }
+      ],
+      "dependsOn": ["miniflux-db"]
+    },
+    {
+      "name": "miniflux-db",
+      "image": "postgres:17-alpine",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/db",
+          "containerPath": "/var/lib/postgresql/data"
+        }
+      ],
+      "environment": [
+        {
+          "key": "POSTGRES_USER",
+          "value": "miniflux"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "${MINIFLUX_DB_PASSWORD}"
+        },
+        {
+          "key": "POSTGRES_DB",
+          "value": "miniflux"
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U miniflux",
+        "interval": "10s",
+        "startPeriod": "30s"
+      }
+    }
+  ],
+  "schemaVersion": 2
+}

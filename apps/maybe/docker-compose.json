@@ -1,0 +1,105 @@
+{
+  "$schema": "https://raw.githubusercontent.com/runtipi/runtipi-appstore/refs/heads/master/apps/dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "web",
+      "image": "ghcr.io/maybe-finance/maybe:0.6.0",
+      "isMain": true,
+      "internalPort": 3000,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/storage",
+          "containerPath": "/rails/storage"
+        }
+      ],
+      "environment": [
+        {"key": "POSTGRES_USER", "value": "maybe"},
+        {"key": "POSTGRES_PASSWORD", "value": "${POSTGRES_PASSWORD}"},
+        {"key": "POSTGRES_DB", "value": "maybe"},
+        {"key": "SECRET_KEY_BASE", "value": "${SECRET_KEY_BASE}"},
+        {"key": "SELF_HOSTED", "value": "true"},
+        {"key": "RAILS_FORCE_SSL", "value": "false"},
+        {"key": "RAILS_ASSUME_SSL", "value": "false"},
+        {"key": "DB_HOST", "value": "db"},
+        {"key": "DB_PORT", "value": "5432"},
+        {"key": "REDIS_URL", "value": "redis://redis:6379/1"},
+        {"key": "OPENAI_ACCESS_TOKEN", "value": "${OPENAI_ACCESS_TOKEN}"},
+        {"key": "SYNTH_API_KEY", "value": "${SYNTH_API_KEY}"}
+      ],
+      "dependsOn": {
+        "db": {
+          "condition": "service_healthy"
+        },
+        "redis": {
+          "condition": "service_healthy"
+        }
+      }
+    },
+    {
+      "name": "worker",
+      "image": "ghcr.io/maybe-finance/maybe:0.6.0",
+      "command": [
+        "bundle",
+        "exec",
+        "sidekiq"
+      ],
+      "dependsOn": {
+        "redis": {
+          "condition": "service_healthy"
+        }
+      },
+      "environment": [
+        {"key": "POSTGRES_USER", "value": "maybe"},
+        {"key": "POSTGRES_PASSWORD", "value": "${POSTGRES_PASSWORD}"},
+        {"key": "POSTGRES_DB", "value": "maybe"},
+        {"key": "SECRET_KEY_BASE", "value": "${SECRET_KEY_BASE}"},
+        {"key": "SELF_HOSTED", "value": "true"},
+        {"key": "RAILS_FORCE_SSL", "value": "false"},
+        {"key": "RAILS_ASSUME_SSL", "value": "false"},
+        {"key": "DB_HOST", "value": "db"},
+        {"key": "DB_PORT", "value": "5432"},
+        {"key": "REDIS_URL", "value": "redis://redis:6379/1"},
+        {"key": "OPENAI_ACCESS_TOKEN", "value": "${OPENAI_ACCESS_TOKEN}"},
+        {"key": "SYNTH_API_KEY", "value": "${SYNTH_API_KEY}"}
+      ]
+    },
+    {
+      "name": "db",
+      "image": "postgres:16-alpine",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/db",
+          "containerPath": "/var/lib/postgresql/data"
+        }
+      ],
+      "environment": [
+        {"key": "POSTGRES_USER", "value": "maybe"},
+        {"key": "POSTGRES_PASSWORD", "value": "${POSTGRES_PASSWORD}"},
+        {"key": "POSTGRES_DB", "value": "maybe"}
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB",
+        "interval": "5s",
+        "timeout": "5s",
+        "retries": 5
+      }
+    },
+    {
+      "name": "redis",
+      "image": "redis:7-alpine",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/redis",
+          "containerPath": "/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "redis-cli ping",
+        "interval": "5s",
+        "timeout": "5s",
+        "retries": 5
+      }
+    }
+  ]
+}
