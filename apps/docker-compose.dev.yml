@@ -1,0 +1,72 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  minio:
+    image: minio/minio:RELEASE.2024-12-13T23-44-13Z
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+    volumes:
+      - ./data/minio:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  api:
+    image: python:3.11-slim
+    working_dir: /app
+    command: >
+      sh -c "pip install -r requirements.txt && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - ./api:/app
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+      - minio
+    ports:
+      - "8000:8000"
+
+  web:
+    image: node:20-alpine
+    working_dir: /repo
+    command: >
+      sh -c "corepack enable && pnpm install && pnpm --filter @jogmania/web dev --hostname 0.0.0.0 --port 3000"
+    volumes:
+      - ./repo:/repo
+    env_file: .env
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+  ios:
+    image: node:20-alpine
+    working_dir: /repo
+    command: >
+      sh -c "corepack enable && pnpm install && pnpm --filter @jogmania/ios dev --host 0.0.0.0"
+    volumes:
+      - ./repo:/repo
+    env_file: .env
+    depends_on:
+      - api
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"

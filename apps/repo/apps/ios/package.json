@@ -1,0 +1,29 @@
+{
+  "name": "@jogmania/ios",
+  "version": "0.1.0",
+  "private": true,
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "dev": "expo start",
+    "ios": "expo start --ios",
+    "android": "expo start --android",
+    "web": "expo start --web",
+    "lint": "eslint .",
+    "test": "node -e \"console.log('no tests yet')\""
+  },
+  "dependencies": {
+    "@jogmania/api-client": "workspace:*",
+    "@jogmania/shared": "workspace:*",
+    "expo": "^51.0.0",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.2.0",
+    "react-native": "0.74.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.64",
+    "@types/react-native": "^0.73.0",
+    "eslint": "^9.6.0",
+    "typescript": "^5.5.4"
+  }
+}

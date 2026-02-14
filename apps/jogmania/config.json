@@ -1,0 +1,73 @@
+{
+  "$schema": "../app-info-schema.json",
+  "schema": "2",
+  "name": "Jogmania",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "port": 3000,
+  "id": "jogmania",
+  "tipi_version": 156,
+  "version": "0.1.0",
+  "categories": [
+    "gaming",
+    "utilities"
+  ],
+  "description": "Jogmania is a retro-arcade running companion with quests, narrations, and run exports.",
+  "short_desc": "Retro-arcade running quests for iOS + Web + API.",
+  "author": "Jogmania",
+  "website": "https://jogmania.com",
+  "source": "https://jogmania.com",
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "JOGMANIA_DB_PASSWORD",
+      "env_variable": "JOGMANIA_DB_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "JOGMANIA_DB_NAME",
+      "env_variable": "JOGMANIA_DB_NAME",
+      "default": "jogmania"
+    },
+    {
+      "type": "text",
+      "label": "JOGMANIA_MINIO_USER",
+      "env_variable": "JOGMANIA_MINIO_USER",
+      "default": "jogmania"
+    },
+    {
+      "type": "password",
+      "label": "JOGMANIA_MINIO_PASSWORD",
+      "env_variable": "JOGMANIA_MINIO_PASSWORD"
+    },
+    {
+      "type": "password",
+      "label": "JOGMANIA_JWT_SECRET",
+      "env_variable": "JOGMANIA_JWT_SECRET"
+    },
+    {
+      "type": "text",
+      "label": "LLM_BASE_URL",
+      "env_variable": "LLM_BASE_URL",
+      "default": "http://localhost:8080/v1"
+    },
+    {
+      "type": "password",
+      "label": "LLM_API_KEY",
+      "env_variable": "LLM_API_KEY"
+    },
+    {
+      "type": "text",
+      "label": "LLM_MODEL",
+      "env_variable": "LLM_MODEL",
+      "default": "gpt-4o-mini"
+    }
+  ],
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1771027200000,
+  "updated_at": 1771027200000
+}

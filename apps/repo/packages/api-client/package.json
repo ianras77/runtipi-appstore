@@ -1,0 +1,13 @@
+{
+  "name": "@jogmania/api-client",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "gen:client": "openapi-typescript http://localhost:8000/openapi.json -o src/types.ts"
+  },
+  "dependencies": {
+    "@jogmania/shared": "workspace:*"
+  }
+}
