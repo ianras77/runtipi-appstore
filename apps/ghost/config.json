@@ -57,6 +57,13 @@
       "hint": "Your SMTP Server Password",
       "required": false,
       "env_variable": "GHOST_MAIL_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "SMTP From",
+      "hint": "From address for outgoing email",
+      "required": false,
+      "env_variable": "GHOST_MAIL_FROM"
     }
   ],
   "supported_architectures": [

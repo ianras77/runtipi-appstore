@@ -57,6 +57,10 @@
         {
           "key": "mail__options__auth__pass",
           "value": "${GHOST_MAIL_PASSWORD}"
+        },
+        {
+          "key": "mail__from",
+          "value": "${GHOST_MAIL_FROM}"
         }
       ],
       "volumes": [
