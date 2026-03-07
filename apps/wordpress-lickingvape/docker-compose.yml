@@ -3,7 +3,7 @@ services:
       
   wordpress_lickingvape:
     container_name: wordpress_lickingvape
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress_lickingvape-db
       - WORDPRESS_DB_NAME=wordpress

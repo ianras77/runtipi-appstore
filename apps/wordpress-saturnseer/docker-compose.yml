@@ -3,7 +3,7 @@ services:
 
   wordpress-saturnseer:
     container_name: wordpress-saturnseer
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress-saturnseer-db
       - WORDPRESS_DB_NAME=wordpress-saturnseer-db

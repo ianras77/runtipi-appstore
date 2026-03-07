@@ -8,7 +8,7 @@
   "dynamic_config": true,
   "id": "cheshire-rasies",
   "description": "The Cheshire Cat is an open-source, hackable and production-ready framework that allows developing intelligent personal AI assistant agents on top of Large Language Models (LLM).",
-  "tipi_version": 16,
+  "tipi_version": 17,
   "version": "1.9.2",
   "categories": [
     "ai"
@@ -17,7 +17,14 @@
   "author": "pieroit",
   "source": "https://github.com/cheshire-cat-ai/core",
   "website": "https://cheshirecat.ai",
-  "form_fields": [],
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Cheshire Rasies Postgres Password",
+      "min": 32,
+      "env_variable": "CHESHIRE_RASIES_POSTGRES_PASSWORD"
+    }
+  ],
   "url_suffix": "/admin",
   "supported_architectures": [
     "amd64",

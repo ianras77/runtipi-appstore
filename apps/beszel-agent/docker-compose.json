@@ -2,10 +2,14 @@
   "services": [
     {
       "name": "beszel-agent",
-      "image": "henrygd/beszel-agent:0.18.3",
+      "image": "henrygd/beszel-agent:0.18.4",
       "isMain": true,
       "internalPort": 45876,
       "networkMode": "host",
+      "privileged": true,
+      "securityOpt": [
+        "apparmor:unconfined"
+      ],
       "environment": [
         {
           "key": "PORT",
@@ -14,6 +18,14 @@
         {
           "key": "KEY",
           "value": "${BESZEL_AGENT_KEY}"
+        },
+        {
+          "key": "SENSORS",
+          "value": "--all"
+        },
+        {
+          "key": "GPU",
+          "value": "true"
         }
       ],
       "volumes": [
@@ -21,6 +33,14 @@
           "hostPath": "/var/run/docker.sock",
           "containerPath": "/var/run/docker.sock",
           "readOnly": true
+        },
+        {
+          "hostPath": "/var/run/dbus/system_bus_socket",
+          "containerPath": "/var/run/dbus/system_bus_socket"
+        },
+        {
+          "hostPath": "/var/run/systemd/private",
+          "containerPath": "/var/run/systemd/private"
         }
       ]
     }

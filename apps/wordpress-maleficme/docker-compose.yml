@@ -3,7 +3,7 @@ services:
 
   wordpress-maleficme:
     container_name: wordpress-maleficme
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress-maleficme-db
       - WORDPRESS_DB_NAME=wordpress-maleficme-db

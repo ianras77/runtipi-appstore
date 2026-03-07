@@ -3,7 +3,7 @@ services:
 
   wordpress-jupiterseek:
     container_name: wordpress-jupiterseek
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress-jupiterseek-db
       - WORDPRESS_DB_NAME=wordpress-jupiterseek-db

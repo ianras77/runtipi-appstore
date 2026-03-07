@@ -3,7 +3,7 @@ services:
       
   wordpress_usmender:
     container_name: wordpress_usmender
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress_usmender-db
       - WORDPRESS_DB_NAME=wordpress

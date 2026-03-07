@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   ghost-ed:
-    image: ghost:5.104.2
+    image: ghost:6.14.0
     container_name: ghost-ed
     depends_on:
       - ghost-eddb
@@ -56,7 +56,7 @@ services:
       runtipi.managed: true
   ghost-eddb:
     container_name: ghost-eddb
-    image: mariadb:latest
+    image: mariadb:12.1.2
     environment:
       MYSQL_ROOT_PASSWORD: ${GHOST_DATABASE_PASSWORD}
       MYSQL_USER: tipi

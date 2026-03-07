@@ -3,7 +3,7 @@ services:
 
   wordpress-mneumonicme:
     container_name: wordpress-mneumonicme
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress-mneumonicme-db
       - WORDPRESS_DB_NAME=wordpress-mneumonicme-db

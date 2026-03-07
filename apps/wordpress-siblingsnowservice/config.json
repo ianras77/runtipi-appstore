@@ -7,7 +7,7 @@
   "exposable": true,
   "id": "wordpress-siblingsnowservice",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
-  "tipi_version": 11,
+  "tipi_version": 12,
   "version": "6.9.1",
   "categories": [
     "social"

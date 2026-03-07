@@ -3,7 +3,7 @@ services:
 
   wordpress-jogmania:
     container_name: wordpress-jogmania
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress-jogmania-db
       - WORDPRESS_DB_NAME=wordpress-jogmania-db

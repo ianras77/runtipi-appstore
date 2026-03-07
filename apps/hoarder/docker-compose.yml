@@ -1,6 +1,6 @@
 services:
   hoarder:
-    image: ghcr.io/hoarder-app/hoarder:0.24.1
+    image: ghcr.io/hoarder-app/hoarder:0.31.0
     container_name: hoarder
     restart: unless-stopped
     volumes:
@@ -64,7 +64,7 @@ services:
       runtipi.managed: true
       
   hoarder-meilisearch:
-    image: getmeili/meilisearch:v1.14
+    image: getmeili/meilisearch:v1.37
     container_name: hoarder-meilisearch
     restart: unless-stopped
     environment:

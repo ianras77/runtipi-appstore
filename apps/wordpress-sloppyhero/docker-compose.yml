@@ -3,7 +3,7 @@ services:
       
   wordpress_sloppyhero:
     container_name: wordpress_sloppyhero
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress_sloppyhero-db
       - WORDPRESS_DB_NAME=wordpress

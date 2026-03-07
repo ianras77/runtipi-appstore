@@ -3,7 +3,7 @@ services:
       
   wordpress_corbieplays:
     container_name: wordpress_corbieplays
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress_corbieplays-db
       - WORDPRESS_DB_NAME=wordpress

@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "hoarder",
-      "image": "ghcr.io/karakeep-app/karakeep:0.30.0",
+      "image": "ghcr.io/hoarder-app/hoarder:0.31.0",
       "isMain": true,
       "internalPort": 3000,
       "environment": [
@@ -20,7 +20,7 @@
         },
         {
           "key": "HOARDER_VERSION",
-          "value": "0.30.0"
+          "value": "0.31.0"
         },
         {
           "key": "OPENAI_API_KEY",
@@ -60,7 +60,7 @@
     },
     {
       "name": "hoarder-meilisearch",
-      "image": "getmeili/meilisearch:v1.32.1",
+      "image": "getmeili/meilisearch:v1.37",
       "environment": [
         {
           "key": "MEILI_NO_ANALYTICS",

@@ -3,7 +3,7 @@ services:
       
   wordpress_cuddleconfessions:
     container_name: wordpress_cuddleconfessions
-    image: wordpress:6.6.1
+    image: wordpress:6.9.1
     environment:
       - WORDPRESS_DB_HOST=wordpress_cuddleconfessions-db
       - WORDPRESS_DB_NAME=wordpress

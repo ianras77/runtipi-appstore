@@ -16,7 +16,7 @@
       "environment": [
         {
           "key": "CCAT_QDRANT_HOST",
-          "value": "qdrant-rpg"
+          "value": "qdrant-rasies"
         },
         {
           "key": "CCAT_QDRANT_PORT",
@@ -53,10 +53,13 @@
       ],
       "dependsOn": {
         "qdrant-rasies": {
-          "condition": "service_started"
+          "condition": "service_healthy"
         },
         "redis-rasies": {
-          "condition": "service_started"
+          "condition": "service_healthy"
+        },
+        "postgres-rasies": {
+          "condition": "service_healthy"
         }
       },
       "volumes": [
@@ -109,10 +112,15 @@
       "image": "redis:8.4.0-alpine",
       "command": [
         "redis-server",
-        "--save",
-        "",
-        "--appendonly",
-        "no"
+        "--save", "60", "1000",
+        "--appendonly", "yes",
+        "--appendfsync", "everysec"
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/redis",
+          "containerPath": "/data"
+        }
       ],
       "healthCheck": {
         "test": "redis-cli ping | grep -q PONG || exit 1",
@@ -120,6 +128,37 @@
         "timeout": "5s",
         "retries": 10,
         "startPeriod": "10s"
+      }
+    },
+    {
+      "name": "postgres-rasies",
+      "image": "pgvector/pgvector:pg17",
+      "environment": [
+        {
+          "key": "POSTGRES_DB",
+          "value": "cheshire"
+        },
+        {
+          "key": "POSTGRES_USER",
+          "value": "cheshire"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "${CHESHIRE_RASIES_POSTGRES_PASSWORD}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U cheshire -d cheshire || exit 1",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "20s"
       }
     }
   ]
