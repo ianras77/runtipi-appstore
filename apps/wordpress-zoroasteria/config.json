@@ -1,17 +1,13 @@
 {
-  "$schema": "../app-info-schema.json",
-  "schema": "2",
   "name": "WordPress Zoroasteria",
   "available": true,
   "port": 8420,
   "exposable": true,
   "id": "wordpress-zoroasteria",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
-  "tipi_version": 12,
-  "version": "6.9.1",
-  "categories": [
-    "social"
-  ],
+  "tipi_version": 10,
+  "version": "6.6.1",
+  "categories": ["social"],
   "short_desc": "Popular CMS for websites and blogs",
   "author": "WordPress.org",
   "dynamic": true,
@@ -32,8 +28,5 @@
       "env_variable": "DB_ROOT_PASSWORD"
     }
   ],
-  "supported_architectures": [
-    "amd64",
-    "arm64"
-  ]
+  "supported_architectures": ["amd64", "arm64"]
 }

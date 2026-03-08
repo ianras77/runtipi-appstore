@@ -6,8 +6,8 @@
   "dynamic_config": true,
   "port": 8090,
   "id": "syncthing",
-  "tipi_version": 18,
-  "version": "2.0.15",
+  "tipi_version": 17,
+  "version": "2.0.14",
   "categories": [
     "data",
     "utilities"

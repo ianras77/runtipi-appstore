@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "linkwarden",
-      "image": "ghcr.io/linkwarden/linkwarden:v2.13.5",
+      "image": "ghcr.io/linkwarden/linkwarden:latest",
       "isMain": true,
       "internalPort": 3000,
       "environment": [
@@ -35,7 +35,7 @@
     },
     {
       "name": "linkwarden-db",
-      "image": "postgres:18.1-alpine",
+      "image": "postgres:16-alpine",
       "environment": [
         {
           "key": "POSTGRES_USER",

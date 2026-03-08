@@ -53,13 +53,21 @@
         {
           "key": "mail__options__auth__pass",
           "value": "${GHOST_MAIL_PASSWORD}"
+        },
+        {
+          "key": "mail__from",
+          "value": "${GHOST_MAIL_FROM}"
+        },
+        {
+          "key": "mail__options__secure",
+          "value": "${GHOST_MAIL_SECURE}"
         }
       ],
       "internalPort": 2368,
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/content",
-          "containerPath": "/var/lib/ghost-ed/content",
+          "containerPath": "/var/lib/ghost/content",
           "readOnly": false,
           "shared": false,
           "private": false

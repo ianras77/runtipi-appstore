@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "wordpress-mneumonicme",
-      "image": "wordpress:6.9.1",
+      "image": "wordpress:latest",
       "environment": [
         {
           "key": "WORDPRESS_DB_HOST",
@@ -48,7 +48,7 @@
     },
     {
       "name": "wordpress-mneumonicme-db",
-      "image": "mariadb:12.1.2",
+      "image": "mariadb:11.1.3",
       "environment": [
         {
           "key": "MYSQL_ROOT_PASSWORD",
