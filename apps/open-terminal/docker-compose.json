@@ -1,0 +1,32 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "open-terminal",
+      "image": "ghcr.io/open-webui/open-terminal:latest",
+      "isMain": true,
+      "internalPort": 8000,
+      "environment": [
+        {
+          "key": "OPEN_TERMINAL_API_KEY",
+          "value": "${OPEN_TERMINAL_API_KEY}"
+        },
+        {
+          "key": "OPEN_TERMINAL_ENABLE_TERMINAL",
+          "value": "${OPEN_TERMINAL_ENABLE_TERMINAL}"
+        },
+        {
+          "key": "OPEN_TERMINAL_MAX_SESSIONS",
+          "value": "${OPEN_TERMINAL_MAX_SESSIONS}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/home",
+          "containerPath": "/home/user"
+        }
+      ]
+    }
+  ]
+}

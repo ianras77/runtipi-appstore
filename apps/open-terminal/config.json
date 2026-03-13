@@ -1,0 +1,46 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Open Terminal",
+  "id": "open-terminal",
+  "available": true,
+  "short_desc": "Sandboxed terminal backend for Open WebUI",
+  "author": "Open WebUI",
+  "port": 8765,
+  "categories": ["ai", "development", "utilities"],
+  "description": "Open Terminal is a shell execution and filesystem backend designed for Open WebUI. Deploy it in Docker and connect from Open WebUI using the app URL and API key.",
+  "tipi_version": 1,
+  "version": "latest",
+  "source": "https://github.com/open-webui/open-terminal",
+  "website": "https://docs.openwebui.com/features/extensibility/open-terminal/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Open Terminal API Key",
+      "min": 48,
+      "env_variable": "OPEN_TERMINAL_API_KEY"
+    },
+    {
+      "type": "boolean",
+      "label": "Enable Interactive Terminal",
+      "hint": "Disable if you only want command execution and file APIs.",
+      "required": false,
+      "default": true,
+      "env_variable": "OPEN_TERMINAL_ENABLE_TERMINAL"
+    },
+    {
+      "type": "number",
+      "label": "Max Terminal Sessions",
+      "hint": "Limits concurrent interactive sessions.",
+      "required": false,
+      "default": 16,
+      "min": 1,
+      "max": 128,
+      "env_variable": "OPEN_TERMINAL_MAX_SESSIONS"
+    }
+  ],
+  "created_at": 1773365533000,
+  "updated_at": 1773365533000
+}
