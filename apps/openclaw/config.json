@@ -1,0 +1,85 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "OpenClaw",
+  "id": "openclaw",
+  "available": true,
+  "short_desc": "AI coding agent with browser + sandbox tools",
+  "author": "OpenClaw",
+  "port": 3130,
+  "categories": ["ai", "development"],
+  "description": "Run OpenClaw on your own infrastructure with a web UI, tool-using agents, browser support, and sandboxed code execution.",
+  "tipi_version": 1,
+  "version": "latest",
+  "source": "https://github.com/openclaw/openclaw",
+  "website": "https://openclaw.ai/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "OpenClaw Auth Token",
+      "hint": "Required to authenticate browser sessions to your OpenClaw backend.",
+      "min": 32,
+      "env_variable": "OPENCLAW_TOKEN"
+    },
+    {
+      "type": "password",
+      "label": "OpenAI API Key",
+      "hint": "Optional. Add if you want to use OpenAI models.",
+      "required": false,
+      "default": "",
+      "env_variable": "OPENCLAW_OPENAI_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "Anthropic API Key",
+      "hint": "Optional. Add if you want to use Anthropic models.",
+      "required": false,
+      "default": "",
+      "env_variable": "OPENCLAW_ANTHROPIC_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "OpenRouter API Key",
+      "hint": "Optional. Add if you want to use OpenRouter models.",
+      "required": false,
+      "default": "",
+      "env_variable": "OPENCLAW_OPENROUTER_API_KEY"
+    },
+    {
+      "type": "text",
+      "label": "Default Provider",
+      "hint": "Model provider selected for new sessions (for example: openai, anthropic, openrouter).",
+      "required": false,
+      "default": "openai",
+      "env_variable": "OPENCLAW_DEFAULT_PROVIDER"
+    },
+    {
+      "type": "text",
+      "label": "Default Model",
+      "hint": "Provider and model in OpenClaw format, e.g. openai:gpt-4.1-mini.",
+      "required": false,
+      "default": "openai:gpt-4.1-mini",
+      "env_variable": "OPENCLAW_DEFAULT_MODEL"
+    },
+    {
+      "type": "boolean",
+      "label": "Disable Sandbox Containers",
+      "hint": "If enabled, OpenClaw will not run isolated tool containers.",
+      "required": false,
+      "default": "false",
+      "env_variable": "OPENCLAW_CONTAINERS_DISABLED"
+    },
+    {
+      "type": "text",
+      "label": "Sandbox Image",
+      "hint": "Docker image used for sandboxed tool execution.",
+      "required": false,
+      "default": "ghcr.io/openclaw/sandbox:latest",
+      "env_variable": "OPENCLAW_SANDBOX_IMAGE"
+    }
+  ],
+  "created_at": 1773498368000,
+  "updated_at": 1773498368000
+}
