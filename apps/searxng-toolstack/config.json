@@ -1,0 +1,58 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "SearXNG Toolstack",
+  "id": "searxng-toolstack",
+  "available": true,
+  "short_desc": "API-first SearXNG tuned for tool workloads",
+  "author": "searxng",
+  "port": 8128,
+  "categories": ["ai", "utilities", "development"],
+  "description": "SearXNG tuned for API/tool traffic (Open WebUI, Cheshire Cat, agents) with stronger health checks and higher concurrency.",
+  "tipi_version": 1,
+  "version": "latest",
+  "source": "https://github.com/searxng/searxng",
+  "website": "https://docs.searxng.org/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "SearXNG Secret Key",
+      "min": 32,
+      "env_variable": "SEARXNG_SECRET_KEY"
+    },
+    {
+      "type": "number",
+      "label": "Granian Workers",
+      "hint": "Worker processes for SearXNG. Increase carefully based on CPU/RAM.",
+      "required": false,
+      "default": 2,
+      "min": 1,
+      "max": 12,
+      "env_variable": "SEARXNG_WORKERS"
+    },
+    {
+      "type": "number",
+      "label": "Runtime Threads",
+      "hint": "Async runtime threads per worker.",
+      "required": false,
+      "default": 2,
+      "min": 1,
+      "max": 16,
+      "env_variable": "SEARXNG_RUNTIME_THREADS"
+    },
+    {
+      "type": "number",
+      "label": "Blocking Threads",
+      "hint": "Blocking threads per worker for network-heavy tasks.",
+      "required": false,
+      "default": 8,
+      "min": 1,
+      "max": 64,
+      "env_variable": "SEARXNG_BLOCKING_THREADS"
+    }
+  ],
+  "created_at": 1773492000000,
+  "updated_at": 1773492000000
+}

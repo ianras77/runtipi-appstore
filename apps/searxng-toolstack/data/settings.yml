@@ -1,0 +1,60 @@
+use_default_settings: true
+
+general:
+  debug: false
+  instance_name: "SearXNG Toolstack"
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
+  enable_metrics: true
+  open_metrics: ""
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  default_lang: "en-US"
+  ban_time_on_fail: 30
+  max_ban_time_on_fail: 1800
+  formats:
+    - json
+    - html
+
+server:
+  public_instance: false
+  image_proxy: false
+  limiter: false
+  method: "GET"
+
+outgoing:
+  enable_http2: true
+  request_timeout: 3.0
+  max_request_timeout: 5.0
+  pool_connections: 200
+  pool_maxsize: 60
+
+plugins:
+  searx.plugins.self_info.SXNGPlugin:
+    active: false
+  searx.plugins.ahmia_filter.SXNGPlugin:
+    active: false
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
+
+engines:
+  - name: startpage
+    disabled: true
+
+  - name: qwant
+    disabled: true
+
+  - name: mojeek
+    disabled: true
+
+  - name: google
+    disabled: true
+
+  - name: duckduckgo
+    disabled: true
+
+  - name: brave
+    disabled: true

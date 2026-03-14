@@ -1,0 +1,59 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "searxng",
+      "image": "searxng/searxng:latest",
+      "isMain": true,
+      "internalPort": 8080,
+      "environment": [
+        {
+          "key": "BASE_URL",
+          "value": "${APP_PROTOCOL:-http}://${APP_DOMAIN}/"
+        },
+        {
+          "key": "SEARXNG_SECRET",
+          "value": "${SEARXNG_SECRET_KEY}"
+        },
+        {
+          "key": "GRANIAN_WORKERS",
+          "value": "${SEARXNG_WORKERS}"
+        },
+        {
+          "key": "GRANIAN_RUNTIME_MODE",
+          "value": "mt"
+        },
+        {
+          "key": "GRANIAN_RUNTIME_THREADS",
+          "value": "${SEARXNG_RUNTIME_THREADS}"
+        },
+        {
+          "key": "GRANIAN_BLOCKING_THREADS",
+          "value": "${SEARXNG_BLOCKING_THREADS}"
+        },
+        {
+          "key": "GRANIAN_RESPAWN_FAILED_WORKERS",
+          "value": "true"
+        },
+        {
+          "key": "GRANIAN_BACKLOG",
+          "value": "2048"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/etc/searxng"
+        }
+      ],
+      "healthCheck": {
+        "test": "wget -qO- http://127.0.0.1:8080/healthz | grep -q '^OK$' || exit 1",
+        "interval": "20s",
+        "timeout": "5s",
+        "retries": 6,
+        "startPeriod": "30s"
+      }
+    }
+  ]
+}
