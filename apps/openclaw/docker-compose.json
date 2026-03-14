@@ -6,79 +6,100 @@
       "name": "openclaw",
       "image": "ghcr.io/openclaw/openclaw:latest",
       "isMain": true,
-      "internalPort": 3130,
+      "internalPort": 18789,
+      "user": "0:0",
       "environment": [
         {
-          "key": "OPENCLAW_HOST",
-          "value": "0.0.0.0"
+          "key": "OPENCLAW_GATEWAY_TOKEN",
+          "value": "${OPENCLAW_GATEWAY_TOKEN}"
         },
         {
-          "key": "OPENCLAW_PORT",
-          "value": "3130"
+          "key": "OLLAMA_BASE_URL",
+          "value": "${OLLAMA_BASE_URL}"
+        },
+        {
+          "key": "OLLAMA_API_KEY",
+          "value": "${OLLAMA_API_KEY}"
+        },
+        {
+          "key": "OLLAMA_EMBEDDING_MODEL",
+          "value": "${OLLAMA_EMBEDDING_MODEL}"
+        },
+        {
+          "key": "LOCALAI_BASE_URL",
+          "value": "${LOCALAI_BASE_URL}"
+        },
+        {
+          "key": "LOCALAI_API_KEY",
+          "value": "${LOCALAI_API_KEY}"
+        },
+        {
+          "key": "LOCALAI_MODEL_ID",
+          "value": "${LOCALAI_MODEL_ID}"
+        },
+        {
+          "key": "LOCALAI_MODEL_NAME",
+          "value": "${LOCALAI_MODEL_NAME}"
+        },
+        {
+          "key": "LOCALAI_CONTEXT_WINDOW",
+          "value": "${LOCALAI_CONTEXT_WINDOW}"
+        },
+        {
+          "key": "LOCALAI_MAX_TOKENS",
+          "value": "${LOCALAI_MAX_TOKENS}"
+        },
+        {
+          "key": "OPENCLAW_PRIMARY_MODEL_REF",
+          "value": "${OPENCLAW_PRIMARY_MODEL_REF}"
+        },
+        {
+          "key": "OPENCLAW_FALLBACK_MODEL_REF",
+          "value": "${OPENCLAW_FALLBACK_MODEL_REF}"
         },
         {
           "key": "OPENCLAW_FRONTEND_URL",
           "value": "${APP_PROTOCOL:-http}://${APP_DOMAIN}"
         },
         {
-          "key": "OPENCLAW_TOKEN",
-          "value": "${OPENCLAW_TOKEN}"
-        },
-        {
-          "key": "OPENCLAW_CONFIG_DIR",
-          "value": "/home/openclaw/.openclaw"
-        },
-        {
-          "key": "OPENCLAW_WORK_DIR",
-          "value": "/workspace"
-        },
-        {
-          "key": "OPENCLAW_DEFAULT_PROVIDER",
-          "value": "${OPENCLAW_DEFAULT_PROVIDER}"
-        },
-        {
-          "key": "OPENCLAW_DEFAULT_MODEL",
-          "value": "${OPENCLAW_DEFAULT_MODEL}"
-        },
-        {
-          "key": "OPENCLAW_OPENAI_API_KEY",
-          "value": "${OPENCLAW_OPENAI_API_KEY}"
-        },
-        {
-          "key": "OPENCLAW_ANTHROPIC_API_KEY",
-          "value": "${OPENCLAW_ANTHROPIC_API_KEY}"
-        },
-        {
-          "key": "OPENCLAW_OPENROUTER_API_KEY",
-          "value": "${OPENCLAW_OPENROUTER_API_KEY}"
-        },
-        {
-          "key": "OPENCLAW_CONTAINERS_DISABLED",
-          "value": "${OPENCLAW_CONTAINERS_DISABLED}"
-        },
-        {
-          "key": "OPENCLAW_SANDBOX_IMAGE",
-          "value": "${OPENCLAW_SANDBOX_IMAGE}"
-        },
-        {
           "key": "OPENCLAW_DOCKER_SOCKET",
           "value": "/var/run/docker.sock"
+        },
+        {
+          "key": "HOME",
+          "value": "/home/node"
+        },
+        {
+          "key": "TERM",
+          "value": "xterm-256color"
+        },
+        {
+          "key": "TZ",
+          "value": "${TZ:-UTC}"
         }
+      ],
+      "command": [
+        "sh",
+        "-lc",
+        "set -eu; cfg(){ openclaw config set \"$1\" \"$2\" --strict-json >/dev/null; }; ORIGIN_PRIMARY=\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\"; if [ -n \"${OPENCLAW_FALLBACK_MODEL_REF:-}\" ]; then FALLBACKS=\"[\\\"${OPENCLAW_FALLBACK_MODEL_REF}\\\"]\"; else FALLBACKS=\"[]\"; fi; cfg gateway \"{\\\"mode\\\":\\\"local\\\",\\\"bind\\\":\\\"lan\\\",\\\"port\\\":18789,\\\"auth\\\":{\\\"mode\\\":\\\"token\\\",\\\"token\\\":\\\"${OPENCLAW_GATEWAY_TOKEN}\\\"},\\\"controlUi\\\":{\\\"enabled\\\":true,\\\"basePath\\\":\\\"/openclaw\\\",\\\"allowedOrigins\\\":[\\\"$ORIGIN_PRIMARY\\\"]}}\"; cfg models \"{\\\"mode\\\":\\\"merge\\\",\\\"providers\\\":{\\\"ollama\\\":{\\\"baseUrl\\\":\\\"${OLLAMA_BASE_URL}\\\",\\\"api\\\":\\\"ollama\\\",\\\"apiKey\\\":\\\"${OLLAMA_API_KEY}\\\",\\\"models\\\":[]},\\\"localai\\\":{\\\"baseUrl\\\":\\\"${LOCALAI_BASE_URL}\\\",\\\"api\\\":\\\"openai-completions\\\",\\\"apiKey\\\":\\\"${LOCALAI_API_KEY}\\\",\\\"models\\\":[{\\\"id\\\":\\\"${LOCALAI_MODEL_ID}\\\",\\\"name\\\":\\\"${LOCALAI_MODEL_NAME}\\\",\\\"reasoning\\\":false,\\\"input\\\":[\\\"text\\\"],\\\"cost\\\":{\\\"input\\\":0,\\\"output\\\":0,\\\"cacheRead\\\":0,\\\"cacheWrite\\\":0},\\\"contextWindow\\\":${LOCALAI_CONTEXT_WINDOW},\\\"maxTokens\\\":${LOCALAI_MAX_TOKENS}}]}}}\"; cfg agents.defaults.model \"{\\\"primary\\\":\\\"${OPENCLAW_PRIMARY_MODEL_REF}\\\",\\\"fallbacks\\\":$FALLBACKS}\"; cfg agents.defaults.memorySearch \"{\\\"provider\\\":\\\"ollama\\\",\\\"model\\\":\\\"${OLLAMA_EMBEDDING_MODEL}\\\",\\\"fallback\\\":\\\"none\\\"}\"; exec openclaw gateway run --allow-unconfigured --bind lan --port 18789"
       ],
       "volumes": [
         {
-          "hostPath": "${APP_DATA_DIR}/data/.openclaw",
-          "containerPath": "/home/openclaw/.openclaw"
-        },
-        {
-          "hostPath": "${APP_DATA_DIR}/data/workspace",
-          "containerPath": "/workspace"
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/home/node/.openclaw"
         },
         {
           "hostPath": "/var/run/docker.sock",
           "containerPath": "/var/run/docker.sock"
         }
-      ]
+      ],
+      "healthCheck": {
+        "test": "node -e \"fetch('http://127.0.0.1:18789/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\"",
+        "interval": "30s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "60s"
+      }
     }
   ]
 }
