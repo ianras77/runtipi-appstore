@@ -1,0 +1,122 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "ClancyClaw",
+  "id": "clancyclaw",
+  "available": true,
+  "short_desc": "ClancyClaw (OpenClaw) with Ollama + LocalAI providers",
+  "author": "OpenClaw",
+  "port": 18791,
+  "categories": ["ai", "development"],
+  "description": "Run ClancyClaw (OpenClaw) with Ollama for local LLM + embeddings and LocalAI as an OpenAI-compatible provider.",
+  "tipi_version": 2,
+  "version": "latest",
+  "source": "https://github.com/openclaw/openclaw",
+  "website": "https://openclaw.ai/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "url_suffix": "/clancyclaw",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "ClancyClaw Gateway Token",
+      "hint": "Required token for Control UI and WebSocket auth.",
+      "min": 32,
+      "env_variable": "OPENCLAW_GATEWAY_TOKEN"
+    },
+    {
+      "type": "text",
+      "label": "Ollama Base URL",
+      "hint": "Native Ollama endpoint, no /v1 suffix (example: http://ollama:11434).",
+      "required": false,
+      "default": "http://ollama:11434",
+      "env_variable": "OLLAMA_BASE_URL"
+    },
+    {
+      "type": "text",
+      "label": "Ollama API Key",
+      "hint": "Any non-empty value works for local Ollama (example: ollama-local).",
+      "required": false,
+      "default": "ollama-local",
+      "env_variable": "OLLAMA_API_KEY"
+    },
+    {
+      "type": "text",
+      "label": "Ollama Embedding Model",
+      "hint": "Embedding model used by memory search with Ollama.",
+      "required": false,
+      "default": "nomic-embed-text",
+      "env_variable": "OLLAMA_EMBEDDING_MODEL"
+    },
+    {
+      "type": "text",
+      "label": "LocalAI Base URL",
+      "hint": "OpenAI-compatible endpoint (example: http://localai:8080/v1).",
+      "required": false,
+      "default": "http://localai:8080/v1",
+      "env_variable": "LOCALAI_BASE_URL"
+    },
+    {
+      "type": "text",
+      "label": "LocalAI API Key",
+      "hint": "API key for LocalAI if your endpoint requires auth.",
+      "required": false,
+      "default": "localai-local",
+      "env_variable": "LOCALAI_API_KEY"
+    },
+    {
+      "type": "text",
+      "label": "LocalAI Model ID",
+      "hint": "Model id exposed by LocalAI (without provider prefix).",
+      "required": false,
+      "default": "gpt-4o-mini",
+      "env_variable": "LOCALAI_MODEL_ID"
+    },
+    {
+      "type": "text",
+      "label": "LocalAI Model Name",
+      "hint": "Display name for LocalAI model catalog entry in OpenClaw.",
+      "required": false,
+      "default": "LocalAI Model",
+      "env_variable": "LOCALAI_MODEL_NAME"
+    },
+    {
+      "type": "number",
+      "label": "LocalAI Context Window",
+      "hint": "Context window for the LocalAI model entry.",
+      "required": false,
+      "default": 32768,
+      "min": 1024,
+      "max": 1048576,
+      "env_variable": "LOCALAI_CONTEXT_WINDOW"
+    },
+    {
+      "type": "number",
+      "label": "LocalAI Max Tokens",
+      "hint": "Max output tokens for the LocalAI model entry.",
+      "required": false,
+      "default": 8192,
+      "min": 256,
+      "max": 262144,
+      "env_variable": "LOCALAI_MAX_TOKENS"
+    },
+    {
+      "type": "text",
+      "label": "Primary Model Ref",
+      "hint": "Default model for sessions (example: ollama/glm-4.7-flash or localai/gpt-4o-mini).",
+      "required": false,
+      "default": "ollama/glm-4.7-flash",
+      "env_variable": "OPENCLAW_PRIMARY_MODEL_REF"
+    },
+    {
+      "type": "text",
+      "label": "Fallback Model Ref",
+      "hint": "Optional fallback model ref. Leave blank to disable fallback.",
+      "required": false,
+      "default": "localai/gpt-4o-mini",
+      "env_variable": "OPENCLAW_FALLBACK_MODEL_REF"
+    }
+  ],
+  "created_at": 1773533005000,
+  "updated_at": 1773533005000
+}
