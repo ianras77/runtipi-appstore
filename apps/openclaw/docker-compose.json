@@ -70,6 +70,11 @@
           "containerPath": "/home/node/.openclaw"
         },
         {
+          "hostPath": "${ROOT_FOLDER_HOST}/media/data",
+          "containerPath": "/home/node/.openclaw/workspace/media-data",
+          "readOnly": true
+        },
+        {
           "hostPath": "/var/run/docker.sock",
           "containerPath": "/var/run/docker.sock"
         }
