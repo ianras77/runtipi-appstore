@@ -3,18 +3,24 @@
   "name": "OpenClaw",
   "id": "openclaw",
   "available": true,
-  "short_desc": "OpenClaw with Ollama + LocalAI providers",
+  "short_desc": "OpenClaw with split Ollama chat + embeddings",
   "author": "OpenClaw",
   "port": 18789,
-  "categories": ["ai", "development"],
-  "description": "Run OpenClaw with Ollama for local LLM + embeddings and LocalAI as an OpenAI-compatible provider.",
+  "categories": [
+    "ai",
+    "development"
+  ],
+  "description": "Run OpenClaw against your external Ollama stack with chat models on 192.168.1.162:11435 and embeddings on 192.168.1.162:11437.",
   "tipi_version": 2,
   "version": "latest",
   "source": "https://github.com/openclaw/openclaw",
   "website": "https://openclaw.ai/",
   "exposable": true,
   "dynamic_config": true,
-  "supported_architectures": ["arm64", "amd64"],
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
   "url_suffix": "/openclaw",
   "form_fields": [
     {
@@ -26,16 +32,24 @@
     },
     {
       "type": "text",
-      "label": "Ollama Base URL",
-      "hint": "Native Ollama endpoint, no /v1 suffix (example: http://ollama:11434).",
+      "label": "Ollama Chat Base URLs",
+      "hint": "Comma-separated native Ollama endpoints for chat and generate traffic.",
       "required": false,
-      "default": "http://ollama:11434",
-      "env_variable": "OLLAMA_BASE_URL"
+      "default": "http://192.168.1.162:11435",
+      "env_variable": "OLLAMA_CHAT_BASES"
+    },
+    {
+      "type": "text",
+      "label": "Ollama Embedding Base URL",
+      "hint": "Native Ollama endpoint used for embedding and rerank traffic.",
+      "required": false,
+      "default": "http://192.168.1.162:11437",
+      "env_variable": "OLLAMA_EMBED_BASE"
     },
     {
       "type": "text",
       "label": "Ollama API Key",
-      "hint": "Any non-empty value works for local Ollama (example: ollama-local).",
+      "hint": "Any non-empty value works for local Ollama.",
       "required": false,
       "default": "ollama-local",
       "env_variable": "OLLAMA_API_KEY"
@@ -45,67 +59,23 @@
       "label": "Ollama Embedding Model",
       "hint": "Embedding model used by memory search with Ollama.",
       "required": false,
-      "default": "nomic-embed-text",
+      "default": "nomic-embed-text:latest",
       "env_variable": "OLLAMA_EMBEDDING_MODEL"
     },
     {
       "type": "text",
-      "label": "LocalAI Base URL",
-      "hint": "OpenAI-compatible endpoint (example: http://localai:8080/v1).",
+      "label": "Trusted Proxy CIDRs",
+      "hint": "Comma-separated proxy IPs or CIDRs allowed to forward client IP headers.",
       "required": false,
-      "default": "http://localai:8080/v1",
-      "env_variable": "LOCALAI_BASE_URL"
-    },
-    {
-      "type": "text",
-      "label": "LocalAI API Key",
-      "hint": "API key for LocalAI if your endpoint requires auth.",
-      "required": false,
-      "default": "localai-local",
-      "env_variable": "LOCALAI_API_KEY"
-    },
-    {
-      "type": "text",
-      "label": "LocalAI Model ID",
-      "hint": "Model id exposed by LocalAI (without provider prefix).",
-      "required": false,
-      "default": "gpt-4o-mini",
-      "env_variable": "LOCALAI_MODEL_ID"
-    },
-    {
-      "type": "text",
-      "label": "LocalAI Model Name",
-      "hint": "Display name for LocalAI model catalog entry in OpenClaw.",
-      "required": false,
-      "default": "LocalAI Model",
-      "env_variable": "LOCALAI_MODEL_NAME"
-    },
-    {
-      "type": "number",
-      "label": "LocalAI Context Window",
-      "hint": "Context window for the LocalAI model entry.",
-      "required": false,
-      "default": 32768,
-      "min": 1024,
-      "max": 1048576,
-      "env_variable": "LOCALAI_CONTEXT_WINDOW"
-    },
-    {
-      "type": "number",
-      "label": "LocalAI Max Tokens",
-      "hint": "Max output tokens for the LocalAI model entry.",
-      "required": false,
-      "default": 8192,
-      "min": 256,
-      "max": 262144,
-      "env_variable": "LOCALAI_MAX_TOKENS"
+      "default": "127.0.0.1/32,::1/128,172.18.0.0/16",
+      "env_variable": "OPENCLAW_TRUSTED_PROXIES"
     },
     {
       "type": "text",
       "label": "Primary Model Ref",
-      "hint": "Default model for sessions (example: ollama/glm-4.7-flash or localai/gpt-4o-mini).",
+      "hint": "Default model for sessions.",
       "required": false,
-      "default": "ollama/glm-4.7-flash",
+      "default": "ollama/gpt-oss:20b",
       "env_variable": "OPENCLAW_PRIMARY_MODEL_REF"
     },
     {
@@ -113,10 +83,10 @@
       "label": "Fallback Model Ref",
       "hint": "Optional fallback model ref. Leave blank to disable fallback.",
       "required": false,
-      "default": "localai/gpt-4o-mini",
+      "default": "ollama/qwen2.5-coder:7b",
       "env_variable": "OPENCLAW_FALLBACK_MODEL_REF"
     }
   ],
   "created_at": 1773498368000,
-  "updated_at": 1773500721000
+  "updated_at": 1773631609000
 }

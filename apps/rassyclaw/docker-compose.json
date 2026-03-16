@@ -14,60 +14,12 @@
           "value": "${OPENCLAW_GATEWAY_TOKEN}"
         },
         {
-          "key": "OLLAMA_BASE_URL",
-          "value": "${OLLAMA_BASE_URL}"
-        },
-        {
           "key": "OLLAMA_API_KEY",
           "value": "${OLLAMA_API_KEY}"
         },
         {
-          "key": "OLLAMA_MODEL_ID",
-          "value": "${OLLAMA_MODEL_ID}"
-        },
-        {
-          "key": "OLLAMA_MODEL_NAME",
-          "value": "${OLLAMA_MODEL_NAME}"
-        },
-        {
-          "key": "OLLAMA_CONTEXT_WINDOW",
-          "value": "${OLLAMA_CONTEXT_WINDOW}"
-        },
-        {
-          "key": "OLLAMA_MAX_TOKENS",
-          "value": "${OLLAMA_MAX_TOKENS}"
-        },
-        {
-          "key": "OLLAMA_EMBEDDING_BASE_URL",
-          "value": "${OLLAMA_EMBEDDING_BASE_URL}"
-        },
-        {
           "key": "OLLAMA_EMBEDDING_MODEL",
           "value": "${OLLAMA_EMBEDDING_MODEL}"
-        },
-        {
-          "key": "LOCALAI_BASE_URL",
-          "value": "${LOCALAI_BASE_URL}"
-        },
-        {
-          "key": "LOCALAI_API_KEY",
-          "value": "${LOCALAI_API_KEY}"
-        },
-        {
-          "key": "LOCALAI_MODEL_ID",
-          "value": "${LOCALAI_MODEL_ID}"
-        },
-        {
-          "key": "LOCALAI_MODEL_NAME",
-          "value": "${LOCALAI_MODEL_NAME}"
-        },
-        {
-          "key": "LOCALAI_CONTEXT_WINDOW",
-          "value": "${LOCALAI_CONTEXT_WINDOW}"
-        },
-        {
-          "key": "LOCALAI_MAX_TOKENS",
-          "value": "${LOCALAI_MAX_TOKENS}"
         },
         {
           "key": "OPENCLAW_PRIMARY_MODEL_REF",
@@ -76,6 +28,10 @@
         {
           "key": "OPENCLAW_FALLBACK_MODEL_REF",
           "value": "${OPENCLAW_FALLBACK_MODEL_REF}"
+        },
+        {
+          "key": "OPENCLAW_TRUSTED_PROXIES",
+          "value": "${OPENCLAW_TRUSTED_PROXIES}"
         },
         {
           "key": "OPENCLAW_FRONTEND_URL",
@@ -101,8 +57,13 @@
       "command": [
         "sh",
         "-lc",
-        "set -eu; cfg(){ openclaw config set \"$1\" \"$2\" --strict-json >/dev/null; }; if [ -n \"${APP_LOCAL_DOMAIN:-}\" ]; then ALLOWED_ORIGINS=\"[\\\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\\\",\\\"${APP_PROTOCOL:-http}://${APP_LOCAL_DOMAIN}\\\"]\"; else ALLOWED_ORIGINS=\"[\\\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\\\"]\"; fi; if [ -n \"${OPENCLAW_FALLBACK_MODEL_REF:-}\" ]; then FALLBACKS=\"[\\\"${OPENCLAW_FALLBACK_MODEL_REF}\\\"]\"; else FALLBACKS=\"[]\"; fi; if [ -n \"${OLLAMA_MODEL_ID:-}\" ]; then OLLAMA_MODELS=\"[{\\\"id\\\":\\\"${OLLAMA_MODEL_ID}\\\",\\\"name\\\":\\\"${OLLAMA_MODEL_NAME}\\\",\\\"reasoning\\\":false,\\\"input\\\":[\\\"text\\\"],\\\"cost\\\":{\\\"input\\\":0,\\\"output\\\":0,\\\"cacheRead\\\":0,\\\"cacheWrite\\\":0},\\\"contextWindow\\\":${OLLAMA_CONTEXT_WINDOW},\\\"maxTokens\\\":${OLLAMA_MAX_TOKENS}}]\"; else OLLAMA_MODELS=\"[]\"; fi; if [ -n \"${OLLAMA_EMBEDDING_BASE_URL:-}\" ]; then MEMORY_SEARCH=\"{\\\"provider\\\":\\\"ollama\\\",\\\"remote\\\":{\\\"baseUrl\\\":\\\"${OLLAMA_EMBEDDING_BASE_URL}\\\",\\\"apiKey\\\":\\\"${OLLAMA_API_KEY}\\\"},\\\"model\\\":\\\"${OLLAMA_EMBEDDING_MODEL}\\\",\\\"fallback\\\":\\\"none\\\"}\"; else MEMORY_SEARCH=\"{\\\"provider\\\":\\\"ollama\\\",\\\"model\\\":\\\"${OLLAMA_EMBEDDING_MODEL}\\\",\\\"fallback\\\":\\\"none\\\"}\"; fi; cfg gateway \"{\\\"mode\\\":\\\"local\\\",\\\"bind\\\":\\\"lan\\\",\\\"port\\\":18789,\\\"auth\\\":{\\\"mode\\\":\\\"token\\\",\\\"token\\\":\\\"${OPENCLAW_GATEWAY_TOKEN}\\\"},\\\"controlUi\\\":{\\\"enabled\\\":true,\\\"basePath\\\":\\\"/rassyclaw\\\",\\\"allowedOrigins\\\":$$ALLOWED_ORIGINS},\\\"http\\\":{\\\"endpoints\\\":{\\\"chatCompletions\\\":{\\\"enabled\\\":true},\\\"responses\\\":{\\\"enabled\\\":true}}}}\"; cfg models \"{\\\"mode\\\":\\\"merge\\\",\\\"providers\\\":{\\\"ollama\\\":{\\\"baseUrl\\\":\\\"${OLLAMA_BASE_URL}\\\",\\\"api\\\":\\\"ollama\\\",\\\"apiKey\\\":\\\"${OLLAMA_API_KEY}\\\",\\\"models\\\":$$OLLAMA_MODELS},\\\"localai\\\":{\\\"baseUrl\\\":\\\"${LOCALAI_BASE_URL}\\\",\\\"api\\\":\\\"openai-completions\\\",\\\"apiKey\\\":\\\"${LOCALAI_API_KEY}\\\",\\\"models\\\":[{\\\"id\\\":\\\"${LOCALAI_MODEL_ID}\\\",\\\"name\\\":\\\"${LOCALAI_MODEL_NAME}\\\",\\\"reasoning\\\":false,\\\"input\\\":[\\\"text\\\"],\\\"cost\\\":{\\\"input\\\":0,\\\"output\\\":0,\\\"cacheRead\\\":0,\\\"cacheWrite\\\":0},\\\"contextWindow\\\":${LOCALAI_CONTEXT_WINDOW},\\\"maxTokens\\\":${LOCALAI_MAX_TOKENS}}]}}}\"; cfg agents.defaults.model \"{\\\"primary\\\":\\\"${OPENCLAW_PRIMARY_MODEL_REF}\\\",\\\"fallbacks\\\":$$FALLBACKS}\"; cfg agents.defaults.memorySearch \"$$MEMORY_SEARCH\"; exec openclaw gateway run --allow-unconfigured --bind lan --port 18789"
+        "set -eu; cfg(){ openclaw config set \"$1\" \"$2\" --strict-json >/dev/null; }; if [ -n \"${APP_LOCAL_DOMAIN:-}\" ]; then ALLOWED_ORIGINS=\"[\\\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\\\",\\\"${APP_PROTOCOL:-http}://${APP_LOCAL_DOMAIN}\\\"]\"; else ALLOWED_ORIGINS=\"[\\\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\\\"]\"; fi; if [ -n \"${OPENCLAW_FALLBACK_MODEL_REF:-}\" ]; then FALLBACKS=\"[\\\"${OPENCLAW_FALLBACK_MODEL_REF}\\\"]\"; else FALLBACKS=\"[]\"; fi; TRUSTED_PROXIES_JSON=\"$(node -e 'const list=(process.argv[1]||\"\").split(\",\").map((value)=>value.trim()).filter(Boolean); process.stdout.write(JSON.stringify(list));' \"${OPENCLAW_TRUSTED_PROXIES:-}\")\"; MODELS_JSON=\"$(node -e 'const refs=process.argv.slice(1).map((value)=>String(value||\"\").trim()).filter(Boolean); const out={}; for (const ref of refs) out[ref]={params:{maxTokens:512}}; process.stdout.write(JSON.stringify(out));' \"${OPENCLAW_PRIMARY_MODEL_REF:-}\" \"${OPENCLAW_FALLBACK_MODEL_REF:-}\")\"; TOOLS_BY_PROVIDER_JSON=\"$(node -e 'const refs=process.argv.slice(1).map((value)=>String(value||\"\").trim()).filter(Boolean); const out={}; for (const ref of refs) out[ref]={profile:\"minimal\"}; process.stdout.write(JSON.stringify(out));' \"${OPENCLAW_PRIMARY_MODEL_REF:-}\" \"${OPENCLAW_FALLBACK_MODEL_REF:-}\")\"; cfg gateway \"{\\\"mode\\\":\\\"local\\\",\\\"bind\\\":\\\"lan\\\",\\\"port\\\":18789,\\\"auth\\\":{\\\"mode\\\":\\\"token\\\",\\\"token\\\":\\\"${OPENCLAW_GATEWAY_TOKEN}\\\"},\\\"controlUi\\\":{\\\"enabled\\\":true,\\\"basePath\\\":\\\"/rassyclaw\\\",\\\"allowedOrigins\\\":$$ALLOWED_ORIGINS},\\\"trustedProxies\\\":$$TRUSTED_PROXIES_JSON,\\\"http\\\":{\\\"endpoints\\\":{\\\"chatCompletions\\\":{\\\"enabled\\\":true},\\\"responses\\\":{\\\"enabled\\\":true}}}}\"; cfg models \"{\\\"mode\\\":\\\"merge\\\",\\\"providers\\\":{\\\"ollama\\\":{\\\"baseUrl\\\":\\\"http://ollama-proxy:11436\\\",\\\"api\\\":\\\"ollama\\\",\\\"apiKey\\\":\\\"${OLLAMA_API_KEY}\\\",\\\"models\\\":[]}}}\"; cfg agents.defaults.model \"{\\\"primary\\\":\\\"${OPENCLAW_PRIMARY_MODEL_REF}\\\",\\\"fallbacks\\\":$$FALLBACKS}\"; cfg agents.list \"[{\\\"id\\\":\\\"main\\\",\\\"model\\\":\\\"${OPENCLAW_PRIMARY_MODEL_REF}\\\"}]\"; cfg agents.defaults.models \"{}\"; cfg agents.defaults.models \"$$MODELS_JSON\"; cfg tools.byProvider \"{}\"; cfg tools.byProvider \"$$TOOLS_BY_PROVIDER_JSON\"; cfg agents.defaults.memorySearch \"{\\\"provider\\\":\\\"ollama\\\",\\\"model\\\":\\\"${OLLAMA_EMBEDDING_MODEL}\\\",\\\"fallback\\\":\\\"none\\\"}\"; exec openclaw gateway run --allow-unconfigured --bind lan --port 18789"
       ],
+      "dependsOn": {
+        "ollama-proxy": {
+          "condition": "service_healthy"
+        }
+      },
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
@@ -120,6 +81,59 @@
         "retries": 10,
         "startPeriod": "60s"
       }
+    },
+    {
+      "name": "ollama-proxy",
+      "image": "ghcr.io/openclaw/openclaw:latest",
+      "user": "0:0",
+      "environment": [
+        {
+          "key": "PROXY_HOST",
+          "value": "0.0.0.0"
+        },
+        {
+          "key": "PROXY_PORT",
+          "value": "11436"
+        },
+        {
+          "key": "CHAT_BASES",
+          "value": "${OLLAMA_CHAT_BASES}"
+        },
+        {
+          "key": "EMBED_BASE",
+          "value": "${OLLAMA_EMBED_BASE}"
+        },
+        {
+          "key": "INCLUDE_EMBED_MODELS_IN_TAGS",
+          "value": "false"
+        },
+        {
+          "key": "MODEL_CACHE_TTL_MS",
+          "value": "30000"
+        },
+        {
+          "key": "TZ",
+          "value": "${TZ:-UTC}"
+        }
+      ],
+      "command": [
+        "node",
+        "/tmp/ollama-proxy.mjs"
+      ],
+      "healthCheck": {
+        "test": "node -e \"fetch('http://127.0.0.1:11436/api/tags').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\"",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "10s"
+      },
+      "volumes": [
+        {
+          "hostPath": "${ROOT_FOLDER_HOST}/apps/${APP_STORE_ID}/${APP_NAME}/ollama_split_proxy.mjs",
+          "containerPath": "/tmp/ollama-proxy.mjs",
+          "readOnly": true
+        }
+      ]
     }
   ]
 }

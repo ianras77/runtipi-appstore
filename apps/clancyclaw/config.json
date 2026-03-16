@@ -3,14 +3,14 @@
   "name": "ClancyClaw",
   "id": "clancyclaw",
   "available": true,
-  "short_desc": "ClancyClaw (OpenClaw) with Ollama + LocalAI providers",
+  "short_desc": "ClancyClaw with split Ollama chat + embeddings",
   "author": "OpenClaw",
   "port": 18791,
   "categories": [
     "ai",
     "development"
   ],
-  "description": "Run ClancyClaw (OpenClaw) with Ollama for local LLM + embeddings and LocalAI as an OpenAI-compatible provider.",
+  "description": "Run ClancyClaw against your external Ollama stack with chat models on 192.168.1.162:11435 and embeddings on 192.168.1.162:11437.",
   "tipi_version": 2,
   "version": "latest",
   "source": "https://github.com/openclaw/openclaw",
@@ -32,63 +32,27 @@
     },
     {
       "type": "text",
-      "label": "Ollama Base URL",
-      "hint": "Native Ollama chat endpoint, no /v1 suffix (example: http://ollama:11434).",
+      "label": "Ollama Chat Base URLs",
+      "hint": "Comma-separated native Ollama endpoints for chat and generate traffic.",
       "required": false,
-      "default": "http://ollama:11434",
-      "env_variable": "OLLAMA_BASE_URL"
-    },
-    {
-      "type": "text",
-      "label": "Ollama API Key",
-      "hint": "Any non-empty value works for local Ollama (example: ollama-local).",
-      "required": false,
-      "default": "ollama-local",
-      "env_variable": "OLLAMA_API_KEY"
-    },
-    {
-      "type": "text",
-      "label": "Ollama Model ID",
-      "hint": "Model id to register in the OpenClaw catalog so it shows up even if discovery times out.",
-      "required": false,
-      "default": "gpt-oss:20b",
-      "env_variable": "OLLAMA_MODEL_ID"
-    },
-    {
-      "type": "text",
-      "label": "Ollama Model Name",
-      "hint": "Display name for the Ollama model catalog entry.",
-      "required": false,
-      "default": "gpt-oss:20b",
-      "env_variable": "OLLAMA_MODEL_NAME"
-    },
-    {
-      "type": "number",
-      "label": "Ollama Context Window",
-      "hint": "Context window for the Ollama model entry.",
-      "required": false,
-      "default": 16384,
-      "min": 1024,
-      "max": 1048576,
-      "env_variable": "OLLAMA_CONTEXT_WINDOW"
-    },
-    {
-      "type": "number",
-      "label": "Ollama Max Tokens",
-      "hint": "Max output tokens for the Ollama model entry.",
-      "required": false,
-      "default": 1024,
-      "min": 256,
-      "max": 262144,
-      "env_variable": "OLLAMA_MAX_TOKENS"
+      "default": "http://192.168.1.162:11435",
+      "env_variable": "OLLAMA_CHAT_BASES"
     },
     {
       "type": "text",
       "label": "Ollama Embedding Base URL",
-      "hint": "Optional separate Ollama endpoint for embeddings when chat and embedding models run on different ports or hosts.",
+      "hint": "Native Ollama endpoint used for embedding and rerank traffic.",
       "required": false,
-      "default": "",
-      "env_variable": "OLLAMA_EMBEDDING_BASE_URL"
+      "default": "http://192.168.1.162:11437",
+      "env_variable": "OLLAMA_EMBED_BASE"
+    },
+    {
+      "type": "text",
+      "label": "Ollama API Key",
+      "hint": "Any non-empty value works for local Ollama.",
+      "required": false,
+      "default": "ollama-local",
+      "env_variable": "OLLAMA_API_KEY"
     },
     {
       "type": "text",
@@ -100,62 +64,18 @@
     },
     {
       "type": "text",
-      "label": "LocalAI Base URL",
-      "hint": "OpenAI-compatible endpoint (example: http://localai:8080/v1). Use a proxy URL if your backend rejects Authorization headers.",
+      "label": "Trusted Proxy CIDRs",
+      "hint": "Comma-separated proxy IPs or CIDRs allowed to forward client IP headers.",
       "required": false,
-      "default": "http://localai:8080/v1",
-      "env_variable": "LOCALAI_BASE_URL"
-    },
-    {
-      "type": "text",
-      "label": "LocalAI API Key",
-      "hint": "API key for LocalAI if your endpoint requires auth.",
-      "required": false,
-      "default": "localai-local",
-      "env_variable": "LOCALAI_API_KEY"
-    },
-    {
-      "type": "text",
-      "label": "LocalAI Model ID",
-      "hint": "Model id exposed by LocalAI (without provider prefix).",
-      "required": false,
-      "default": "qwen3.5-2b-hauhaucs-aggressive",
-      "env_variable": "LOCALAI_MODEL_ID"
-    },
-    {
-      "type": "text",
-      "label": "LocalAI Model Name",
-      "hint": "Display name for the LocalAI model catalog entry in OpenClaw.",
-      "required": false,
-      "default": "qwen-2b",
-      "env_variable": "LOCALAI_MODEL_NAME"
-    },
-    {
-      "type": "number",
-      "label": "LocalAI Context Window",
-      "hint": "Context window for the LocalAI model entry.",
-      "required": false,
-      "default": 16384,
-      "min": 1024,
-      "max": 1048576,
-      "env_variable": "LOCALAI_CONTEXT_WINDOW"
-    },
-    {
-      "type": "number",
-      "label": "LocalAI Max Tokens",
-      "hint": "Max output tokens for the LocalAI model entry.",
-      "required": false,
-      "default": 4096,
-      "min": 256,
-      "max": 262144,
-      "env_variable": "LOCALAI_MAX_TOKENS"
+      "default": "127.0.0.1/32,::1/128,172.18.0.0/16",
+      "env_variable": "OPENCLAW_TRUSTED_PROXIES"
     },
     {
       "type": "text",
       "label": "Primary Model Ref",
-      "hint": "Default model for sessions. Defaulting to a smaller LocalAI model avoids the gpt-oss Ollama crash path seen in live testing.",
+      "hint": "Default model for sessions.",
       "required": false,
-      "default": "localai/qwen3.5-2b-hauhaucs-aggressive",
+      "default": "ollama/gpt-oss:20b",
       "env_variable": "OPENCLAW_PRIMARY_MODEL_REF"
     },
     {
@@ -163,10 +83,10 @@
       "label": "Fallback Model Ref",
       "hint": "Optional fallback model ref. Leave blank to disable fallback.",
       "required": false,
-      "default": "",
+      "default": "ollama/qwen2.5-coder:7b",
       "env_variable": "OPENCLAW_FALLBACK_MODEL_REF"
     }
   ],
   "created_at": 1773533005000,
-  "updated_at": 1773580118354
+  "updated_at": 1773631609000
 }
