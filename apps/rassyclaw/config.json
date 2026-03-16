@@ -6,7 +6,10 @@
   "short_desc": "RassyClaw (OpenClaw) with Ollama + LocalAI providers",
   "author": "OpenClaw",
   "port": 18790,
-  "categories": ["ai", "development"],
+  "categories": [
+    "ai",
+    "development"
+  ],
   "description": "Run RassyClaw (OpenClaw) with Ollama for local LLM + embeddings and LocalAI as an OpenAI-compatible provider.",
   "tipi_version": 2,
   "version": "latest",
@@ -14,7 +17,10 @@
   "website": "https://openclaw.ai/",
   "exposable": true,
   "dynamic_config": true,
-  "supported_architectures": ["arm64", "amd64"],
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
   "url_suffix": "/rassyclaw",
   "form_fields": [
     {
@@ -27,7 +33,7 @@
     {
       "type": "text",
       "label": "Ollama Base URL",
-      "hint": "Native Ollama endpoint, no /v1 suffix (example: http://ollama:11434).",
+      "hint": "Native Ollama chat endpoint, no /v1 suffix (example: http://ollama:11434).",
       "required": false,
       "default": "http://ollama:11434",
       "env_variable": "OLLAMA_BASE_URL"
@@ -42,16 +48,60 @@
     },
     {
       "type": "text",
+      "label": "Ollama Model ID",
+      "hint": "Model id to register in the OpenClaw catalog so it shows up even if discovery times out.",
+      "required": false,
+      "default": "gpt-oss:20b",
+      "env_variable": "OLLAMA_MODEL_ID"
+    },
+    {
+      "type": "text",
+      "label": "Ollama Model Name",
+      "hint": "Display name for the Ollama model catalog entry.",
+      "required": false,
+      "default": "gpt-oss:20b",
+      "env_variable": "OLLAMA_MODEL_NAME"
+    },
+    {
+      "type": "number",
+      "label": "Ollama Context Window",
+      "hint": "Context window for the Ollama model entry.",
+      "required": false,
+      "default": 16384,
+      "min": 1024,
+      "max": 1048576,
+      "env_variable": "OLLAMA_CONTEXT_WINDOW"
+    },
+    {
+      "type": "number",
+      "label": "Ollama Max Tokens",
+      "hint": "Max output tokens for the Ollama model entry.",
+      "required": false,
+      "default": 1024,
+      "min": 256,
+      "max": 262144,
+      "env_variable": "OLLAMA_MAX_TOKENS"
+    },
+    {
+      "type": "text",
+      "label": "Ollama Embedding Base URL",
+      "hint": "Optional separate Ollama endpoint for embeddings when chat and embedding models run on different ports or hosts.",
+      "required": false,
+      "default": "",
+      "env_variable": "OLLAMA_EMBEDDING_BASE_URL"
+    },
+    {
+      "type": "text",
       "label": "Ollama Embedding Model",
       "hint": "Embedding model used by memory search with Ollama.",
       "required": false,
-      "default": "nomic-embed-text",
+      "default": "nomic-embed-text:latest",
       "env_variable": "OLLAMA_EMBEDDING_MODEL"
     },
     {
       "type": "text",
       "label": "LocalAI Base URL",
-      "hint": "OpenAI-compatible endpoint (example: http://localai:8080/v1).",
+      "hint": "OpenAI-compatible endpoint (example: http://localai:8080/v1). Use a proxy URL if your backend rejects Authorization headers.",
       "required": false,
       "default": "http://localai:8080/v1",
       "env_variable": "LOCALAI_BASE_URL"
@@ -69,15 +119,15 @@
       "label": "LocalAI Model ID",
       "hint": "Model id exposed by LocalAI (without provider prefix).",
       "required": false,
-      "default": "gpt-4o-mini",
+      "default": "qwen3.5-2b-hauhaucs-aggressive",
       "env_variable": "LOCALAI_MODEL_ID"
     },
     {
       "type": "text",
       "label": "LocalAI Model Name",
-      "hint": "Display name for LocalAI model catalog entry in OpenClaw.",
+      "hint": "Display name for the LocalAI model catalog entry in OpenClaw.",
       "required": false,
-      "default": "LocalAI Model",
+      "default": "qwen-2b",
       "env_variable": "LOCALAI_MODEL_NAME"
     },
     {
@@ -85,7 +135,7 @@
       "label": "LocalAI Context Window",
       "hint": "Context window for the LocalAI model entry.",
       "required": false,
-      "default": 32768,
+      "default": 16384,
       "min": 1024,
       "max": 1048576,
       "env_variable": "LOCALAI_CONTEXT_WINDOW"
@@ -95,7 +145,7 @@
       "label": "LocalAI Max Tokens",
       "hint": "Max output tokens for the LocalAI model entry.",
       "required": false,
-      "default": 8192,
+      "default": 4096,
       "min": 256,
       "max": 262144,
       "env_variable": "LOCALAI_MAX_TOKENS"
@@ -103,9 +153,9 @@
     {
       "type": "text",
       "label": "Primary Model Ref",
-      "hint": "Default model for sessions (example: ollama/glm-4.7-flash or localai/gpt-4o-mini).",
+      "hint": "Default model for sessions. Defaulting to a smaller LocalAI model avoids the gpt-oss Ollama crash path seen in live testing.",
       "required": false,
-      "default": "ollama/glm-4.7-flash",
+      "default": "localai/qwen3.5-2b-hauhaucs-aggressive",
       "env_variable": "OPENCLAW_PRIMARY_MODEL_REF"
     },
     {
@@ -113,10 +163,10 @@
       "label": "Fallback Model Ref",
       "hint": "Optional fallback model ref. Leave blank to disable fallback.",
       "required": false,
-      "default": "localai/gpt-4o-mini",
+      "default": "",
       "env_variable": "OPENCLAW_FALLBACK_MODEL_REF"
     }
   ],
   "created_at": 1773533005000,
-  "updated_at": 1773533005000
+  "updated_at": 1773580118353
 }
