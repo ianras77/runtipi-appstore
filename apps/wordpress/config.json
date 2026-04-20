@@ -6,8 +6,8 @@
   "dynamic_config": true,
   "id": "wordpress",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
-  "tipi_version": 17,
-  "version": "6.9.1",
+  "tipi_version": 18,
+  "version": "6.9.4",
   "categories": [
     "social"
   ],
@@ -34,6 +34,6 @@
     "arm64"
   ],
   "created_at": 1691943801422,
-  "updated_at": 1744945653000,
+  "updated_at": 1776654569300,
   "$schema": "../app-info-schema.json"
 }

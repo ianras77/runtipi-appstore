@@ -6,25 +6,29 @@
   "short_desc": "Wallabag",
   "author": "Wallabag",
   "port": 8829,
-  "categories": ["featured"],
+  "categories": [
+    "featured"
+  ],
   "description": "Wallabag is an open-source, self-hostable application that allows users to save web pages, blog posts, or articles for later reading.",
-  "tipi_version": 3,
-  "version": "2.6.12",
+  "tipi_version": 4,
+  "version": "2.6.14",
   "source": "https://github.com/wallabag/wallabag",
   "exposable": true,
   "dynamic_config": true,
-  "supported_architectures": ["amd64"],
+  "supported_architectures": [
+    "amd64"
+  ],
   "created_at": 1744636780082,
-  "updated_at": 1744636790003,
+  "updated_at": 1776654569300,
   "form_fields": [
     {
-    "type": "text",
-    "label": "Allow User Registration",
-    "max": 10,
-    "min": 3,
-    "required": true,
-    "env_variable": "ALLOW_USER_REGISTRATION",
-    "default": "true"
+      "type": "text",
+      "label": "Allow User Registration",
+      "max": 10,
+      "min": 3,
+      "required": true,
+      "env_variable": "ALLOW_USER_REGISTRATION",
+      "default": "true"
     }
   ]
 }

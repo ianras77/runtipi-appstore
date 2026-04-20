@@ -7,8 +7,8 @@
   "exposable": true,
   "id": "wordpress-maleficme",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
-  "tipi_version": 12,
-  "version": "6.9.1",
+  "tipi_version": 13,
+  "version": "6.9.4",
   "categories": [
     "social"
   ],

@@ -11,8 +11,8 @@
     "development"
   ],
   "description": "Run ClancyClaw against your external Ollama stack with chat models on 192.168.1.162:11435 and embeddings on 192.168.1.162:11437.",
-  "tipi_version": 2,
-  "version": "latest",
+  "tipi_version": 3,
+  "version": "2026.4.15",
   "source": "https://github.com/openclaw/openclaw",
   "website": "https://openclaw.ai/",
   "exposable": true,
@@ -88,5 +88,5 @@
     }
   ],
   "created_at": 1773533005000,
-  "updated_at": 1773631609000
+  "updated_at": 1776654569300
 }

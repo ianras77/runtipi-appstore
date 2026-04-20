@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "miniflux",
-      "image": "ghcr.io/miniflux/miniflux:2.2.16",
+      "image": "ghcr.io/miniflux/miniflux:2.2.19",
       "internalPort": 8080,
       "isMain": true,
       "environment": [
@@ -28,7 +28,9 @@
           "value": "${MINIFLUX_ADMIN_PASSWORD}"
         }
       ],
-      "dependsOn": ["miniflux-db"]
+      "dependsOn": [
+        "miniflux-db"
+      ]
     },
     {
       "name": "miniflux-db",

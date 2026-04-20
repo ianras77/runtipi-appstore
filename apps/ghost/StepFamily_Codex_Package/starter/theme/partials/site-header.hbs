@@ -1,0 +1,43 @@
+{{#if @custom.announcement_text}}
+    <div class="announcement-bar">
+        <div class="shell">
+            <p>{{@custom.announcement_text}}</p>
+        </div>
+    </div>
+{{/if}}
+
+<header class="site-header">
+    <div class="shell header-inner">
+        <a class="brand" href="{{@site.url}}">
+            {{#if @site.logo}}
+                <img class="brand-logo" src="{{@site.logo}}" alt="{{@site.title}}">
+            {{else}}
+                <span class="brand-mark">SF</span>
+            {{/if}}
+
+            <span class="brand-copy">
+                <strong>{{@site.title}}</strong>
+                <small>{{@custom.brand_tagline}}</small>
+            </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+            Menu
+        </button>
+
+        <nav class="site-nav" id="site-nav" data-site-nav>
+            <ul>
+                <li><a href="/start-here/">Start here</a></li>
+                <li><a href="/guides/">Guides</a></li>
+                <li><a href="/comfort-notes/">Comfort notes</a></li>
+                <li><a href="/resource-library/">Library</a></li>
+                <li><a href="/community-promise/">Promise</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a class="button button-ghost button-small" href="#/portal/signin">Sign in</a>
+                <a class="button button-small" href="{{@custom.hero_cta_url}}">{{@custom.hero_cta_text}}</a>
+            </div>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,14 @@
+<section class="section shell" data-reveal>
+    <div class="section-heading">
+        <p class="eyebrow">Latest notes</p>
+        <h2>Comfort, ideas, and practical help.</h2>
+    </div>
+
+    {{#get "posts" limit="6" include="tags,authors"}}
+        <div class="card-grid">
+            {{#foreach posts}}
+                {{> "post-card"}}
+            {{/foreach}}
+        </div>
+    {{/get}}
+</section>

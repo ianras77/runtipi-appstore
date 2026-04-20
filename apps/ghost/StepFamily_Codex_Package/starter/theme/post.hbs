@@ -1,0 +1,69 @@
+{{!< default}}
+
+{{#post}}
+    <article class="shell post-template page-surface" data-reveal>
+        <header class="post-header">
+            {{#if primary_tag}}
+                <p class="eyebrow">{{primary_tag.name}}</p>
+            {{else}}
+                <p class="eyebrow">Article</p>
+            {{/if}}
+            <h1>{{title}}</h1>
+            {{#if custom_excerpt}}
+                <p class="post-dek">{{custom_excerpt}}</p>
+            {{/if}}
+            <div class="post-meta">
+                <span>{{date published_at format="MMMM D, YYYY"}}</span>
+                <span>{{reading_time minute="1 min read" minutes="% min read"}}</span>
+                {{#primary_author}}<span>{{name}}</span>{{/primary_author}}
+            </div>
+        </header>
+
+        {{#if feature_image}}
+            <figure class="post-feature-image">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}">
+                {{#if feature_image_caption}}
+                    <figcaption>{{feature_image_caption}}</figcaption>
+                {{/if}}
+            </figure>
+        {{/if}}
+
+        <div class="post-layout">
+            <aside class="post-rail">
+                <div class="rail-card">
+                    <p class="rail-title">A grounding question</p>
+                    <p class="rail-copy">What would help the next interaction in this home feel a little safer and less charged?</p>
+                </div>
+                <div class="rail-card">
+                    <p class="rail-title">Common reader need</p>
+                    <p class="rail-copy">Less shame, fewer loyalty binds, more honest language, and one next step that can be taken today.</p>
+                </div>
+                <div class="rail-card">
+                    <p class="rail-title">Keep going</p>
+                    <a class="text-link" href="/resource-library/">Visit the resource library</a>
+                </div>
+            </aside>
+
+            <div class="post-content">
+                <div class="gh-content">
+                    {{content}}
+                </div>
+            </div>
+        </div>
+
+        <section class="related-section">
+            <div class="section-heading">
+                <p class="eyebrow">Keep reading</p>
+                <h2>More help for steadier family life.</h2>
+            </div>
+
+            {{#get "posts" limit="3" include="tags,authors"}}
+                <div class="card-grid">
+                    {{#foreach posts}}
+                        {{> "post-card"}}
+                    {{/foreach}}
+                </div>
+            {{/get}}
+        </section>
+    </article>
+{{/post}}

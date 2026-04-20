@@ -4,11 +4,14 @@
   "services": [
     {
       "name": "habittrove",
-      "image": "dohsimpson/habittrove:v0.2.30",
+      "image": "dohsimpson/habittrove:v0.2.31",
       "isMain": true,
       "internalPort": 3000,
       "environment": [
-          { "key": "AUTH_SECRET", "value": "${HABITTROVE_AUTH_SECRET}" }
+        {
+          "key": "AUTH_SECRET",
+          "value": "${HABITTROVE_AUTH_SECRET}"
+        }
       ],
       "volumes": [
         {

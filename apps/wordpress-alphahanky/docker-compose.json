@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "wordpress-alphahanky",
-      "image": "wordpress:latest",
+      "image": "wordpress:6.9.4",
       "environment": [
         {
           "key": "WORDPRESS_DB_HOST",

@@ -1,0 +1,17 @@
+{{!< default}}
+
+<section class="shell archive-header page-surface" data-reveal>
+    <p class="eyebrow">Comfort notes</p>
+    <h1>Short pieces for hard days and tender moments.</h1>
+    <p class="archive-description">These are brief notes to help a reader breathe, remember what matters, and take one good next step without escalating the whole house.</p>
+</section>
+
+<section class="section shell" data-reveal>
+    <div class="card-grid">
+        {{#foreach posts}}
+            {{> "post-card"}}
+        {{/foreach}}
+    </div>
+</section>
+
+{{pagination}}

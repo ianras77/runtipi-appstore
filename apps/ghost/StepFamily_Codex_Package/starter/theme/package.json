@@ -1,0 +1,63 @@
+{
+  "name": "stepfamily-circle",
+  "description": "A handcrafted Ghost theme starter for a step-parent community site focused on safety, trust, belonging, and practical guidance.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "author": {
+    "name": "Step Family Codex Package",
+    "email": "hello@example.com"
+  },
+  "config": {
+    "posts_per_page": 9,
+    "card_assets": true,
+    "custom": {
+      "brand_tagline": {
+        "type": "text",
+        "default": "Comfort, language, and grounded next steps for building a steadier stepfamily."
+      },
+      "hero_eyebrow": {
+        "type": "text",
+        "default": "Stepfamily support"
+      },
+      "hero_cta_text": {
+        "type": "text",
+        "default": "Get the weekly note"
+      },
+      "hero_cta_url": {
+        "type": "text",
+        "default": "#/portal/signup"
+      },
+      "secondary_cta_text": {
+        "type": "text",
+        "default": "Start here"
+      },
+      "secondary_cta_url": {
+        "type": "text",
+        "default": "/start-here/"
+      },
+      "announcement_text": {
+        "type": "text",
+        "default": "A calm place for step-parents, partners, and families trying to build a safer home."
+      },
+      "newsletter_promise": {
+        "type": "text",
+        "default": "A gentle weekly note with ideas, scripts, reflections, and next steps for steadier family life."
+      },
+      "safety_note": {
+        "type": "text",
+        "default": "No shaming. No child-bashing. No fear selling. Just practical help for making home feel safer."
+      },
+      "community_offer": {
+        "type": "text",
+        "default": "Readers come here for comfort, clarity, and language they can actually use tonight."
+      },
+      "home_feature_tag": {
+        "type": "text",
+        "default": "feature-home"
+      }
+    }
+  }
+}

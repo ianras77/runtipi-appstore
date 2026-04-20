@@ -1,0 +1,46 @@
+{{!< default}}
+
+<section class="home-shell">
+    {{> "home-hero"}}
+    {{> "trust-promise"}}
+    {{> "support-pillars"}}
+
+    <section class="section shell reading-path" data-reveal>
+        <div class="reading-layout">
+            <div class="reading-copy">
+                <p class="eyebrow">When the house feels tense</p>
+                <h2>Return to the smallest next act of safety.</h2>
+                <p>Most families do not need a dramatic overhaul. They need a calmer tone, clearer agreements, softer repair, and a little more room for everyone to belong without being tested.</p>
+                <ul class="checklist">
+                    <li>Lower the emotional temperature before trying to solve the issue.</li>
+                    <li>Protect the couple bond without turning it into a courtroom.</li>
+                    <li>Give children steadiness, not pressure, to feel loyal on command.</li>
+                    <li>Choose the next honest step instead of the perfect final answer.</li>
+                </ul>
+                <div class="hero-actions">
+                    <a class="button button-secondary" href="/community-promise/">Read the community promise</a>
+                    <a class="button button-ghost" href="/resource-library/">Browse the resource library</a>
+                </div>
+            </div>
+
+            {{#get "posts" limit="1" include="tags,authors"}}
+                {{#foreach posts}}
+                    <div class="reading-card">
+                        {{> "post-card" featured=true}}
+                    </div>
+                {{else}}
+                    <article class="reading-fallback card-surface">
+                        <p class="eyebrow">First next step</p>
+                        <h3>Publish your first comfort note.</h3>
+                        <p>Start with a short post that tells the reader they are not failing because the house feels complicated. Name the tension, lower the shame, and offer one usable next step.</p>
+                        <a class="text-link" href="/start-here/">Use the start here guide</a>
+                    </article>
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </section>
+
+    {{> "resources-strip"}}
+    {{> "featured-posts"}}
+    {{> "newsletter-cta"}}
+</section>

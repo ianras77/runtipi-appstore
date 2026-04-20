@@ -1,0 +1,26 @@
+routes:
+  /:
+    template: home
+  /start-here/:
+    template: custom-start-here
+  /community-promise/:
+    template: custom-community-promise
+  /resource-library/:
+    template: custom-library
+
+collections:
+  /guides/:
+    permalink: /guides/{slug}/
+    template: index-guides
+    filter: tag:hash-guide
+  /comfort-notes/:
+    permalink: /comfort-notes/{slug}/
+    template: index-comfort
+    filter: tag:hash-comfort
+  /:
+    permalink: /{slug}/
+    template: index
+
+taxonomies:
+  tag: /topic/{slug}/
+  author: /guide/{slug}/

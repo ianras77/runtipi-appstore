@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "openclaw",
-      "image": "ghcr.io/openclaw/openclaw:latest",
+      "image": "ghcr.io/openclaw/openclaw:2026.4.15",
       "isMain": true,
       "internalPort": 18789,
       "user": "0:0",
@@ -89,7 +89,7 @@
     },
     {
       "name": "ollama-proxy",
-      "image": "ghcr.io/openclaw/openclaw:latest",
+      "image": "ghcr.io/openclaw/openclaw:2026.4.15",
       "user": "0:0",
       "environment": [
         {

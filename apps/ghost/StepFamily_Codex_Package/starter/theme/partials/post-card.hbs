@@ -1,0 +1,24 @@
+<article class="post-card{{#if featured}} is-featured{{/if}}">
+    <a class="post-card-link" href="{{url}}">
+        {{#if feature_image}}
+            <img class="post-card-image" src="{{img_url feature_image size="m"}}" alt="{{title}}">
+        {{/if}}
+
+        <div class="post-card-content">
+            {{#if primary_tag}}
+                <p class="card-kicker">{{primary_tag.name}}</p>
+            {{/if}}
+
+            <h3>{{title}}</h3>
+
+            {{#if excerpt}}
+                <p>{{excerpt words="28"}}</p>
+            {{/if}}
+
+            <div class="post-card-meta">
+                <span>{{date published_at format="MMMM D, YYYY"}}</span>
+                <span>{{reading_time minute="1 min read" minutes="% min read"}}</span>
+            </div>
+        </div>
+    </a>
+</article>

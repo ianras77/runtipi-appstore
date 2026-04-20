@@ -1,0 +1,71 @@
+routes:
+  /:
+    template: home
+    data: page.home
+  /start-here/:
+    template: page
+    data: page.start-here
+  /the-story/:
+    template: page
+    data: page.the-story
+  /resources/:
+    template: page
+    data: page.resources
+  /community-promise/:
+    template: custom-community-promise
+  /resource-library/:
+    template: custom-resource-library
+  /about-ian/:
+    template: page
+    data: page.about-ian
+  /subscribe/:
+    template: page
+    data: page.subscribe
+  /mission/:
+    template: page
+    data: page.mission
+  /membership/:
+    template: page
+    data: page.membership
+  /speaking/:
+    template: page
+    data: page.speaking
+  /contact/:
+    template: page
+    data: page.contact
+  /privacy/:
+    template: page
+    data: page.privacy
+  /terms/:
+    template: page
+    data: page.terms
+  /inner-circle/:
+    template: page
+    data: page.inner-circle
+  /media-kit/:
+    template: page
+    data: page.media-kit
+  /social-templates/:
+    template: page
+    data: page.social-templates
+  /editorial-pipeline/:
+    template: page
+    data: page.editorial-pipeline
+  /weekly-newsletter-template/:
+    template: page
+    data: page.weekly-newsletter-template
+  /segmentation-plan/:
+    template: page
+    data: page.segmentation-plan
+  /seo-strategy/:
+    template: page
+    data: page.seo-strategy
+
+collections:
+  /path/:
+    permalink: /path/{slug}/
+    template: index
+
+taxonomies:
+  tag: /tag/{slug}/
+  author: /author/{slug}/

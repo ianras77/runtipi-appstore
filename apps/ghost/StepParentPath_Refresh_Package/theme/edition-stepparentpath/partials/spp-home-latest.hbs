@@ -1,0 +1,36 @@
+<section class="gh-outer spp-home-section">
+    <div class="gh-inner">
+        <div class="spp-section-heading">
+            <p class="spp-kicker">Comfort, ideas, and next steps</p>
+            <h2>Keep building on what is already here.</h2>
+            <p>These additions are meant to sit alongside the existing site, not replace it.</p>
+        </div>
+
+        {{#get "posts" limit="3" filter="status:published+page:false" include="tags,authors" as |posts|}}
+            {{#if posts}}
+                <div class="spp-card-grid spp-card-grid-3">
+                    {{#foreach posts}}
+                        <article class="spp-post-card">
+                            <a class="spp-post-link" href="{{url}}">
+                                {{#if primary_tag}}
+                                    <p class="spp-card-kicker">{{primary_tag.name}}</p>
+                                {{/if}}
+                                <h3>{{title}}</h3>
+                                {{#if excerpt}}
+                                    <p>{{excerpt words="28"}}</p>
+                                {{/if}}
+                                <span class="spp-meta-row">{{reading_time minute="1 min read" minutes="% min read"}}</span>
+                            </a>
+                        </article>
+                    {{/foreach}}
+                </div>
+            {{else}}
+                <div class="spp-page-panel">
+                    <p class="spp-kicker">First next step</p>
+                    <h2>Publish one comfort note before anything else.</h2>
+                    <p>Start with a short post that tells the reader they are not failing because the house feels complicated. Name the tension, lower the shame, and offer one usable next step.</p>
+                </div>
+            {{/if}}
+        {{/get}}
+    </div>
+</section>

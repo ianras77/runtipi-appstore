@@ -1,0 +1,43 @@
+<div class="cover{{#if @site.cover_image}} image-loading{{/if}}{{#match @custom.publication_cover_style "Half screen"}} half{{/match}} gh-outer">
+    {{#if @site.cover_image}}
+        <img class="cover-image u-object-fit" src="{{@site.cover_image}}" alt="{{@site.title}}">
+    {{/if}}
+
+    <div class="cover-content">
+        <div class="cover-brand">
+            <img class="cover-icon" src="/content/images/2026/02/step-parent-path-icon.svg" alt="{{@site.title}} icon">
+            <div class="cover-title">{{@site.title}}</div>
+        </div>
+        {{#if @site.description}}
+            <div class="cover-tagline">{{@site.description}}</div>
+        {{/if}}
+        {{#if @custom.email_signup_text}}
+            <div class="cover-description">
+                {{#unless @member}}
+                    {{@custom.email_signup_text}}
+                {{else}}
+                    {{@site.description}}
+                {{/unless}}
+            </div>
+        {{/if}}
+
+        {{#if @site.members_enabled}}
+            {{#unless @site.members_invite_only}}
+                {{#unless @member}}
+                    <form class="form-wrapper cover-form" data-members-form>
+                        <input class="auth-email" type="email" name="email" data-members-email placeholder="Your email address" required="true">
+                        <button class="form-button" type="submit" aria-label="Submit">
+                            <span class="default">Subscribe</span>
+                            <span class="loader">{{> "icons/loader"}}</span>
+                            <span class="success">Email sent</span>
+                        </button>
+                    </form>
+                {{/unless}}
+            {{/unless}}
+        {{/if}}
+    </div>
+
+    <button class="button-icon cover-arrow">
+        {{> "icons/caret-down"}}
+    </button>
+</div>
