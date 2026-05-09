@@ -1,7 +1,7 @@
 {
   "$schema": "../app-info-schema.json",
   "schema": "2",
-  "name": "Ghost Production",
+  "name": "Ghost: Farmleadership",
   "port": 8117,
   "available": true,
   "exposable": true,
