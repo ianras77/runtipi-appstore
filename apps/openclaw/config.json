@@ -12,7 +12,7 @@
   ],
   "description": "Run OpenClaw against your external Ollama stack with chat models on 192.168.1.162:11435 and embeddings on 192.168.1.162:11437.",
   "tipi_version": 3,
-  "version": "2026.4.15",
+  "version": "2026.4.24",
   "source": "https://github.com/openclaw/openclaw",
   "website": "https://openclaw.ai/",
   "exposable": true,

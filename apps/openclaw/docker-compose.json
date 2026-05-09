@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "openclaw",
-      "image": "ghcr.io/openclaw/openclaw:2026.4.15",
+      "image": "ghcr.io/openclaw/openclaw:2026.4.24",
       "isMain": true,
       "internalPort": 18789,
       "user": "0:0",
@@ -34,6 +34,10 @@
           "value": "${OPENCLAW_TRUSTED_PROXIES}"
         },
         {
+          "key": "OPENCLAW_DISABLE_BONJOUR",
+          "value": "1"
+        },
+        {
           "key": "OPENCLAW_FRONTEND_URL",
           "value": "${APP_PROTOCOL:-http}://${APP_DOMAIN}"
         },
@@ -57,7 +61,7 @@
       "command": [
         "sh",
         "-lc",
-        "set -eu; cfg(){ openclaw config set \"$1\" \"$2\" --strict-json >/dev/null; }; if [ -n \"${APP_LOCAL_DOMAIN:-}\" ]; then ALLOWED_ORIGINS=\"[\\\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\\\",\\\"${APP_PROTOCOL:-http}://${APP_LOCAL_DOMAIN}\\\"]\"; else ALLOWED_ORIGINS=\"[\\\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\\\"]\"; fi; if [ -n \"${OPENCLAW_FALLBACK_MODEL_REF:-}\" ]; then FALLBACKS=\"[\\\"${OPENCLAW_FALLBACK_MODEL_REF}\\\"]\"; else FALLBACKS=\"[]\"; fi; TRUSTED_PROXIES_JSON=\"$(node -e 'const list=(process.argv[1]||\"\").split(\",\").map((value)=>value.trim()).filter(Boolean); process.stdout.write(JSON.stringify(list));' \"${OPENCLAW_TRUSTED_PROXIES:-}\")\"; MODELS_JSON=\"$(node -e 'const refs=process.argv.slice(1).map((value)=>String(value||\"\").trim()).filter(Boolean); const out={}; for (const ref of refs) out[ref]={params:{maxTokens:512}}; process.stdout.write(JSON.stringify(out));' \"${OPENCLAW_PRIMARY_MODEL_REF:-}\" \"${OPENCLAW_FALLBACK_MODEL_REF:-}\")\"; TOOLS_BY_PROVIDER_JSON=\"$(node -e 'const refs=process.argv.slice(1).map((value)=>String(value||\"\").trim()).filter(Boolean); const out={}; for (const ref of refs) out[ref]={profile:\"minimal\"}; process.stdout.write(JSON.stringify(out));' \"${OPENCLAW_PRIMARY_MODEL_REF:-}\" \"${OPENCLAW_FALLBACK_MODEL_REF:-}\")\"; cfg gateway \"{\\\"mode\\\":\\\"local\\\",\\\"bind\\\":\\\"lan\\\",\\\"port\\\":18789,\\\"auth\\\":{\\\"mode\\\":\\\"token\\\",\\\"token\\\":\\\"${OPENCLAW_GATEWAY_TOKEN}\\\"},\\\"controlUi\\\":{\\\"enabled\\\":true,\\\"basePath\\\":\\\"/openclaw\\\",\\\"allowedOrigins\\\":$$ALLOWED_ORIGINS},\\\"trustedProxies\\\":$$TRUSTED_PROXIES_JSON,\\\"http\\\":{\\\"endpoints\\\":{\\\"chatCompletions\\\":{\\\"enabled\\\":true},\\\"responses\\\":{\\\"enabled\\\":true}}}}\"; cfg models \"{\\\"mode\\\":\\\"merge\\\",\\\"providers\\\":{\\\"ollama\\\":{\\\"baseUrl\\\":\\\"http://ollama-proxy:11436\\\",\\\"api\\\":\\\"ollama\\\",\\\"apiKey\\\":\\\"${OLLAMA_API_KEY}\\\",\\\"models\\\":[]}}}\"; cfg agents.defaults.model \"{\\\"primary\\\":\\\"${OPENCLAW_PRIMARY_MODEL_REF}\\\",\\\"fallbacks\\\":$$FALLBACKS}\"; cfg agents.list \"[{\\\"id\\\":\\\"main\\\",\\\"model\\\":\\\"${OPENCLAW_PRIMARY_MODEL_REF}\\\"}]\"; cfg agents.defaults.models \"{}\"; cfg agents.defaults.models \"$$MODELS_JSON\"; cfg tools.byProvider \"{}\"; cfg tools.byProvider \"$$TOOLS_BY_PROVIDER_JSON\"; cfg agents.defaults.memorySearch \"{\\\"provider\\\":\\\"ollama\\\",\\\"model\\\":\\\"${OLLAMA_EMBEDDING_MODEL}\\\",\\\"fallback\\\":\\\"none\\\"}\"; exec openclaw gateway run --allow-unconfigured --bind lan --port 18789"
+        "set -eu; cfg(){ openclaw config set \"$1\" \"$2\" --strict-json >/dev/null; }; if [ -n \"${APP_LOCAL_DOMAIN:-}\" ]; then ALLOWED_ORIGINS=\"[\\\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\\\",\\\"${APP_PROTOCOL:-http}://${APP_LOCAL_DOMAIN}\\\"]\"; else ALLOWED_ORIGINS=\"[\\\"${APP_PROTOCOL:-http}://${APP_DOMAIN}\\\"]\"; fi; if [ -n \"${OPENCLAW_FALLBACK_MODEL_REF:-}\" ]; then FALLBACKS=\"[\\\"${OPENCLAW_FALLBACK_MODEL_REF}\\\"]\"; else FALLBACKS=\"[]\"; fi; TRUSTED_PROXIES_JSON=\"$(node -e 'const list=(process.argv[1]||\"\").split(\",\").map((value)=>value.trim()).filter(Boolean); process.stdout.write(JSON.stringify(list));' \"${OPENCLAW_TRUSTED_PROXIES:-}\")\"; MODELS_JSON=\"$(node -e 'const refs=process.argv.slice(1).map((value)=>String(value||\"\").trim()).filter(Boolean); const out={}; for (const ref of refs) out[ref]={params:{maxTokens:512}}; process.stdout.write(JSON.stringify(out));' \"${OPENCLAW_PRIMARY_MODEL_REF:-}\" \"${OPENCLAW_FALLBACK_MODEL_REF:-}\")\"; TOOLS_BY_PROVIDER_JSON=\"$(node -e 'const refs=process.argv.slice(1).map((value)=>String(value||\"\").trim()).filter(Boolean); const out={}; for (const ref of refs) out[ref]={profile:\"minimal\"}; process.stdout.write(JSON.stringify(out));' \"${OPENCLAW_PRIMARY_MODEL_REF:-}\" \"${OPENCLAW_FALLBACK_MODEL_REF:-}\")\"; MODEL_ROUTING_JSON=\"$(node -e 'const primary=String(process.argv[1]||\"\").trim(); const fallback=String(process.argv[2]||\"\").trim(); const out={primary, fallbacks:fallback?[fallback]:[]}; process.stdout.write(JSON.stringify(out));' \"${OPENCLAW_PRIMARY_MODEL_REF:-}\" \"${OPENCLAW_FALLBACK_MODEL_REF:-}\")\"; AGENTS_LIST_JSON=\"$(node -e 'const primary=String(process.argv[1]||\"\").trim(); const fallback=String(process.argv[2]||\"\").trim(); const model={primary, fallbacks:fallback?[fallback]:[]}; process.stdout.write(JSON.stringify([{id:\"main\", model}]));' \"${OPENCLAW_PRIMARY_MODEL_REF:-}\" \"${OPENCLAW_FALLBACK_MODEL_REF:-}\")\"; cfg gateway \"{\\\"mode\\\":\\\"local\\\",\\\"bind\\\":\\\"lan\\\",\\\"port\\\":18789,\\\"auth\\\":{\\\"mode\\\":\\\"token\\\",\\\"token\\\":\\\"${OPENCLAW_GATEWAY_TOKEN}\\\"},\\\"controlUi\\\":{\\\"enabled\\\":true,\\\"allowedOrigins\\\":$$ALLOWED_ORIGINS},\\\"trustedProxies\\\":$$TRUSTED_PROXIES_JSON,\\\"http\\\":{\\\"endpoints\\\":{\\\"chatCompletions\\\":{\\\"enabled\\\":true},\\\"responses\\\":{\\\"enabled\\\":true}}}}\"; cfg models \"{\\\"mode\\\":\\\"merge\\\",\\\"providers\\\":{\\\"ollama\\\":{\\\"baseUrl\\\":\\\"http://ollama-proxy:11436\\\",\\\"api\\\":\\\"ollama\\\",\\\"apiKey\\\":\\\"${OLLAMA_API_KEY}\\\",\\\"models\\\":[]}}}\"; cfg agents.defaults.model \"$$MODEL_ROUTING_JSON\"; cfg agents.list \"$$AGENTS_LIST_JSON\"; openclaw config set agents.defaults.models \"$$MODELS_JSON\" --strict-json --replace >/dev/null; openclaw config set tools.byProvider \"$$TOOLS_BY_PROVIDER_JSON\" --strict-json --replace >/dev/null; cfg agents.defaults.memorySearch \"{\\\"provider\\\":\\\"ollama\\\",\\\"model\\\":\\\"${OLLAMA_EMBEDDING_MODEL}\\\",\\\"fallback\\\":\\\"none\\\"}\"; cfg agents.defaults.timeoutSeconds \"60\"; node /tmp/openclaw-config-enforcer.mjs --once; node /tmp/openclaw-config-enforcer.mjs & exec openclaw gateway run --allow-unconfigured --bind lan --port 18789"
       ],
       "dependsOn": {
         "ollama-proxy": {
@@ -77,6 +81,11 @@
         {
           "hostPath": "/var/run/docker.sock",
           "containerPath": "/var/run/docker.sock"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/openclaw_config_enforcer.mjs",
+          "containerPath": "/tmp/openclaw-config-enforcer.mjs",
+          "readOnly": true
         }
       ],
       "healthCheck": {
@@ -89,7 +98,7 @@
     },
     {
       "name": "ollama-proxy",
-      "image": "ghcr.io/openclaw/openclaw:2026.4.15",
+      "image": "ghcr.io/openclaw/openclaw:2026.4.24",
       "user": "0:0",
       "environment": [
         {
