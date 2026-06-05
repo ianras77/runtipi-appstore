@@ -95,14 +95,14 @@
     },
     {
       "name": "immich-redis",
-      "image": "redis:6.2",
+      "image": "valkey/valkey:9",
       "healthCheck": {
         "test": "redis-cli ping || exit 1"
       }
     },
     {
       "name": "immich-db",
-      "image": "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0",
+      "image": "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0",
       "environment": [
         {
           "key": "POSTGRES_PASSWORD",

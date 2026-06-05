@@ -6,8 +6,8 @@
   "exposable": true,
   "dynamic_config": true,
   "id": "mstream",
-  "tipi_version": 4,
-  "version": "v6.3.0-ls228",
+  "tipi_version": 5,
+  "version": "v6.9.1-ls245",
   "categories": [
     "music",
     "media"

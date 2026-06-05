@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "wordpress-zoroasteria",
-      "image": "wordpress:6.9.4",
+      "image": "wordpress:7.0.0",
       "environment": [
         {
           "key": "WORDPRESS_DB_HOST",

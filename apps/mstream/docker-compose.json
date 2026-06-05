@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "mstream",
-      "image": "lscr.io/linuxserver/mstream:v6.3.0-ls228",
+      "image": "lscr.io/linuxserver/mstream:v6.9.1-ls245",
       "isMain": true,
       "internalPort": 3000,
       "environment": [

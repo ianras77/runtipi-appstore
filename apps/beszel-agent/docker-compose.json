@@ -2,26 +2,86 @@
   "services": [
     {
       "name": "beszel-agent",
-      "image": "henrygd/beszel-agent:0.18.7",
+      "image": "henrygd/beszel-agent:0.18.7-alpine",
       "isMain": true,
       "internalPort": 45876,
       "networkMode": "host",
       "environment": [
         {
-          "key": "PORT",
+          "key": "LISTEN",
           "value": 45876
         },
         {
           "key": "KEY",
           "value": "${BESZEL_AGENT_KEY}"
+        },
+        {
+          "key": "DATA_DIR",
+          "value": "/var/lib/beszel-agent"
+        },
+        {
+          "key": "FILESYSTEM",
+          "value": "/"
+        },
+        {
+          "key": "DISK_USAGE_CACHE",
+          "value": "5m"
         }
       ],
       "volumes": [
         {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/var/lib/beszel-agent"
+        },
+        {
           "hostPath": "/var/run/docker.sock",
           "containerPath": "/var/run/docker.sock",
           "readOnly": true
+        },
+        {
+          "hostPath": "/var/run/dbus/system_bus_socket",
+          "containerPath": "/var/run/dbus/system_bus_socket",
+          "readOnly": true
+        },
+        {
+          "hostPath": "/var/run/systemd/private",
+          "containerPath": "/var/run/systemd/private",
+          "readOnly": true
+        },
+        {
+          "hostPath": "/boot",
+          "containerPath": "/extra-filesystems/sda2__boot",
+          "readOnly": true
+        },
+        {
+          "hostPath": "/boot/efi",
+          "containerPath": "/extra-filesystems/sda1__boot-efi",
+          "readOnly": true
+        },
+        {
+          "hostPath": "/srdata/runtipi",
+          "containerPath": "/extra-filesystems/srdata__srdata",
+          "readOnly": true
+        },
+        {
+          "hostPath": "/mnt/cannonball",
+          "containerPath": "/extra-filesystems/cannonball__cannonball",
+          "readOnly": true
         }
+      ],
+      "devices": [
+        "/dev/sda:/dev/sda",
+        "/dev/sdb:/dev/sdb",
+        "/dev/sdc:/dev/sdc",
+        "/dev/sdd:/dev/sdd",
+        "/dev/sde:/dev/sde",
+        "/dev/sdf:/dev/sdf",
+        "/dev/sdg:/dev/sdg",
+        "/dev/sdh:/dev/sdh"
+      ],
+      "capAdd": [
+        "SYS_RAWIO",
+        "SYS_ADMIN"
       ]
     }
   ],

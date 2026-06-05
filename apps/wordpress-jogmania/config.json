@@ -5,8 +5,8 @@
   "exposable": true,
   "id": "wordpress-jogmania",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
-  "tipi_version": 13,
-  "version": "6.9.4",
+  "tipi_version": 14,
+  "version": "7.0.0",
   "categories": [
     "social"
   ],

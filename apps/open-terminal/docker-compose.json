@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "open-terminal",
-      "image": "ghcr.io/open-webui/open-terminal:latest",
+      "image": "ghcr.io/open-webui/open-terminal:0.11.34",
       "isMain": true,
       "internalPort": 8000,
       "environment": [
