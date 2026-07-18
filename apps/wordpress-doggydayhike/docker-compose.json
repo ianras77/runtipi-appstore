@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "wordpress-doggydayhike",
-      "image": "wordpress:7.0.0",
+      "image": "wordpress:7.0.2",
       "environment": [
         {
           "key": "WORDPRESS_DB_HOST",
