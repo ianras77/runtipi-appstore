@@ -4,7 +4,7 @@
       "$schema": "../dynamic-compose-schema.json",
       "schema": "2",
       "name": "ghost-ed",
-      "image": "ghost:6.42.0",
+      "image": "ghost:6.54.0",
       "environment": [
         {
           "key": "database__client",
