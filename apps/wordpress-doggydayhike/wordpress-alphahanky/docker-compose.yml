@@ -3,7 +3,7 @@ services:
 
   wordpress-aidanras:
     container_name: wordpress-aidanras
-    image: wordpress:6.6.1
+    image: wordpress:7.1.0
     environment:
       - wordpress-DB_HOST=wordpress-aidanras-db
       - wordpress-DB_NAME=wordpress

@@ -3,7 +3,7 @@ services:
 
   wordpress-vibesie:
     container_name: wordpress-vibesie
-    image: wordpress:6.9.1
+    image: wordpress:7.1.0
     environment:
       - WORDPRESS_DB_HOST=wordpress-vibesie-db
       - WORDPRESS_DB_NAME=wordpress-vibesie-db

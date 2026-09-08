@@ -3,7 +3,7 @@ services:
 
   wordpress-anklemon:
     container_name: wordpress-anklemon
-    image: wordpress:6.9.1
+    image: wordpress:7.1.0
     environment:
       - WORDPRESS_DB_HOST=wordpress-anklemon-db
       - WORDPRESS_DB_NAME=wordpress-anklemon-db

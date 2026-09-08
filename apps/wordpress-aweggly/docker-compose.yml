@@ -3,7 +3,7 @@ services:
       
   wordpress_aweggly:
     container_name: wordpress_aweggly
-    image: wordpress:6.9.1
+    image: wordpress:7.1.0
     environment:
       - WORDPRESS_DB_HOST=wordpress_aweggly-db
       - WORDPRESS_DB_NAME=wordpress

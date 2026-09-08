@@ -3,7 +3,7 @@ services:
       
   wordpress_yoginilist:
     container_name: wordpress_yoginilist
-    image: wordpress:6.6.1
+    image: wordpress:7.1.0
     environment:
       - WORDPRESS_DB_HOST=wordpress_yoginilist-db
       - WORDPRESS_DB_NAME=wordpress

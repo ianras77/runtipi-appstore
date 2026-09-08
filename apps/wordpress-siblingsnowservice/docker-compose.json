@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "wordpress-siblingsnowserice",
-      "image": "wordpress:7.0.2",
+      "image": "wordpress:7.1.0",
       "environment": [
         {
           "key": "WORDPRESS_DB_HOST",

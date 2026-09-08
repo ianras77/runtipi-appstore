@@ -3,7 +3,7 @@ services:
 
   wordpress-noreleasepower:
     container_name: wordpress-noreleasepower
-    image: wordpress:6.9.1
+    image: wordpress:7.1.0
     environment:
       - WORDPRESS_DB_HOST=wordpress-noreleasepower-db
       - WORDPRESS_DB_NAME=wordpress-noreleasepower-db

@@ -3,7 +3,7 @@ services:
       
   wordpress_visionarytalentkids:
     container_name: wordpress_visionarytalentkids
-    image: wordpress:6.9.1
+    image: wordpress:7.1.0
     environment:
       - WORDPRESS_DB_HOST=wordpress_visionarytalentkids-db
       - WORDPRESS_DB_NAME=wordpress
