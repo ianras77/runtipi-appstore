@@ -1,0 +1,26 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "linkwarden-mcp",
+      "image": "node:22-alpine",
+      "isMain": true,
+      "internalPort": 8000,
+      "addToMainNetwork": true,
+      "entrypoint": [
+        "/bin/sh",
+        "-lc"
+      ],
+      "command": [
+        "exec npx --yes supergateway@4.1.0 --stdio 'npx --yes linkwarden-mcp@0.4.0' --outputTransport streamableHttp --port 8000 --stateful"
+      ],
+      "environment": {
+        "LINKWARDEN_URL": "${LINKWARDEN_URL}",
+        "LINKWARDEN_TOKEN": "${LINKWARDEN_TOKEN}",
+        "LINKWARDEN_READ_ONLY": "true",
+        "LINKWARDEN_ALLOW_TOOLS": "essential"
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "ghost-mcp",
+      "image": "node:22-alpine",
+      "isMain": true,
+      "internalPort": 3100,
+      "addToMainNetwork": true,
+      "entrypoint": [
+        "/bin/sh",
+        "-lc"
+      ],
+      "command": [
+        "exec npx --yes @tryghost/ghst@0.17.5 mcp http --host 0.0.0.0 --unsafe-public-bind --port 3100 --tools posts,tags,site --auth-token \"$GHOST_MCP_AUTH_TOKEN\""
+      ],
+      "environment": {
+        "GHOST_URL": "${GHOST_URL}",
+        "GHOST_STAFF_ACCESS_TOKEN": "${GHOST_STAFF_ACCESS_TOKEN}",
+        "GHST_CONFIG_DIR": "/data/.config/ghst",
+        "GHOST_MCP_AUTH_TOKEN": "${GHOST_MCP_AUTH_TOKEN}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/data"
+        }
+      ]
+    }
+  ]
+}

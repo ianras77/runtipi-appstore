@@ -1,0 +1,47 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "mcp-miniflux",
+  "name": "Miniflux MCP",
+  "available": true,
+  "deprecated": false,
+  "port": 8080,
+  "description": "HTTP MCP companion for Miniflux with bearer authentication. Every connected client uses the configured Miniflux API identity.",
+  "version": "latest",
+  "tipi_version": 1,
+  "short_desc": "MCP tools for Miniflux feeds and entries",
+  "author": "Miniflux MCP contributors",
+  "source": "https://github.com/tssujt/miniflux-mcp",
+  "website": "https://github.com/tssujt/miniflux-mcp",
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "dynamic_config": true,
+  "exposable": false,
+  "no_gui": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "Miniflux URL",
+      "env_variable": "MINIFLUX_URL",
+      "default": "http://miniflux:8080",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Miniflux API key",
+      "env_variable": "MINIFLUX_API_KEY",
+      "required": true
+    },
+    {
+      "type": "random",
+      "label": "MCP bearer token",
+      "env_variable": "MCP_AUTH_TOKEN",
+      "min": 32
+    }
+  ]
+}

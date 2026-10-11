@@ -1,0 +1,42 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "mcp-vikunja",
+  "name": "Vikunja MCP",
+  "available": true,
+  "deprecated": false,
+  "port": 8080,
+  "description": "Private HTTP MCP companion for Vikunja. Task, project and label tools use the configured Vikunja API token; destructive delete tools are disabled.",
+  "version": "latest",
+  "tipi_version": 1,
+  "short_desc": "MCP tools for Vikunja tasks and projects",
+  "author": "nkcx",
+  "source": "https://github.com/nkcx/vikunja-mcp-http",
+  "website": "https://github.com/nkcx/vikunja-mcp-http",
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "dynamic_config": true,
+  "exposable": false,
+  "no_gui": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "Vikunja API URL",
+      "env_variable": "VIKUNJA_URL",
+      "hint": "Include /api/v1, for example https://tasks.example.com/api/v1.",
+      "default": "http://vikunja:3456/api/v1",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Vikunja API token",
+      "env_variable": "VIKUNJA_API_TOKEN",
+      "required": true
+    }
+  ]
+}

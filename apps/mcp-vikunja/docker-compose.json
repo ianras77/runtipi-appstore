@@ -1,0 +1,21 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "vikunja-mcp",
+      "image": "ghcr.io/nkcx/vikunja-mcp-http:latest",
+      "isMain": true,
+      "internalPort": 8080,
+      "addToMainNetwork": true,
+      "environment": {
+        "VIKUNJA_URL": "${VIKUNJA_URL}",
+        "VIKUNJA_API_TOKEN": "${VIKUNJA_API_TOKEN}",
+        "VERIFY_SSL": "true",
+        "ENABLE_TASK_DELETE": "false",
+        "ENABLE_PROJECT_DELETE": "false",
+        "ENABLE_LABEL_DELETE": "false"
+      }
+    }
+  ]
+}

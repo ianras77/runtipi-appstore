@@ -1,0 +1,57 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "mcp-searxng",
+  "name": "SearXNG MCP",
+  "available": true,
+  "deprecated": false,
+  "port": 3000,
+  "description": "Hardened, bearer-authenticated MCP search connector for an existing SearXNG instance. Private to the Runtipi app network by default.",
+  "version": "1.14.1",
+  "tipi_version": 1,
+  "short_desc": "Authenticated MCP search tools for SearXNG",
+  "author": "ihor-sokoliuk",
+  "source": "https://github.com/ihor-sokoliuk/mcp-searxng",
+  "website": "https://github.com/ihor-sokoliuk/mcp-searxng",
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "dynamic_config": true,
+  "exposable": false,
+  "no_gui": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "SearXNG URL",
+      "env_variable": "SEARXNG_URL",
+      "default": "http://searxng:8080",
+      "required": true
+    },
+    {
+      "type": "random",
+      "label": "MCP bearer token",
+      "env_variable": "MCP_HTTP_AUTH_TOKEN",
+      "min": 32
+    },
+    {
+      "type": "text",
+      "label": "Allowed MCP client origins",
+      "env_variable": "MCP_HTTP_ALLOWED_ORIGINS",
+      "hint": "Comma-separated exact origins permitted by hardened HTTP mode.",
+      "required": true,
+      "default": "http://localhost,https://localhost"
+    },
+    {
+      "type": "text",
+      "label": "Allowed MCP host names",
+      "env_variable": "MCP_HTTP_ALLOWED_HOSTS",
+      "hint": "Comma-separated Host values accepted by hardened HTTP mode. Include the host and port clients will use.",
+      "required": true,
+      "default": "mcp-searxng:3000,localhost:3000,127.0.0.1:3000"
+    }
+  ]
+}

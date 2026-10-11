@@ -1,0 +1,5 @@
+server/dist/
+server/node_modules/
+web/dist/
+web/node_modules/
+.web-dist-empty/

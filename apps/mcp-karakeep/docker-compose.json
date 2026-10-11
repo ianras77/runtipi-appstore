@@ -1,0 +1,19 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "karakeep-mcp",
+      "image": "ghcr.io/karakeep-app/karakeep-mcp:latest",
+      "isMain": true,
+      "internalPort": 3000,
+      "addToMainNetwork": true,
+      "environment": {
+        "KARAKEEP_API_ADDR": "${KARAKEEP_API_ADDR}",
+        "KARAKEEP_API_KEY": "${KARAKEEP_API_KEY}",
+        "KARAKEEP_MCP_TRANSPORT": "HTTPstreamable",
+        "KARAKEEP_MCP_STREAM_PORT": "3000"
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "mcp-immich",
+  "name": "Immich MCP",
+  "available": true,
+  "deprecated": false,
+  "port": 5000,
+  "description": "Private HTTP MCP companion for Immich. Use a dedicated, least-privilege Immich API key; the MCP endpoint itself has no bearer-auth option.",
+  "version": "latest",
+  "tipi_version": 1,
+  "short_desc": "MCP tools for an Immich photo library",
+  "author": "barryw",
+  "source": "https://github.com/barryw/ImmichMCP",
+  "website": "https://github.com/barryw/ImmichMCP",
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "dynamic_config": true,
+  "exposable": false,
+  "no_gui": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "Immich base URL",
+      "env_variable": "IMMICH_BASE_URL",
+      "default": "http://immich:2283",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Immich API key",
+      "env_variable": "IMMICH_API_KEY",
+      "required": true
+    }
+  ]
+}

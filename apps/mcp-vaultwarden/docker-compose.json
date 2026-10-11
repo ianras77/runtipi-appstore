@@ -1,0 +1,27 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "vaultwarden-mcp",
+      "image": "ghcr.io/icoretech/warden-mcp:latest",
+      "isMain": true,
+      "internalPort": 3005,
+      "addToMainNetwork": true,
+      "environment": {
+        "PORT": "3005",
+        "WARDEN_MCP_HOST": "0.0.0.0",
+        "KEYCHAIN_ALLOW_ENV_FALLBACK": "false",
+        "READONLY": "true",
+        "NOREVEAL": "true",
+        "KEYCHAIN_BW_HOME_ROOT": "/data/bw-profiles"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/data"
+        }
+      ]
+    }
+  ]
+}

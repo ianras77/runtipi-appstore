@@ -1,0 +1,25 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "grav-mcp",
+      "image": "node:22-alpine",
+      "isMain": true,
+      "internalPort": 3100,
+      "addToMainNetwork": true,
+      "entrypoint": [
+        "/bin/sh",
+        "-lc"
+      ],
+      "command": [
+        "exec npx --yes grav-mcp@0.1.1 --url \"$GRAV_API_URL\" --key \"$GRAV_API_KEY\" --transport http --port 3100"
+      ],
+      "environment": {
+        "GRAV_API_URL": "${GRAV_API_URL}",
+        "GRAV_API_KEY": "${GRAV_API_KEY}",
+        "GRAV_MCP_PLUGIN_TOOLS": "none"
+      }
+    }
+  ]
+}

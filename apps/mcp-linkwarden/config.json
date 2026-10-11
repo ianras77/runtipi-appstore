@@ -1,0 +1,41 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "mcp-linkwarden",
+  "name": "Linkwarden MCP",
+  "available": true,
+  "deprecated": false,
+  "port": 8000,
+  "description": "Private Streamable HTTP bridge for Linkwarden's stdio MCP server. Starts with essential tools in read-only mode and has no MCP-side authentication. Upstream verified against Linkwarden 2.16.0; this store currently packages 2.14.1, so compatibility with that install is unconfirmed.",
+  "version": "0.4.0",
+  "tipi_version": 1,
+  "short_desc": "Private MCP bridge for Linkwarden bookmarks",
+  "author": "ni-c",
+  "source": "https://github.com/ni-c/linkwarden-mcp",
+  "website": "https://github.com/ni-c/linkwarden-mcp",
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "dynamic_config": true,
+  "exposable": false,
+  "no_gui": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "Linkwarden URL",
+      "env_variable": "LINKWARDEN_URL",
+      "default": "http://linkwarden:3000",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Linkwarden access token",
+      "env_variable": "LINKWARDEN_TOKEN",
+      "required": true
+    }
+  ]
+}

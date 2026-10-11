@@ -1,0 +1,22 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "beszel-mcp",
+      "image": "ghcr.io/maxbth/beszel-mcp:1.2.3",
+      "isMain": true,
+      "internalPort": 3000,
+      "addToMainNetwork": true,
+      "environment": {
+        "BESZEL_URL": "${BESZEL_URL}",
+        "BESZEL_EMAIL": "${BESZEL_EMAIL}",
+        "BESZEL_PASSWORD": "${BESZEL_PASSWORD}",
+        "MCP_AUTH_TOKEN": "${MCP_AUTH_TOKEN}",
+        "MCP_TRANSPORT": "http",
+        "MCP_HOST": "0.0.0.0",
+        "MCP_PORT": "3000"
+      }
+    }
+  ]
+}

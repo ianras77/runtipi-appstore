@@ -1,0 +1,27 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "mcp-vaultwarden",
+  "name": "Vaultwarden MCP",
+  "available": true,
+  "deprecated": false,
+  "port": 3005,
+  "description": "Private Vaultwarden MCP endpoint. Read-only and no-reveal modes are enabled; clients must send Vaultwarden credentials in X-BW headers. Do not expose this app publicly.",
+  "version": "latest",
+  "tipi_version": 1,
+  "short_desc": "Read-only, no-reveal MCP access to Vaultwarden",
+  "author": "icoretech",
+  "source": "https://github.com/icoretech/warden-mcp",
+  "website": "https://github.com/icoretech/warden-mcp",
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "dynamic_config": true,
+  "exposable": false,
+  "no_gui": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "form_fields": []
+}

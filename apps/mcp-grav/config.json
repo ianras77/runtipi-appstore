@@ -1,0 +1,42 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "mcp-grav",
+  "name": "Grav MCP",
+  "available": true,
+  "deprecated": false,
+  "port": 3100,
+  "description": "Private MCP companion for Grav 2.0 with the Grav API plugin enabled. The MCP HTTP transport has no built-in client authentication. This store's Grav app is 1.8.0, an unsupported beta line, so this companion will not work with it until Grav is migrated to 2.0.",
+  "version": "0.1.1",
+  "tipi_version": 1,
+  "short_desc": "MCP tools for Grav 2.0 sites",
+  "author": "getgrav",
+  "source": "https://github.com/getgrav/grav-mcp",
+  "website": "https://learn.getgrav.org/2/advanced/mcp-server",
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "dynamic_config": true,
+  "exposable": false,
+  "no_gui": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "Grav API URL",
+      "env_variable": "GRAV_API_URL",
+      "hint": "Grav 2.0 API URL, usually ending in /api.",
+      "default": "http://grav:80/api",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Grav API key",
+      "env_variable": "GRAV_API_KEY",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The Rasies family site: a welcoming self-hosted corner for stories, notes, memories, search, chat, and the everyday rooms that matter."
+    />
+    <meta name="theme-color" content="#14658b" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Real Life Bedtime Stories"
+      href="/podcast/real-life-bedtime-stories.xml"
+    />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png" />
+    <title>Rasies | Family Corner of the Internet</title>
+    <script>
+      (() => {
+        const websiteId = "%VITE_UMAMI_WEBSITE_ID%";
+        if (!websiteId || websiteId.startsWith("%VITE_")) return;
+
+        const script = document.createElement("script");
+        const scriptUrl = "%VITE_UMAMI_SCRIPT_URL%";
+        const domains = "%VITE_UMAMI_DOMAINS%";
+
+        script.async = true;
+        script.defer = true;
+        script.src =
+          scriptUrl && !scriptUrl.startsWith("%VITE_")
+            ? scriptUrl
+            : "https://umami.rasies.com/script.js";
+        script.setAttribute("data-website-id", websiteId);
+        if (domains && !domains.startsWith("%VITE_")) {
+          script.setAttribute("data-domains", domains);
+        }
+        document.head.appendChild(script);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

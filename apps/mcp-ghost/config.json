@@ -1,0 +1,48 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "mcp-ghost",
+  "name": "Ghost MCP",
+  "available": true,
+  "deprecated": false,
+  "port": 3100,
+  "description": "Authenticated HTTP MCP companion using Ghost's ghst CLI. The upstream MCP feature is pre-1.0; this install restricts tools to posts, tags and site.",
+  "version": "0.17.5",
+  "tipi_version": 1,
+  "short_desc": "Bearer-authenticated MCP tools for Ghost CMS",
+  "author": "TryGhost",
+  "source": "https://github.com/TryGhost/ghst",
+  "website": "https://github.com/TryGhost/ghst",
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "dynamic_config": true,
+  "exposable": false,
+  "no_gui": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "Ghost site URL",
+      "env_variable": "GHOST_URL",
+      "default": "http://ghost_migrated-ghost-1:2368",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Ghost staff access token",
+      "env_variable": "GHOST_STAFF_ACCESS_TOKEN",
+      "hint": "Ghost staff token in id:secret format.",
+      "required": true
+    },
+    {
+      "type": "random",
+      "label": "MCP bearer token",
+      "env_variable": "GHOST_MCP_AUTH_TOKEN",
+      "min": 32
+    }
+  ]
+}
