@@ -3,7 +3,7 @@ services:
       
   wordpress_usmender:
     container_name: wordpress_usmender
-    image: wordpress:6.9.1
+    image: wordpress:7.1.3
     environment:
       - WORDPRESS_DB_HOST=wordpress_usmender-db
       - WORDPRESS_DB_NAME=wordpress
@@ -46,7 +46,7 @@ services:
         runtipi.managed: true
   wordpress_usmender-db:
     container_name: wordpress_usmender-db
-    image: mariadb:11.1.3
+    image: mariadb:11.8.9
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
       - MYSQL_DATABASE=wordpress

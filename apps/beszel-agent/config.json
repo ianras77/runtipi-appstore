@@ -11,8 +11,8 @@
     "utilities"
   ],
   "description": "This is the agent software for the Beszel app.",
-  "tipi_version": 24,
-  "version": "0.18.7",
+  "tipi_version": 25,
+  "version": "0.21.1",
   "source": "https://github.com/henrygd/beszel",
   "exposable": false,
   "dynamic_config": true,

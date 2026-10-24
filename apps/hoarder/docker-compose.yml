@@ -1,6 +1,6 @@
 services:
   hoarder:
-    image: ghcr.io/hoarder-app/hoarder:0.31.0
+    image: ghcr.io/hoarder-app/hoarder:0.34.1
     container_name: hoarder
     restart: unless-stopped
     volumes:
@@ -47,7 +47,7 @@ services:
       runtipi.managed: true
   
   hoarder-chrome:
-    image: gcr.io/zenika-hub/alpine-chrome:124
+    image: ghcr.io/karakeep-app/karakeep-chrome:release
     container_name: hoarder-chrome
     restart: unless-stopped
     command:
@@ -64,7 +64,7 @@ services:
       runtipi.managed: true
       
   hoarder-meilisearch:
-    image: getmeili/meilisearch:v1.37
+    image: getmeili/meilisearch:v1.55
     container_name: hoarder-meilisearch
     restart: unless-stopped
     environment:

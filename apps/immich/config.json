@@ -7,8 +7,8 @@
   "dynamic_config": true,
   "port": 8128,
   "id": "immich",
-  "tipi_version": 158,
-  "version": "v2.7.5",
+  "tipi_version": 159,
+  "version": "v3.3.5",
   "categories": [
     "data",
     "photography"

@@ -7,8 +7,8 @@
   "dynamic_config": true,
   "no_gui": true,
   "id": "obsidian-livesync",
-  "tipi_version": 5,
-  "version": "3.5.2",
+  "tipi_version": 6,
+  "version": "3.5.3",
   "categories": [
     "utilities"
   ],

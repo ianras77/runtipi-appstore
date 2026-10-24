@@ -13,7 +13,7 @@
         "-lc"
       ],
       "command": [
-        "exec npx --yes @tryghost/ghst@0.17.5 mcp http --host 0.0.0.0 --unsafe-public-bind --port 3100 --tools posts,tags,site --auth-token \"$GHOST_MCP_AUTH_TOKEN\""
+        "exec npx --yes @tryghost/ghst@0.18.0 mcp http --host 0.0.0.0 --unsafe-public-bind --port 3100 --tools posts,tags,site --auth-token \"$GHOST_MCP_AUTH_TOKEN\""
       ],
       "environment": {
         "GHOST_URL": "${GHOST_URL}",

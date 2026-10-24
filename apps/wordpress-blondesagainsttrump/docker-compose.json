@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "wordpress-blondesagainsttrump",
-      "image": "wordpress:7.0.2",
+      "image": "wordpress:7.1.3",
       "environment": [
         {
           "key": "WORDPRESS_DB_HOST",
@@ -48,7 +48,7 @@
     },
     {
       "name": "wordpress-blondesagainsttrump-db",
-      "image": "mariadb:12.1.2",
+      "image": "mariadb:12.3.3",
       "environment": [
         {
           "key": "MYSQL_ROOT_PASSWORD",

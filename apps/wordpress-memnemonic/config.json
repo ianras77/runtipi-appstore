@@ -5,8 +5,8 @@
   "exposable": true,
   "id": "wordpress-memnemonic",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
-  "tipi_version": 14,
-  "version": "7.1.0",
+  "tipi_version": 15,
+  "version": "7.1.3",
   "categories": [
     "social"
   ],

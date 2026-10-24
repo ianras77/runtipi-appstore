@@ -7,7 +7,7 @@
   "port": 3000,
   "description": "Private MCP companion for the Karakeep API. The upstream HTTP transport has no MCP-side auth; keep it on the Runtipi app network.",
   "version": "latest",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "short_desc": "MCP tools for a Karakeep instance",
   "author": "Karakeep",
   "source": "https://github.com/karakeep-app/karakeep",

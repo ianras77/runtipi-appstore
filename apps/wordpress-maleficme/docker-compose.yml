@@ -3,7 +3,7 @@ services:
 
   wordpress-maleficme:
     container_name: wordpress-maleficme
-    image: wordpress:6.9.1
+    image: wordpress:7.1.3
     environment:
       - WORDPRESS_DB_HOST=wordpress-maleficme-db
       - WORDPRESS_DB_NAME=wordpress-maleficme-db
@@ -46,7 +46,7 @@ services:
         runtipi.managed: true
   wordpress-maleficme-db:
     container_name: wordpress-maleficme-db
-    image: mariadb:11.1.3
+    image: mariadb:11.8.9
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
       - MYSQL_DATABASE=wordpress-maleficme-db

@@ -8,7 +8,7 @@
   "port": 8128,
   "categories": ["ai", "utilities", "development"],
   "description": "SearXNG tuned for API/tool traffic (Open WebUI, Cheshire Cat, agents) with stronger health checks and higher concurrency.",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "version": "latest",
   "source": "https://github.com/searxng/searxng",
   "website": "https://docs.searxng.org/",

@@ -6,8 +6,8 @@
   "exposable": true,
   "dynamic_config": true,
   "id": "kavita",
-  "tipi_version": 23,
-  "version": "0.9.0.2",
+  "tipi_version": 24,
+  "version": "0.9.1",
   "categories": [
     "media"
   ],

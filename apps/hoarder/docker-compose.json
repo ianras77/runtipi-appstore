@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "hoarder",
-      "image": "ghcr.io/hoarder-app/hoarder:0.32.0",
+      "image": "ghcr.io/hoarder-app/hoarder:0.34.1",
       "isMain": true,
       "internalPort": 3000,
       "environment": [
@@ -48,7 +48,7 @@
     },
     {
       "name": "hoarder-chrome",
-      "image": "gcr.io/zenika-hub/alpine-chrome:124",
+      "image": "ghcr.io/karakeep-app/karakeep-chrome:release",
       "command": [
         "--no-sandbox",
         "--disable-gpu",
@@ -60,7 +60,7 @@
     },
     {
       "name": "hoarder-meilisearch",
-      "image": "getmeili/meilisearch:v1.41.0",
+      "image": "getmeili/meilisearch:v1.55",
       "environment": [
         {
           "key": "MEILI_NO_ANALYTICS",

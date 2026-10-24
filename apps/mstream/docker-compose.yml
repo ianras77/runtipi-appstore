@@ -3,7 +3,7 @@ version: "3"
 services:
   mstream:
     container_name: mstream
-    image: lscr.io/linuxserver/mstream:v5.12.2-ls190
+    image: lscr.io/linuxserver/mstream:v6.9.1-ls245
     restart: unless-stopped
     ports:
       - ${APP_PORT}:3000
