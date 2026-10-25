@@ -1,0 +1,28 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "ConvertX",
+  "id": "convertx",
+  "available": true,
+  "short_desc": "Self-hosted converter for over 1,000 file formats",
+  "description": "Convert images, documents, video, audio, ebooks and many other formats in your browser. ConvertX supports batch processing, user accounts and persistent conversion history.",
+  "author": "C4illin",
+  "port": 3000,
+  "categories": ["utilities"],
+  "tipi_version": 1,
+  "version": "v0.19.0",
+  "source": "https://github.com/C4illin/ConvertX",
+  "website": "https://github.com/C4illin/ConvertX",
+  "exposable": false,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [
+    {"type": "random", "label": "JWT Signing Secret", "min": 64, "encoding": "hex", "env_variable": "CONVERTX_JWT_SECRET"},
+    {"type": "number", "label": "Maximum Parallel Conversions", "hint": "Limit concurrent conversion jobs to control CPU and memory use. Set 0 for unlimited.", "required": false, "default": 2, "min": 0, "max": 32, "env_variable": "CONVERTX_MAX_CONVERT_PROCESS"},
+    {"type": "number", "label": "Temporary File Cleanup Interval (hours)", "hint": "Files older than this interval are deleted. Set 0 to disable automatic cleanup.", "required": false, "default": 24, "min": 0, "max": 720, "env_variable": "CONVERTX_AUTO_DELETE_EVERY_N_HOURS"},
+    {"type": "text", "label": "Branding", "placeholder": "ConvertX", "required": false, "default": "ConvertX", "env_variable": "CONVERTX_BRANDING"},
+    {"type": "number", "label": "Container User ID", "hint": "UID for app data files. The default matches common Runtipi app data ownership.", "required": false, "default": 1000, "min": 1, "env_variable": "CONVERTX_PUID"},
+    {"type": "number", "label": "Container Group ID", "hint": "GID for app data files. Adjust only if your host uses a different data directory group.", "required": false, "default": 1000, "min": 1, "env_variable": "CONVERTX_PGID"}
+  ],
+  "created_at": 1792886400000,
+  "updated_at": 1792886400000
+}

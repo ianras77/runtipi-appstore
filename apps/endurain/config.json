@@ -1,0 +1,26 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Endurain",
+  "id": "endurain",
+  "available": true,
+  "short_desc": "Self-hosted fitness and activity tracking",
+  "description": "A privacy-first home for your fitness activities, gear and health data. Import GPX, TCX and FIT files, or connect supported Strava and Garmin accounts.",
+  "author": "Endurain Project",
+  "port": 8080,
+  "categories": ["utilities"],
+  "tipi_version": 1,
+  "version": "v0.20.1",
+  "source": "https://github.com/endurain-project/endurain",
+  "website": "https://endurain.com/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [
+    {"type": "random", "label": "PostgreSQL Password", "min": 32, "encoding": "hex", "env_variable": "ENDURAIN_DB_PASSWORD"},
+    {"type": "random", "label": "Application Signing Secret", "min": 64, "encoding": "hex", "env_variable": "ENDURAIN_SECRET_KEY"},
+    {"type": "random", "label": "Activity Encryption Key", "min": 44, "encoding": "base64", "env_variable": "ENDURAIN_FERNET_KEY"},
+    {"type": "text", "label": "Time Zone", "placeholder": "Etc/UTC", "default": "Etc/UTC", "env_variable": "ENDURAIN_TZ"}
+  ],
+  "created_at": 1792886400000,
+  "updated_at": 1792886400000
+}

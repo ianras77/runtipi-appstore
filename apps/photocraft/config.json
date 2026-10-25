@@ -1,0 +1,21 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "PhotoCraft",
+  "id": "photocraft",
+  "available": true,
+  "short_desc": "Browser based photo editor built with Rust and WebAssembly",
+  "description": "Edit images in your browser with PhotoCraft, an open source photo editor. The web app processes files on your device and downloads saved or exported results to your computer; it does not upload documents to this server. Preferences are stored in your browser. Requires a modern browser with WebGPU or WebGL2; HTTPS enables WebGPU on supported browsers.",
+  "author": "ArtCraft Team and PhotoCraft contributors",
+  "port": 8080,
+  "categories": ["photography", "utilities"],
+  "tipi_version": 1,
+  "version": "v0.15.1",
+  "source": "https://github.com/storytold/photocraft",
+  "website": "https://getartcraft.com/photocraft",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [],
+  "created_at": 1792886400000,
+  "updated_at": 1792886400000
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "endurain",
+      "image": "ghcr.io/endurain-project/endurain:v0.20.1",
+      "isMain": true,
+      "internalPort": 8080,
+      "environment": [
+        {"key": "TZ", "value": "${ENDURAIN_TZ}"},
+        {"key": "DB_TYPE", "value": "postgres"},
+        {"key": "DB_HOST", "value": "endurain-db"},
+        {"key": "DB_PORT", "value": "5432"},
+        {"key": "DB_USER", "value": "endurain"},
+        {"key": "DB_PASSWORD", "value": "${ENDURAIN_DB_PASSWORD}"},
+        {"key": "DB_DATABASE", "value": "endurain"},
+        {"key": "SECRET_KEY", "value": "${ENDURAIN_SECRET_KEY}"},
+        {"key": "FERNET_KEY", "value": "${ENDURAIN_FERNET_KEY}"},
+        {"key": "ENDURAIN_HOST", "value": "${APP_PROTOCOL:-http}://${APP_DOMAIN}"},
+        {"key": "BEHIND_PROXY", "value": "true"}
+      ],
+      "dependsOn": {"endurain-db": {"condition": "service_healthy"}},
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/data/backend", "containerPath": "/app/backend/data"},
+        {"hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/app/backend/logs"}
+      ]
+    },
+    {
+      "name": "endurain-db",
+      "image": "postgres:18-alpine",
+      "environment": [
+        {"key": "POSTGRES_DB", "value": "endurain"},
+        {"key": "POSTGRES_USER", "value": "endurain"},
+        {"key": "POSTGRES_PASSWORD", "value": "${ENDURAIN_DB_PASSWORD}"}
+      ],
+      "volumes": [{"hostPath": "${APP_DATA_DIR}/data/postgres", "containerPath": "/var/lib/postgresql"}],
+      "healthCheck": {"test": "pg_isready -U endurain -d endurain", "interval": "5s", "timeout": "5s", "retries": 10, "startPeriod": "20s"}
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "photocraft",
+      "image": "nginx:1.28-alpine",
+      "isMain": true,
+      "internalPort": 8080,
+      "command": [
+        "/bin/sh",
+        "-ec",
+        "apk add --no-cache curl unzip\nmkdir -p /usr/share/nginx/html\nif [ ! -f /usr/share/nginx/html/.photocraft-version ] || [ \"$(cat /usr/share/nginx/html/.photocraft-version)\" != \"0.15.1\" ]; then\n  mkdir -p /tmp/photocraft-release\n  curl --fail --location --retry 3 --output /tmp/photocraft-web.zip https://github.com/storytold/photocraft/releases/download/v0.15.1/photocraft-web-0.15.1.zip\n  echo \"987251cb84c375130fa3624fa1e1dbbea24b062192121b594c9e538d05ea9109  /tmp/photocraft-web.zip\" | sha256sum -c -\n  unzip -q /tmp/photocraft-web.zip -d /tmp/photocraft-release\n  find /usr/share/nginx/html -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +\n  cp -a /tmp/photocraft-release/photocraft-web-0.15.1/. /usr/share/nginx/html/\n  printf '%s\\n' '0.15.1' > /usr/share/nginx/html/.photocraft-version\n  rm -rf /tmp/photocraft-release /tmp/photocraft-web.zip\nfi\nprintf '%s\\n' 'server {' '  listen 8080;' '  server_name _;' '  root /usr/share/nginx/html;' '  index index.html;' '  add_header X-Content-Type-Options nosniff always;' '  location = /healthz { access_log off; default_type text/plain; return 200 \"ok\\n\"; }' '  location = /index.html { add_header Cache-Control no-cache always; add_header X-Content-Type-Options nosniff always; }' '  location ~ \\.(wasm|js)$ { types { application/wasm wasm; text/javascript js; } add_header Cache-Control \"public, max-age=31536000, immutable\"; add_header X-Content-Type-Options nosniff always; try_files $uri =404; }' '  location / { try_files $uri $uri/ =404; }' '}' > /etc/nginx/conf.d/default.conf\nnginx -t\nexec nginx -g 'daemon off;'\n"
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/webroot",
+          "containerPath": "/usr/share/nginx/html"
+        }
+      ]
+    }
+  ]
+}

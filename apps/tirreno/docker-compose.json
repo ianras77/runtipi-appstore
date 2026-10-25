@@ -1,0 +1,25 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "tirreno",
+      "image": "tirreno/tirreno:v0.9.12",
+      "isMain": true,
+      "internalPort": 80,
+      "dependsOn": {"tirreno-db": {"condition": "service_healthy"}},
+      "volumes": [{"hostPath": "${APP_DATA_DIR}/data/application", "containerPath": "/var/www/html"}]
+    },
+    {
+      "name": "tirreno-db",
+      "image": "postgres:15-alpine",
+      "environment": [
+        {"key": "POSTGRES_DB", "value": "tirreno"},
+        {"key": "POSTGRES_USER", "value": "tirreno"},
+        {"key": "POSTGRES_PASSWORD", "value": "${TIRRENO_DB_PASSWORD}"}
+      ],
+      "volumes": [{"hostPath": "${APP_DATA_DIR}/data/postgres", "containerPath": "/var/lib/postgresql/data"}],
+      "healthCheck": {"test": "pg_isready -U tirreno -d tirreno", "interval": "10s", "timeout": "5s", "retries": 10, "startPeriod": "20s"}
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  convertx:
+    container_name: convertx
+    image: ghcr.io/c4illin/convertx:v0.19.0
+    restart: unless-stopped
+    environment:
+      PUID: ${CONVERTX_PUID}
+      PGID: ${CONVERTX_PGID}
+      JWT_SECRET: ${CONVERTX_JWT_SECRET}
+      ACCOUNT_REGISTRATION: "false"
+      HTTP_ALLOWED: "false"
+      ALLOW_UNAUTHENTICATED: "false"
+      MAX_CONVERT_PROCESS: ${CONVERTX_MAX_CONVERT_PROCESS}
+      AUTO_DELETE_EVERY_N_HOURS: ${CONVERTX_AUTO_DELETE_EVERY_N_HOURS}
+      BRANDING: ${CONVERTX_BRANDING}
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/data
+    ports:
+      - ${APP_PORT}:3000
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.convertx.loadbalancer.server.port: "3000"
+      traefik.http.routers.convertx-local.rule: Host(`convertx.${LOCAL_DOMAIN}`)
+      traefik.http.routers.convertx-local.entrypoints: websecure
+      traefik.http.routers.convertx-local.tls: "true"
+      runtipi.managed: "true"
+
+networks:
+  tipi_main_network:
+    external: true

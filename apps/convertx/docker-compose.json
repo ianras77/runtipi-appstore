@@ -1,0 +1,24 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "convertx",
+      "image": "ghcr.io/c4illin/convertx:v0.19.0",
+      "isMain": true,
+      "internalPort": 3000,
+      "environment": [
+        {"key": "PUID", "value": "${CONVERTX_PUID}"},
+        {"key": "PGID", "value": "${CONVERTX_PGID}"},
+        {"key": "JWT_SECRET", "value": "${CONVERTX_JWT_SECRET}"},
+        {"key": "ACCOUNT_REGISTRATION", "value": "false"},
+        {"key": "HTTP_ALLOWED", "value": "false"},
+        {"key": "ALLOW_UNAUTHENTICATED", "value": "false"},
+        {"key": "MAX_CONVERT_PROCESS", "value": "${CONVERTX_MAX_CONVERT_PROCESS}"},
+        {"key": "AUTO_DELETE_EVERY_N_HOURS", "value": "${CONVERTX_AUTO_DELETE_EVERY_N_HOURS}"},
+        {"key": "BRANDING", "value": "${CONVERTX_BRANDING}"}
+      ],
+      "volumes": [{"hostPath": "${APP_DATA_DIR}/data", "containerPath": "/app/data"}]
+    }
+  ]
+}

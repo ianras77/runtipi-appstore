@@ -1,0 +1,23 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Tirreno",
+  "id": "tirreno",
+  "available": true,
+  "short_desc": "Self-hosted product analytics and fraud detection",
+  "description": "Understand user journeys and spot suspicious activity with privacy-conscious, self-hosted product analytics.",
+  "author": "Tirreno",
+  "port": 80,
+  "categories": ["utilities", "security"],
+  "tipi_version": 1,
+  "version": "v0.9.12",
+  "source": "https://github.com/tirrenotechnologies/tirreno",
+  "website": "https://www.tirreno.com/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [
+    {"type": "random", "label": "PostgreSQL Password", "min": 32, "encoding": "hex", "env_variable": "TIRRENO_DB_PASSWORD"}
+  ],
+  "created_at": 1792886400000,
+  "updated_at": 1792886400000
+}

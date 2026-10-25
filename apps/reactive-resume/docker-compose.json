@@ -1,0 +1,32 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "reactive-resume",
+      "image": "ghcr.io/reactive-resume/reactive-resume:v6",
+      "isMain": true,
+      "internalPort": 3000,
+      "environment": [
+        {"key": "APP_URL", "value": "${APP_PROTOCOL:-http}://${APP_DOMAIN}"},
+        {"key": "DATABASE_URL", "value": "postgresql://postgres:${REACTIVE_RESUME_DB_PASSWORD}@reactive-resume-db:5432/postgres"},
+        {"key": "POSTGRES_PASSWORD", "value": "${REACTIVE_RESUME_DB_PASSWORD}"},
+        {"key": "AUTH_SECRET", "value": "${REACTIVE_RESUME_AUTH_SECRET}"},
+        {"key": "FLAG_DISABLE_SIGNUPS", "value": "${REACTIVE_RESUME_DISABLE_SIGNUPS}"}
+      ],
+      "dependsOn": {"reactive-resume-db": {"condition": "service_healthy"}},
+      "volumes": [{"hostPath": "${APP_DATA_DIR}/data/uploads", "containerPath": "/app/data"}]
+    },
+    {
+      "name": "reactive-resume-db",
+      "image": "postgres:18-alpine",
+      "environment": [
+        {"key": "POSTGRES_DB", "value": "postgres"},
+        {"key": "POSTGRES_USER", "value": "postgres"},
+        {"key": "POSTGRES_PASSWORD", "value": "${REACTIVE_RESUME_DB_PASSWORD}"}
+      ],
+      "volumes": [{"hostPath": "${APP_DATA_DIR}/data/postgres", "containerPath": "/var/lib/postgresql"}],
+      "healthCheck": {"test": "pg_isready -U postgres -d postgres", "interval": "10s", "timeout": "5s", "retries": 10, "startPeriod": "20s"}
+    }
+  ]
+}

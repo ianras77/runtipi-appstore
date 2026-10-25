@@ -1,0 +1,25 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Reactive Resume",
+  "id": "reactive-resume",
+  "available": true,
+  "short_desc": "Private, self-hosted resume and CV builder",
+  "description": "Create, manage and share polished resumes from a private instance. Your account, resume data and uploaded images stay on your server.",
+  "author": "Reactive Resume",
+  "port": 3000,
+  "categories": ["utilities"],
+  "tipi_version": 1,
+  "version": "v6",
+  "source": "https://github.com/reactive-resume/reactive-resume",
+  "website": "https://rxresu.me/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [
+    {"type": "random", "label": "PostgreSQL Password", "min": 32, "encoding": "hex", "env_variable": "REACTIVE_RESUME_DB_PASSWORD"},
+    {"type": "random", "label": "Authentication Secret", "min": 64, "encoding": "hex", "env_variable": "REACTIVE_RESUME_AUTH_SECRET"},
+    {"type": "boolean", "label": "Disable New Signups", "hint": "Leave disabled for the first account. After creating your account, enable this to prevent additional registrations.", "required": false, "default": "false", "env_variable": "REACTIVE_RESUME_DISABLE_SIGNUPS"}
+  ],
+  "created_at": 1792886400000,
+  "updated_at": 1792886400000
+}

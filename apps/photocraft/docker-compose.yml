@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+  photocraft:
+    container_name: photocraft
+    image: nginx:1.28-alpine
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        apk add --no-cache curl unzip
+        mkdir -p /usr/share/nginx/html
+        if [ ! -f /usr/share/nginx/html/.photocraft-version ] || [ "$(cat /usr/share/nginx/html/.photocraft-version)" != "0.15.1" ]; then
+          mkdir -p /tmp/photocraft-release
+          curl --fail --location --retry 3 --output /tmp/photocraft-web.zip https://github.com/storytold/photocraft/releases/download/v0.15.1/photocraft-web-0.15.1.zip
+          echo "987251cb84c375130fa3624fa1e1dbbea24b062192121b594c9e538d05ea9109  /tmp/photocraft-web.zip" | sha256sum -c -
+          unzip -q /tmp/photocraft-web.zip -d /tmp/photocraft-release
+          find /usr/share/nginx/html -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+          cp -a /tmp/photocraft-release/photocraft-web-0.15.1/. /usr/share/nginx/html/
+          printf '%s\n' '0.15.1' > /usr/share/nginx/html/.photocraft-version
+          rm -rf /tmp/photocraft-release /tmp/photocraft-web.zip
+        fi
+        printf '%s\n' 'server {' '  listen 8080;' '  server_name _;' '  root /usr/share/nginx/html;' '  index index.html;' '  add_header X-Content-Type-Options nosniff always;' '  location = /healthz { access_log off; default_type text/plain; return 200 "ok\n"; }' '  location = /index.html { add_header Cache-Control no-cache always; add_header X-Content-Type-Options nosniff always; }' '  location ~ \.(wasm|js)$ { types { application/wasm wasm; text/javascript js; } add_header Cache-Control "public, max-age=31536000, immutable"; add_header X-Content-Type-Options nosniff always; try_files $uri =404; }' '  location / { try_files $uri $uri/ =404; }' '}' > /etc/nginx/conf.d/default.conf
+        nginx -t
+        exec nginx -g 'daemon off;'
+    volumes:
+      - ${APP_DATA_DIR}/webroot:/usr/share/nginx/html
+    ports:
+      - ${APP_PORT}:8080
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.photocraft.loadbalancer.server.port: "8080"
+      traefik.http.routers.photocraft-local.rule: Host(`photocraft.${LOCAL_DOMAIN}`)
+      traefik.http.routers.photocraft-local.entrypoints: websecure
+      traefik.http.routers.photocraft-local.tls: "true"
+      runtipi.managed: "true"
+
+networks:
+  tipi_main_network:
+    external: true
