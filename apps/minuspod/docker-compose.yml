@@ -1,0 +1,83 @@
+services:
+  minuspod:
+    image: ttlequals0/minuspod:2.100.18-cpu
+    container_name: minuspod
+    stop_grace_period: 360s
+    ports:
+      - ${APP_PORT}:8000
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL}
+      OPENAI_MODEL: ${OPENAI_MODEL}
+      TYPESAFE_API_KEY: ${TYPESAFE_API_KEY}
+      SYSTEMONE_API_KEY: ${SYSTEMONE_API_KEY}
+      SYSTEMONE_BASE_URL: ${SYSTEMONE_BASE_URL}
+      WHISPER_BACKEND: ${WHISPER_BACKEND:-local}
+      WHISPER_MODEL: ${WHISPER_MODEL:-tiny}
+      WHISPER_DEVICE: cpu
+      WHISPER_COMPUTE_TYPE: ${WHISPER_COMPUTE_TYPE:-auto}
+      WHISPER_LANGUAGE: ${WHISPER_LANGUAGE:-en}
+      WHISPER_API_BASE_URL: ${WHISPER_API_BASE_URL}
+      WHISPER_API_KEY: ${WHISPER_API_KEY}
+      WHISPER_API_MODEL: ${WHISPER_API_MODEL:-whisper-1}
+      BASE_URL: https://${APP_DOMAIN}
+      MINUSPOD_PORT: "8000"
+      MINUSPOD_MASTER_PASSPHRASE: ${MINUSPOD_MASTER_PASSPHRASE}
+      MINUSPOD_REQUIRE_AUTH: "true"
+      MINUSPOD_ALLOW_PUBLIC_PROCESSING: "false"
+      MINUSPOD_TRUSTED_PROXY_COUNT: "1"
+      SESSION_COOKIE_SECURE: auto
+      SESSION_COOKIE_SAMESITE: Strict
+      MINUSPOD_ENABLE_HSTS: "false"
+      RATE_LIMIT_STORAGE_URI: memory-threadsafe://
+      MAX_AUDIO_DOWNLOAD_MB: ${MAX_AUDIO_DOWNLOAD_MB:-500}
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:$${MINUSPOD_PORT:-8000}/api/v1/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+        max-file: "3"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+    restart: unless-stopped
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.minuspod-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.minuspod.loadbalancer.server.port: 8000
+      traefik.http.routers.minuspod-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.minuspod-insecure.entrypoints: web
+      traefik.http.routers.minuspod-insecure.service: minuspod
+      traefik.http.routers.minuspod-insecure.middlewares: minuspod-web-redirect
+      traefik.http.routers.minuspod.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.minuspod.entrypoints: websecure
+      traefik.http.routers.minuspod.service: minuspod
+      traefik.http.routers.minuspod.tls.certresolver: myresolver
+      traefik.http.routers.minuspod-local-insecure.rule: Host(`minuspod.${LOCAL_DOMAIN}`)
+      traefik.http.routers.minuspod-local-insecure.entrypoints: web
+      traefik.http.routers.minuspod-local-insecure.service: minuspod
+      traefik.http.routers.minuspod-local-insecure.middlewares: minuspod-web-redirect
+      traefik.http.routers.minuspod-local.rule: Host(`minuspod.${LOCAL_DOMAIN}`)
+      traefik.http.routers.minuspod-local.entrypoints: websecure
+      traefik.http.routers.minuspod-local.service: minuspod
+      traefik.http.routers.minuspod-local.tls: true
+      runtipi.managed: true

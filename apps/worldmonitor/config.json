@@ -1,0 +1,37 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "World Monitor",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "port": 8176,
+  "id": "worldmonitor",
+  "tipi_version": 1,
+  "version": "2.11.4",
+  "categories": [
+    "data",
+    "utilities"
+  ],
+  "description": "A real-time global intelligence dashboard for news, geopolitics, markets, and infrastructure. This app runs the official web image and uses World Monitor's hosted API by default.",
+  "short_desc": "Global intelligence dashboard",
+  "author": "Elie Habib",
+  "source": "https://github.com/koala73/worldmonitor",
+  "website": "https://worldmonitor.app",
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "API upstream",
+      "hint": "The API endpoint used by the dashboard. The default is the official hosted World Monitor API.",
+      "default": "https://api.worldmonitor.app",
+      "required": true,
+      "env_variable": "WORLDMONITOR_API_UPSTREAM"
+    }
+  ],
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1792966872115,
+  "updated_at": 1792966872115,
+  "min_tipi_version": "4.5.0"
+}

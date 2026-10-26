@@ -1,0 +1,113 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "MinusPod",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "port": 8181,
+  "id": "minuspod",
+  "tipi_version": 1,
+  "version": "2.100.18-cpu",
+  "categories": [
+    "media",
+    "music",
+    "ai"
+  ],
+  "description": "A self-hosted podcast feed processor that transcribes episodes, identifies ads with an LLM, and republishes cleaned audio. This recipe uses the official CPU-only multi-architecture image.",
+  "short_desc": "Remove podcast ads before playback",
+  "author": "ttlequals0",
+  "source": "https://github.com/ttlequals0/MinusPod",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Master passphrase",
+      "hint": "Encrypts provider keys and downloaded backups. Keep it safe; encrypted backups require the same passphrase to restore.",
+      "min": 64,
+      "encoding": "hex",
+      "env_variable": "MINUSPOD_MASTER_PASSPHRASE"
+    },
+    {
+      "type": "text",
+      "label": "LLM provider",
+      "hint": "Use anthropic, openrouter, openai-compatible, ollama, typesafe, or systemone-compatible.",
+      "default": "anthropic",
+      "required": true,
+      "env_variable": "LLM_PROVIDER"
+    },
+    {
+      "type": "password",
+      "label": "Anthropic API key",
+      "required": false,
+      "env_variable": "ANTHROPIC_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "OpenRouter API key",
+      "required": false,
+      "env_variable": "OPENROUTER_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "OpenAI compatible API key",
+      "required": false,
+      "env_variable": "OPENAI_API_KEY"
+    },
+    {
+      "type": "url",
+      "label": "OpenAI compatible API base URL",
+      "required": false,
+      "env_variable": "OPENAI_BASE_URL"
+    },
+    {
+      "type": "text",
+      "label": "OpenAI compatible model",
+      "required": false,
+      "env_variable": "OPENAI_MODEL"
+    },
+    {
+      "type": "password",
+      "label": "TypeSafe API key",
+      "required": false,
+      "env_variable": "TYPESAFE_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "System One API key",
+      "required": false,
+      "env_variable": "SYSTEMONE_API_KEY"
+    },
+    {
+      "type": "url",
+      "label": "System One API base URL",
+      "required": false,
+      "env_variable": "SYSTEMONE_BASE_URL"
+    },
+    {
+      "type": "text",
+      "label": "Whisper backend",
+      "hint": "Use local for CPU transcription or openai-api for a remote Whisper-compatible service.",
+      "default": "local",
+      "required": true,
+      "env_variable": "WHISPER_BACKEND"
+    },
+    {
+      "type": "text",
+      "label": "Remote Whisper API base URL",
+      "required": false,
+      "env_variable": "WHISPER_API_BASE_URL"
+    },
+    {
+      "type": "password",
+      "label": "Remote Whisper API key",
+      "required": false,
+      "env_variable": "WHISPER_API_KEY"
+    }
+  ],
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1792974798254,
+  "updated_at": 1792974798254,
+  "min_tipi_version": "4.5.0"
+}

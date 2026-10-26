@@ -1,0 +1,388 @@
+{
+  "services": [
+    {
+      "name": "maxun-frontend",
+      "image": "getmaxun/maxun-frontend:latest",
+      "isMain": true,
+      "internalPort": 5173,
+      "environment": [
+        {
+          "key": "PUBLIC_URL",
+          "value": "https://${APP_DOMAIN}"
+        },
+        {
+          "key": "BACKEND_URL",
+          "value": "https://${APP_DOMAIN}"
+        },
+        {
+          "key": "VITE_PUBLIC_URL",
+          "value": "https://${APP_DOMAIN}"
+        },
+        {
+          "key": "VITE_BACKEND_URL",
+          "value": "https://${APP_DOMAIN}"
+        }
+      ],
+      "dependsOn": [
+        "maxun-backend"
+      ],
+      "addToMainNetwork": true,
+      "extraLabels": {
+        "traefik.http.middlewares.maxun-web-redirect.redirectscheme.scheme": "https",
+        "traefik.http.services.maxun-frontend.loadbalancer.server.port": "5173",
+        "traefik.http.routers.maxun-insecure.rule": "Host(`${APP_DOMAIN}`)",
+        "traefik.http.routers.maxun-insecure.entrypoints": "web",
+        "traefik.http.routers.maxun-insecure.service": "maxun-frontend",
+        "traefik.http.routers.maxun-insecure.middlewares": "maxun-web-redirect",
+        "traefik.http.routers.maxun.rule": "Host(`${APP_DOMAIN}`)",
+        "traefik.http.routers.maxun.entrypoints": "websecure",
+        "traefik.http.routers.maxun.service": "maxun-frontend",
+        "traefik.http.routers.maxun.tls.certresolver": "myresolver",
+        "traefik.http.routers.maxun-local-insecure.rule": "Host(`maxun.${LOCAL_DOMAIN}`)",
+        "traefik.http.routers.maxun-local-insecure.entrypoints": "web",
+        "traefik.http.routers.maxun-local-insecure.service": "maxun-frontend",
+        "traefik.http.routers.maxun-local-insecure.middlewares": "maxun-web-redirect",
+        "traefik.http.routers.maxun-local.rule": "Host(`maxun.${LOCAL_DOMAIN}`)",
+        "traefik.http.routers.maxun-local.entrypoints": "websecure",
+        "traefik.http.routers.maxun-local.service": "maxun-frontend",
+        "traefik.http.routers.maxun-local.tls": "true",
+        "traefik.http.routers.maxun-api.rule": "Host(`${APP_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/auth`) || PathPrefix(`/storage`) || PathPrefix(`/record`) || PathPrefix(`/workflow`) || PathPrefix(`/robot`) || PathPrefix(`/proxy`) || PathPrefix(`/api-docs`) || PathPrefix(`/webhook`) || PathPrefix(`/socket.io`))",
+        "traefik.http.routers.maxun-api.entrypoints": "websecure",
+        "traefik.http.routers.maxun-api.service": "maxun-backend",
+        "traefik.http.routers.maxun-api.priority": "100",
+        "traefik.http.routers.maxun-api.tls.certresolver": "myresolver",
+        "traefik.http.routers.maxun-api-local.rule": "Host(`maxun.${LOCAL_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/auth`) || PathPrefix(`/storage`) || PathPrefix(`/record`) || PathPrefix(`/workflow`) || PathPrefix(`/robot`) || PathPrefix(`/proxy`) || PathPrefix(`/api-docs`) || PathPrefix(`/webhook`) || PathPrefix(`/socket.io`))",
+        "traefik.http.routers.maxun-api-local.entrypoints": "websecure",
+        "traefik.http.routers.maxun-api-local.service": "maxun-backend",
+        "traefik.http.routers.maxun-api-local.priority": "100",
+        "traefik.http.routers.maxun-api-local.tls": "true",
+        "runtipi.managed": "true"
+      }
+    },
+    {
+      "name": "maxun-backend",
+      "image": "getmaxun/maxun-backend:latest",
+      "environment": [
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "JWT_SECRET",
+          "value": "${JWT_SECRET}"
+        },
+        {
+          "key": "DB_NAME",
+          "value": "maxun"
+        },
+        {
+          "key": "DB_USER",
+          "value": "maxun"
+        },
+        {
+          "key": "DB_PASSWORD",
+          "value": "${DB_PASSWORD}"
+        },
+        {
+          "key": "DB_HOST",
+          "value": "postgres"
+        },
+        {
+          "key": "DB_PORT",
+          "value": "5432"
+        },
+        {
+          "key": "ENCRYPTION_KEY",
+          "value": "${ENCRYPTION_KEY}"
+        },
+        {
+          "key": "SESSION_SECRET",
+          "value": "${SESSION_SECRET}"
+        },
+        {
+          "key": "MINIO_ENDPOINT",
+          "value": "minio"
+        },
+        {
+          "key": "MINIO_PORT",
+          "value": "9000"
+        },
+        {
+          "key": "MINIO_CONSOLE_PORT",
+          "value": "9001"
+        },
+        {
+          "key": "MINIO_ACCESS_KEY",
+          "value": "${MINIO_ACCESS_KEY}"
+        },
+        {
+          "key": "MINIO_SECRET_KEY",
+          "value": "${MINIO_SECRET_KEY}"
+        },
+        {
+          "key": "MINIO_PUBLIC_URL",
+          "value": "${MINIO_PUBLIC_URL}"
+        },
+        {
+          "key": "BACKEND_PORT",
+          "value": "8080"
+        },
+        {
+          "key": "FRONTEND_PORT",
+          "value": "5173"
+        },
+        {
+          "key": "BACKEND_URL",
+          "value": "https://${APP_DOMAIN}"
+        },
+        {
+          "key": "PUBLIC_URL",
+          "value": "https://${APP_DOMAIN}"
+        },
+        {
+          "key": "VITE_BACKEND_URL",
+          "value": "https://${APP_DOMAIN}"
+        },
+        {
+          "key": "VITE_PUBLIC_URL",
+          "value": "https://${APP_DOMAIN}"
+        },
+        {
+          "key": "GOOGLE_CLIENT_ID",
+          "value": "${GOOGLE_CLIENT_ID}"
+        },
+        {
+          "key": "GOOGLE_CLIENT_SECRET",
+          "value": "${GOOGLE_CLIENT_SECRET}"
+        },
+        {
+          "key": "GOOGLE_REDIRECT_URI",
+          "value": "https://${APP_DOMAIN}/auth/google/callback"
+        },
+        {
+          "key": "AIRTABLE_CLIENT_ID",
+          "value": "${AIRTABLE_CLIENT_ID}"
+        },
+        {
+          "key": "AIRTABLE_REDIRECT_URI",
+          "value": "https://${APP_DOMAIN}/auth/airtable/callback"
+        },
+        {
+          "key": "MAXUN_TELEMETRY",
+          "value": "true"
+        },
+        {
+          "key": "PLAYWRIGHT_BROWSERS_PATH",
+          "value": "/ms-playwright"
+        },
+        {
+          "key": "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD",
+          "value": "0"
+        },
+        {
+          "key": "CI",
+          "value": "true"
+        },
+        {
+          "key": "CONTAINER",
+          "value": "true"
+        },
+        {
+          "key": "CHROMIUM_FLAGS",
+          "value": "--disable-gpu --no-sandbox --headless=new"
+        },
+        {
+          "key": "BROWSER_WS_HOST",
+          "value": "browser"
+        },
+        {
+          "key": "BROWSER_WS_PORT",
+          "value": "3001"
+        },
+        {
+          "key": "OLLAMA_BASE_URL",
+          "value": "${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
+        }
+      ],
+      "extraHosts": [
+        "host.docker.internal:host-gateway"
+      ],
+      "shmSize": "2gb",
+      "addToMainNetwork": true,
+      "deploy": {
+        "resources": {
+          "limits": {
+            "memory": "6G"
+          }
+        }
+      },
+      "dependsOn": {
+        "postgres": {
+          "condition": "service_healthy"
+        },
+        "minio": {
+          "condition": "service_started"
+        },
+        "browser": {
+          "condition": "service_healthy"
+        }
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/dbus",
+          "containerPath": "/var/run/dbus"
+        }
+      ],
+      "extraLabels": {
+        "traefik.http.services.maxun-backend.loadbalancer.server.port": "8080"
+      }
+    },
+    {
+      "name": "postgres",
+      "image": "postgres:13",
+      "environment": [
+        {
+          "key": "POSTGRES_USER",
+          "value": "maxun"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "${DB_PASSWORD}"
+        },
+        {
+          "key": "POSTGRES_DB",
+          "value": "maxun"
+        }
+      ],
+      "addToMainNetwork": true,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U maxun -d maxun",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 5
+      }
+    },
+    {
+      "name": "rustfs-init",
+      "image": "alpine:3.22",
+      "user": "0:0",
+      "command": [
+        "sh",
+        "-c",
+        "mkdir -p /data && chown -R 10001:10001 /data"
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/minio",
+          "containerPath": "/data"
+        }
+      ]
+    },
+    {
+      "name": "minio",
+      "image": "rustfs/rustfs:latest",
+      "command": [
+        "/data"
+      ],
+      "environment": [
+        {
+          "key": "RUSTFS_ADDRESS",
+          "value": ":9000"
+        },
+        {
+          "key": "RUSTFS_CONSOLE_ADDRESS",
+          "value": ":9001"
+        },
+        {
+          "key": "RUSTFS_CONSOLE_ENABLE",
+          "value": "true"
+        },
+        {
+          "key": "RUSTFS_ACCESS_KEY",
+          "value": "${MINIO_ACCESS_KEY}"
+        },
+        {
+          "key": "RUSTFS_SECRET_KEY",
+          "value": "${MINIO_SECRET_KEY}"
+        }
+      ],
+      "addToMainNetwork": true,
+      "dependsOn": {
+        "rustfs-init": {
+          "condition": "service_completed_successfully"
+        }
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/minio",
+          "containerPath": "/data"
+        }
+      ],
+      "extraLabels": {
+        "traefik.http.middlewares.maxun-minio-web-redirect.redirectscheme.scheme": "https",
+        "traefik.http.services.maxun-minio.loadbalancer.server.port": "9000",
+        "traefik.http.routers.maxun-minio-insecure.rule": "Host(`${MINIO_PUBLIC_HOST}`)",
+        "traefik.http.routers.maxun-minio-insecure.entrypoints": "web",
+        "traefik.http.routers.maxun-minio-insecure.service": "maxun-minio",
+        "traefik.http.routers.maxun-minio-insecure.middlewares": "maxun-minio-web-redirect",
+        "traefik.http.routers.maxun-minio.rule": "Host(`${MINIO_PUBLIC_HOST}`)",
+        "traefik.http.routers.maxun-minio.entrypoints": "websecure",
+        "traefik.http.routers.maxun-minio.service": "maxun-minio",
+        "traefik.http.routers.maxun-minio.tls.certresolver": "myresolver"
+      }
+    },
+    {
+      "name": "browser",
+      "image": "getmaxun/maxun-browser:latest",
+      "environment": [
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "BROWSER_WS_PORT",
+          "value": "3001"
+        },
+        {
+          "key": "BROWSER_HEALTH_PORT",
+          "value": "3002"
+        },
+        {
+          "key": "BROWSER_WS_HOST",
+          "value": "browser"
+        },
+        {
+          "key": "PLAYWRIGHT_BROWSERS_PATH",
+          "value": "/ms-playwright"
+        }
+      ],
+      "healthCheck": {
+        "test": "curl -f http://localhost:3002/health",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 3,
+        "startPeriod": "10s"
+      },
+      "shmSize": "2gb",
+      "addToMainNetwork": true,
+      "deploy": {
+        "resources": {
+          "limits": {
+            "memory": "2G"
+          }
+        }
+      },
+      "capAdd": [
+        "SYS_ADMIN"
+      ]
+    }
+  ],
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/v2/dynamic-compose.json"
+}

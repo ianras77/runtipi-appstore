@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  code-server-custom:
+    image: lscr.io/linuxserver/code-server:4.143.1
+    container_name: code-server-custom
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - PASSWORD=${CODESERVER_PASSWORD}
+      - SUDO_PASSWORD=${CODESERVER_SUDO_PASSWORD}
+      - DEFAULT_WORKSPACE=/config/workspace
+    volumes:
+      - ${APP_DATA_DIR}/data/config:/config
+      - ${APP_DATA_DIR}/data/projects:/projects
+      - ${ROOT_FOLDER_HOST}:/runtipi
+    ports:
+      - ${APP_PORT}:8443
+    restart: unless-stopped
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.code-server-custom-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.code-server-custom.loadbalancer.server.port: 8443
+      traefik.http.routers.code-server-custom-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.code-server-custom-insecure.entrypoints: web
+      traefik.http.routers.code-server-custom-insecure.service: code-server-custom
+      traefik.http.routers.code-server-custom-insecure.middlewares: code-server-custom-web-redirect
+      traefik.http.routers.code-server-custom.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.code-server-custom.entrypoints: websecure
+      traefik.http.routers.code-server-custom.service: code-server-custom
+      traefik.http.routers.code-server-custom.tls.certresolver: myresolver
+      traefik.http.routers.code-server-custom-local-insecure.rule: Host(`code-server-custom.${LOCAL_DOMAIN}`)
+      traefik.http.routers.code-server-custom-local-insecure.entrypoints: web
+      traefik.http.routers.code-server-custom-local-insecure.service: code-server-custom
+      traefik.http.routers.code-server-custom-local-insecure.middlewares: code-server-custom-web-redirect
+      traefik.http.routers.code-server-custom-local.rule: Host(`code-server-custom.${LOCAL_DOMAIN}`)
+      traefik.http.routers.code-server-custom-local.entrypoints: websecure
+      traefik.http.routers.code-server-custom-local.service: code-server-custom
+      traefik.http.routers.code-server-custom-local.tls: true
+      runtipi.managed: true

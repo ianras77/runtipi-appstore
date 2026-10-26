@@ -1,0 +1,105 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Maxun",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "port": 8183,
+  "id": "maxun",
+  "tipi_version": 1,
+  "version": "latest",
+  "categories": [
+    "automation",
+    "development"
+  ],
+  "description": "Self-hosted, no-code web scraping and data extraction with browser automation, schedules, an API, and RustFS-backed S3 storage.",
+  "short_desc": "No-code web scraping and data extraction",
+  "author": "getmaxun",
+  "source": "https://github.com/getmaxun/maxun",
+  "website": "https://maxun.dev/",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "JWT signing secret",
+      "hint": "Used to sign login tokens.",
+      "min": 48,
+      "encoding": "base64",
+      "env_variable": "JWT_SECRET"
+    },
+    {
+      "type": "random",
+      "label": "Encryption key",
+      "hint": "Used to encrypt stored credentials. Keep this key safe across upgrades.",
+      "min": 32,
+      "encoding": "hex",
+      "env_variable": "ENCRYPTION_KEY"
+    },
+    {
+      "type": "random",
+      "label": "Session secret",
+      "min": 48,
+      "encoding": "base64",
+      "env_variable": "SESSION_SECRET"
+    },
+    {
+      "type": "random",
+      "label": "PostgreSQL password",
+      "min": 40,
+      "encoding": "hex",
+      "env_variable": "DB_PASSWORD"
+    },
+    {
+      "type": "random",
+      "label": "MinIO access key",
+      "min": 24,
+      "encoding": "hex",
+      "env_variable": "MINIO_ACCESS_KEY"
+    },
+    {
+      "type": "random",
+      "label": "MinIO secret key",
+      "min": 40,
+      "encoding": "hex",
+      "env_variable": "MINIO_SECRET_KEY"
+    },
+    {
+      "type": "fqdn",
+      "label": "MinIO public hostname",
+      "hint": "Create DNS for this hostname pointing to your Runtipi host. It must be a dedicated hostname; MinIO S3 links do not support a URL subpath.",
+      "required": true,
+      "env_variable": "MINIO_PUBLIC_HOST"
+    },
+    {
+      "type": "url",
+      "label": "MinIO public HTTPS URL",
+      "hint": "Use https:// followed by the MinIO public hostname above, with no trailing slash.",
+      "required": true,
+      "env_variable": "MINIO_PUBLIC_URL"
+    },
+    {
+      "type": "text",
+      "label": "Google OAuth client ID",
+      "required": false,
+      "env_variable": "GOOGLE_CLIENT_ID"
+    },
+    {
+      "type": "password",
+      "label": "Google OAuth client secret",
+      "required": false,
+      "env_variable": "GOOGLE_CLIENT_SECRET"
+    },
+    {
+      "type": "password",
+      "label": "Airtable OAuth client ID",
+      "required": false,
+      "env_variable": "AIRTABLE_CLIENT_ID"
+    }
+  ],
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1792974798254,
+  "updated_at": 1792974798254,
+  "min_tipi_version": "4.5.0"
+}

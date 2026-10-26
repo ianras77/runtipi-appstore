@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  worldmonitor:
+    image: ghcr.io/koala73/worldmonitor:2.11.4
+    container_name: worldmonitor
+    environment:
+      - API_UPSTREAM=${WORLDMONITOR_API_UPSTREAM}
+    ports:
+      - ${APP_PORT}:80
+    restart: unless-stopped
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.worldmonitor-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.worldmonitor.loadbalancer.server.port: 80
+      traefik.http.routers.worldmonitor-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.worldmonitor-insecure.entrypoints: web
+      traefik.http.routers.worldmonitor-insecure.service: worldmonitor
+      traefik.http.routers.worldmonitor-insecure.middlewares: worldmonitor-web-redirect
+      traefik.http.routers.worldmonitor.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.worldmonitor.entrypoints: websecure
+      traefik.http.routers.worldmonitor.service: worldmonitor
+      traefik.http.routers.worldmonitor.tls.certresolver: myresolver
+      traefik.http.routers.worldmonitor-local-insecure.rule: Host(`worldmonitor.${LOCAL_DOMAIN}`)
+      traefik.http.routers.worldmonitor-local-insecure.entrypoints: web
+      traefik.http.routers.worldmonitor-local-insecure.service: worldmonitor
+      traefik.http.routers.worldmonitor-local-insecure.middlewares: worldmonitor-web-redirect
+      traefik.http.routers.worldmonitor-local.rule: Host(`worldmonitor.${LOCAL_DOMAIN}`)
+      traefik.http.routers.worldmonitor-local.entrypoints: websecure
+      traefik.http.routers.worldmonitor-local.service: worldmonitor
+      traefik.http.routers.worldmonitor-local.tls: true
+      runtipi.managed: true

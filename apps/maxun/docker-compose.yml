@@ -1,0 +1,196 @@
+services:
+  maxun-frontend:
+    image: getmaxun/maxun-frontend:latest
+    container_name: maxun-frontend
+    restart: unless-stopped
+    environment:
+      PUBLIC_URL: https://${APP_DOMAIN}
+      BACKEND_URL: https://${APP_DOMAIN}
+      VITE_PUBLIC_URL: https://${APP_DOMAIN}
+      VITE_BACKEND_URL: https://${APP_DOMAIN}
+    depends_on:
+      - maxun-backend
+    ports:
+      - ${APP_PORT}:5173
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.maxun-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.maxun-frontend.loadbalancer.server.port: 5173
+      traefik.http.routers.maxun-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.maxun-insecure.entrypoints: web
+      traefik.http.routers.maxun-insecure.service: maxun-frontend
+      traefik.http.routers.maxun-insecure.middlewares: maxun-web-redirect
+      traefik.http.routers.maxun.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.maxun.entrypoints: websecure
+      traefik.http.routers.maxun.service: maxun-frontend
+      traefik.http.routers.maxun.tls.certresolver: myresolver
+      traefik.http.routers.maxun-local-insecure.rule: Host(`maxun.${LOCAL_DOMAIN}`)
+      traefik.http.routers.maxun-local-insecure.entrypoints: web
+      traefik.http.routers.maxun-local-insecure.service: maxun-frontend
+      traefik.http.routers.maxun-local-insecure.middlewares: maxun-web-redirect
+      traefik.http.routers.maxun-local.rule: Host(`maxun.${LOCAL_DOMAIN}`)
+      traefik.http.routers.maxun-local.entrypoints: websecure
+      traefik.http.routers.maxun-local.service: maxun-frontend
+      traefik.http.routers.maxun-local.tls: true
+      traefik.http.routers.maxun-api.rule: Host(`${APP_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/auth`) || PathPrefix(`/storage`) || PathPrefix(`/record`) || PathPrefix(`/workflow`) || PathPrefix(`/robot`) || PathPrefix(`/proxy`) || PathPrefix(`/api-docs`) || PathPrefix(`/webhook`) || PathPrefix(`/socket.io`))
+      traefik.http.routers.maxun-api.entrypoints: websecure
+      traefik.http.routers.maxun-api.service: maxun-backend
+      traefik.http.routers.maxun-api.priority: 100
+      traefik.http.routers.maxun-api.tls.certresolver: myresolver
+      traefik.http.routers.maxun-api-local.rule: Host(`maxun.${LOCAL_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/auth`) || PathPrefix(`/storage`) || PathPrefix(`/record`) || PathPrefix(`/workflow`) || PathPrefix(`/robot`) || PathPrefix(`/proxy`) || PathPrefix(`/api-docs`) || PathPrefix(`/webhook`) || PathPrefix(`/socket.io`))
+      traefik.http.routers.maxun-api-local.entrypoints: websecure
+      traefik.http.routers.maxun-api-local.service: maxun-backend
+      traefik.http.routers.maxun-api-local.priority: 100
+      traefik.http.routers.maxun-api-local.tls: true
+      runtipi.managed: true
+
+  maxun-backend:
+    image: getmaxun/maxun-backend:latest
+    container_name: maxun-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      JWT_SECRET: ${JWT_SECRET}
+      DB_NAME: maxun
+      DB_USER: maxun
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      SESSION_SECRET: ${SESSION_SECRET}
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: "9000"
+      MINIO_CONSOLE_PORT: "9001"
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_PUBLIC_URL: ${MINIO_PUBLIC_URL}
+      BACKEND_PORT: "8080"
+      FRONTEND_PORT: "5173"
+      BACKEND_URL: https://${APP_DOMAIN}
+      PUBLIC_URL: https://${APP_DOMAIN}
+      VITE_BACKEND_URL: https://${APP_DOMAIN}
+      VITE_PUBLIC_URL: https://${APP_DOMAIN}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_REDIRECT_URI: https://${APP_DOMAIN}/auth/google/callback
+      AIRTABLE_CLIENT_ID: ${AIRTABLE_CLIENT_ID}
+      AIRTABLE_REDIRECT_URI: https://${APP_DOMAIN}/auth/airtable/callback
+      MAXUN_TELEMETRY: "true"
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "0"
+      CI: "true"
+      CONTAINER: "true"
+      CHROMIUM_FLAGS: --disable-gpu --no-sandbox --headless=new
+      BROWSER_WS_HOST: browser
+      BROWSER_WS_PORT: "3001"
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    security_opt:
+      - seccomp=unconfined
+    shm_size: 2gb
+    mem_limit: 6g
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      rustfs-init:
+        condition: service_completed_successfully
+      browser:
+        condition: service_healthy
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.services.maxun-backend.loadbalancer.server.port: 8080
+
+  postgres:
+    image: postgres:13
+    container_name: maxun-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: maxun
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: maxun
+    volumes:
+      - ${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U maxun -d maxun"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tipi_main_network
+
+  rustfs-init:
+    image: alpine:3.22
+    container_name: maxun-rustfs-init
+    user: "0:0"
+    command: ["sh", "-c", "mkdir -p /data && chown -R 10001:10001 /data"]
+    volumes:
+      - ${APP_DATA_DIR}/data/minio:/data
+    restart: "no"
+    networks:
+      - tipi_main_network
+
+  minio:
+    image: rustfs/rustfs:latest
+    container_name: maxun-rustfs
+    restart: unless-stopped
+    command: ["/data"]
+    environment:
+      RUSTFS_ADDRESS: ":9000"
+      RUSTFS_CONSOLE_ADDRESS: ":9001"
+      RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      RUSTFS_SECRET_KEY: ${MINIO_SECRET_KEY}
+    volumes:
+      - ${APP_DATA_DIR}/data/minio:/data
+    depends_on:
+      rustfs-init:
+        condition: service_completed_successfully
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.maxun-minio-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.maxun-minio.loadbalancer.server.port: 9000
+      traefik.http.routers.maxun-minio-insecure.rule: Host(`${MINIO_PUBLIC_HOST}`)
+      traefik.http.routers.maxun-minio-insecure.entrypoints: web
+      traefik.http.routers.maxun-minio-insecure.service: maxun-minio
+      traefik.http.routers.maxun-minio-insecure.middlewares: maxun-minio-web-redirect
+      traefik.http.routers.maxun-minio.rule: Host(`${MINIO_PUBLIC_HOST}`)
+      traefik.http.routers.maxun-minio.entrypoints: websecure
+      traefik.http.routers.maxun-minio.service: maxun-minio
+      traefik.http.routers.maxun-minio.tls.certresolver: myresolver
+
+  browser:
+    image: getmaxun/maxun-browser:latest
+    container_name: maxun-browser
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      BROWSER_WS_PORT: "3001"
+      BROWSER_HEALTH_PORT: "3002"
+      BROWSER_WS_HOST: browser
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    security_opt:
+      - seccomp=unconfined
+    shm_size: 2gb
+    cap_add:
+      - SYS_ADMIN
+    networks:
+      - tipi_main_network
+
+networks:
+  tipi_main_network:
+    external: true
