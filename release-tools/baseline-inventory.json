@@ -1,0 +1,2694 @@
+{
+  "schemaVersion": 1,
+  "validatorRelease": "v4.11.0",
+  "packages": [
+    {
+      "id": "audiobookshelf",
+      "files": {
+        "config.json": "e04b036e308064a430fb275ce2e8a285a92b75d08776d632b9ca8fd2545f7aa7",
+        "docker-compose.json": "308729304993793d82f5c2c62177d23f0657f50ed50f6a166ea7a8acace69c8d"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "2.37.1",
+      "tipiVersion": 160
+    },
+    {
+      "id": "beszel",
+      "files": {
+        "config.json": "1a1cc381051dd5572e9a137e893b41e038d2d9b795e999aa3388892871d4f1f9",
+        "docker-compose.json": "b3461a61353b75f0fc2316decd75e62d6cae4e0148ab0470efa93cb8ef6b0714",
+        "docker-compose.yml": "28d72d0a553096412b4bdfee47311d40ea396f141dbaf5c6200315b75b4105fe"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "0.21.1",
+      "tipiVersion": 25
+    },
+    {
+      "id": "beszel-agent",
+      "files": {
+        "config.json": "1f36339350b51e0176292b4e41c04b765e28fade2f0df50cdc416dd967d5e87d",
+        "docker-compose.json": "f13e2a5a0a9b54cbd3cd74c3de8c4f69d43758176e6b5262a14c6b19864bd6fe",
+        "docker-compose.yml": "339869ab5b1a6a01807f1f9c47862141164f807ca7bce7c81f3f1e5371872825"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "0.21.1",
+      "tipiVersion": 25
+    },
+    {
+      "id": "cheshire-bat",
+      "files": {
+        "config.json": "83c3aa943b5b4d75228d0d6a59bf03fc72e50752521614d147627739445147ac",
+        "docker-compose.json": "048d54891844ad7902f14ab8eb41bce67ef4966c69f1c8d33ba63d53b734da00"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "1.9.2",
+      "tipiVersion": 16
+    },
+    {
+      "id": "cheshire-rasies",
+      "files": {
+        "config.json": "a0020247e09600d45bbf1c4206eca1518927a223e1105d54df9f0f098f98fb5b",
+        "docker-compose.json": "686d4ffbaaffb2d5fec41d9aa0e84c87cbdb97651894f56bad054077e76c98a4"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "1.9.2",
+      "tipiVersion": 17
+    },
+    {
+      "id": "cheshire-rasiess",
+      "files": {
+        "config.json": "0982767799387ac1d8d5a563142a85e2c3915b2d70b6af9e96d9cf98855eccdb",
+        "docker-compose.json": "67dcbf8f754117071d0380129ec99c7447c1e58eaac9ed2100e6179fe380dbf6"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "1.9.2",
+      "tipiVersion": 15
+    },
+    {
+      "id": "cheshire-rpg",
+      "files": {
+        "config.json": "26c21bd1aa0401d26c5814ad1d5c0ba5e52591e239c56fee7af52da98c4a38dc",
+        "docker-compose.json": "02036e74b2516589ee287792e181b8181c7763ce1adb7edd6b1c15c75b4d5f0f"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "1.9.2",
+      "tipiVersion": 14
+    },
+    {
+      "id": "cheshire-test",
+      "files": {
+        "config.json": "867db0c1996b6b77bd90b0e78190e619f0a13baf99276fa6c7edbfb05f55ca21",
+        "docker-compose.json": "61015d6092d3de03fd082ce91b927feca8be4ee4251aaf7e78d112a7dfbfc41b"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "1.9.2",
+      "tipiVersion": 16
+    },
+    {
+      "id": "code-server-custom",
+      "files": {
+        "config.json": "45ebbc3f5c71f97cb84458f8403a922851788fabb97d13a11abe002769ab9fc0",
+        "docker-compose.json": "5c0af003b0e86e9debd3c438950e9d0c1b5ec9e43ceaaab240bd5ede233a21d6",
+        "docker-compose.yml": "4a021fa94b6ca7fad7ac4c972abe33a3ff218b1db995975f97444f9701f5e5d6"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "4.143.1",
+      "tipiVersion": 1
+    },
+    {
+      "id": "convertx",
+      "files": {
+        "config.json": "ba20c6ffe4b316c016e3da9eeb4101f7acbf57b874810b8718477a8f3cea8892",
+        "docker-compose.json": "2ebe266c61643715172900a31f5750257719576567db312ea351fa6a3eae45dd",
+        "docker-compose.yml": "f9f29f68cf33708a0a6fb47269c3d65495e7e58fa113385bc88b9fc830acd8c8"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "v0.19.0",
+      "tipiVersion": 1
+    },
+    {
+      "id": "endurain",
+      "files": {
+        "config.json": "165323eb1904578080ee93f288d48ed14cb2b16583c1c260983a379a0a7b8467",
+        "docker-compose.json": "5190bd84481c4bc6e7076ab1f364fa1d075b96ee1ba78171257d1581e0d88167",
+        "docker-compose.yml": "9ec3fb89bd47fb4a54834305da5d4b5be4c860a871750317ae6ec43e8778d61d"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "v0.20.1",
+      "tipiVersion": 1
+    },
+    {
+      "id": "ghost",
+      "files": {
+        "config.json": "96813bffd598fc3ddac5a58520699eac3b0d4db3436d2cef9afe188521ae276a",
+        "docker-compose.json": "7990aaf880ac54ea39460cf298171830315768955955a91b26ac60dc030229c6",
+        "docker-compose.yml": "ba32c48a17d6f3644d427545dd20b48599f1e28fe1cea22f33296ed9acb74d90"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "6.72.0",
+      "tipiVersion": 189
+    },
+    {
+      "id": "ghost-enochdads",
+      "files": {
+        "config.json": "9ad126f9c5cb80d3d3882cf113ce5f246705acfd012f1077a00d106467e6a1f2",
+        "docker-compose.json": "ad5124a86ded1fd30bc26983cddae32727b9882989280910f3732d52dfd2be52",
+        "docker-compose.yml": "d14fd61646945642df06706050826ef5cdabe9265e8fde810055a01222970afd"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "6.72.0",
+      "tipiVersion": 159
+    },
+    {
+      "id": "ghost-farmleadership",
+      "files": {
+        "config.json": "ffc32277439c883085d2ebff67e987f4f41ae9bb914cb9e48c32ae12418c2c44",
+        "docker-compose.json": "1bf5bcc26f3b506d5a6cf5af6a8d790a1f1d021a10de5d75f3931c68bb5d0f48",
+        "docker-compose.yml": "2ff16732066b2e62bfaad69253a4f2d0e82911748eaded8c7a1246c1aefd89fb"
+      },
+      "issues": [
+        {
+          "file": "config.json",
+          "code": "folder-id-mismatch"
+        }
+      ],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "6.65.0",
+      "tipiVersion": 188
+    },
+    {
+      "id": "ghost-sloppyhero",
+      "files": {
+        "config.json": "f93451ee030255072359f6b7599513e396e6666227bfa565a96029874c6cc5bb",
+        "docker-compose.json": "1bf5bcc26f3b506d5a6cf5af6a8d790a1f1d021a10de5d75f3931c68bb5d0f48",
+        "docker-compose.yml": "2ff16732066b2e62bfaad69253a4f2d0e82911748eaded8c7a1246c1aefd89fb"
+      },
+      "issues": [
+        {
+          "file": "config.json",
+          "code": "folder-id-mismatch"
+        }
+      ],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "6.65.0",
+      "tipiVersion": 188
+    },
+    {
+      "id": "ghost-wrapess",
+      "files": {
+        "config.json": "4933558f1cbadf0c1210cbe571bf5e02cb27115b5217d408ed0bce57448cf809",
+        "docker-compose.json": "1bf5bcc26f3b506d5a6cf5af6a8d790a1f1d021a10de5d75f3931c68bb5d0f48",
+        "docker-compose.yml": "2ff16732066b2e62bfaad69253a4f2d0e82911748eaded8c7a1246c1aefd89fb"
+      },
+      "issues": [
+        {
+          "file": "config.json",
+          "code": "folder-id-mismatch"
+        }
+      ],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "6.65.0",
+      "tipiVersion": 188
+    },
+    {
+      "id": "grav",
+      "files": {
+        "config.json": "32f879fc2e00d5d9ed925d3acfdeb81fe50c2999b7a7d5ddd379615a951bc311",
+        "docker-compose.json": "99ab4723a2f16d04d68a6af73f6842f18be3ed1238570739ccd72d04d181995c",
+        "docker-compose.yml": "759c010f53d7346d04fbeb5a75121b5ef4ab1a9be426d7eea819f4926601a1df"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.2.11",
+      "tipiVersion": 12
+    },
+    {
+      "id": "grav-elderseth",
+      "files": {
+        "config.json": "0182e4a2c67e1479b6159631afa4bb2872f1c93ede07b02d5283e46c7ec0f1bf",
+        "docker-compose.json": "99ab4723a2f16d04d68a6af73f6842f18be3ed1238570739ccd72d04d181995c",
+        "docker-compose.yml": "759c010f53d7346d04fbeb5a75121b5ef4ab1a9be426d7eea819f4926601a1df"
+      },
+      "issues": [
+        {
+          "file": "config.json",
+          "code": "folder-id-mismatch"
+        }
+      ],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.2.11",
+      "tipiVersion": 12
+    },
+    {
+      "id": "grav-zoroasteria",
+      "files": {
+        "config.json": "e0b960bd9e1d07c8725f17f96e9d2b2b8c6038c3038b376e813ff65c49281e4d",
+        "docker-compose.json": "99ab4723a2f16d04d68a6af73f6842f18be3ed1238570739ccd72d04d181995c",
+        "docker-compose.yml": "759c010f53d7346d04fbeb5a75121b5ef4ab1a9be426d7eea819f4926601a1df"
+      },
+      "issues": [
+        {
+          "file": "config.json",
+          "code": "folder-id-mismatch"
+        }
+      ],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.2.11",
+      "tipiVersion": 12
+    },
+    {
+      "id": "habittrove",
+      "files": {
+        "config.json": "a215c780a70a9704132bb5f57e9441d8764d68338dad76e31f9c25234fc4de22",
+        "docker-compose.json": "5cf8524178718f962956f2d8432486e589c8c7c7fe53f6c00d0c2b34fea4cfd3"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "v0.2.31",
+      "tipiVersion": 18
+    },
+    {
+      "id": "heimdall",
+      "files": {
+        "config.json": "408548fc46a6e85eaffaeae7e6bb50aa44ac0db2b18ac0f46b819d6a041e9f96",
+        "docker-compose.json": "5b1b9d6504ac93bd20034a1948b906c1b4b1aec2fe3047db141b55061a358dca",
+        "docker-compose.yml": "75e99e4dd3a23042896660e93ea4248f91e9de4797b9ac36201147ba4afdce11"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.8.3",
+      "tipiVersion": 151
+    },
+    {
+      "id": "hoarder",
+      "files": {
+        "config.json": "5e5be9641556ed042c2c58ab3a6ea8e4d625b9b0b63d537f973220189582de7b",
+        "docker-compose.json": "5cd1b2b896d66087a59cd80c032ea04ec4e200452a644356ccc3ce12c86ebacd",
+        "docker-compose.yml": "3bc780f22ee13e73999035bede2e4d9d2cb9e7619696da59fa8b0d6ccc3d7816"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "0.34.1",
+      "tipiVersion": 19
+    },
+    {
+      "id": "immich",
+      "files": {
+        "config.json": "a5893a0218d4a2ff7a4970c0887e2a68e40be0a5c1b66166f29ef2547460c4e3",
+        "docker-compose.json": "01a8f820caec93bc7799409726416593752c675276ab26b7032f612bc2ba5693",
+        "docker-compose.yml": "d65141dc3b53fca5be16e23376493db9709f6f861cbf65673662d93d493c6707"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "v3.3.5",
+      "tipiVersion": 159
+    },
+    {
+      "id": "kavita",
+      "files": {
+        "config.json": "08186039d729fd1b38d88fda925da81fcd032d2b3d02933924dff85f636ff19b",
+        "docker-compose.json": "132b437c208d6041c39f378f839bf37e14c812014134b92c89f72ac76ebd0756",
+        "docker-compose.yml": "0ccba35da049ea2d9cccd5aed9049c862d7e6018a9f83ca76450f4cfae10c71f"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "0.9.1",
+      "tipiVersion": 24
+    },
+    {
+      "id": "linkwarden",
+      "files": {
+        "config.json": "f760a3c5202164e2ae6105258beb1db5e285cbdd2a555ad80fed5264b468fce9",
+        "docker-compose.json": "a59677e4b7ca6af2a77d3cddd9695484c1e7b7745af8cd633cbcc40a92a8dc43",
+        "docker-compose.yml": "3c6fb9687083bbeae57e74ff7ef8b0850484edd3768d531dd1909b18767f5675"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "v2.16.3",
+      "tipiVersion": 36
+    },
+    {
+      "id": "maxun",
+      "files": {
+        "config.json": "8b58110e6b4431bfac946a9bad4cd241ed8d36f464e45ee1fb60030c493e05aa",
+        "docker-compose.json": "e6adcee6d2340b46c009001f4e7c0dd1458ce001f2f8cc4e93b37145cd2a0f9b",
+        "docker-compose.yml": "75261300f81dd249d5523db61eaadb04bdf762d21dac4238189a174d48ebcc61"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 0
+        },
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 1
+        },
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 4
+        },
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 5
+        },
+        {
+          "file": "docker-compose.yml",
+          "code": "floating-image",
+          "serviceIndex": 0
+        },
+        {
+          "file": "docker-compose.yml",
+          "code": "floating-image",
+          "serviceIndex": 1
+        },
+        {
+          "file": "docker-compose.yml",
+          "code": "floating-image",
+          "serviceIndex": 4
+        },
+        {
+          "file": "docker-compose.yml",
+          "code": "floating-image",
+          "serviceIndex": 5
+        },
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "latest",
+      "tipiVersion": 1
+    },
+    {
+      "id": "maybe",
+      "files": {
+        "config.json": "7008ffdd6e95c0cca9ba0b2a25aeb8c4bd458540a21eb30a79339a64821eea0b",
+        "docker-compose.json": "6e4583ee4effe8a9f6478e7b3a62592bacade24bb42c84205b520d5922df3763"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "0.6.0",
+      "tipiVersion": 3
+    },
+    {
+      "id": "mcp-beszel",
+      "files": {
+        "config.json": "8d06f9b16282e4e8c03e227ab898010514162f3f64012e8e73ddafae49f938ad",
+        "docker-compose.json": "198f482b4a654dab24df8513f3a82fec4279be8a52312d946b3c6cbe4b0a175b"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "1.2.3",
+      "tipiVersion": 1
+    },
+    {
+      "id": "mcp-ghost",
+      "files": {
+        "config.json": "e23d6324953a5ba9fc7b628eda11eb1e0c8a273861999bcf5e00eb6dcf187540",
+        "docker-compose.json": "c1a6030d0c5357e27da6b3e59d3a06839f87b29e1b08d7419e32ca69b71c7547"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "0.18.0",
+      "tipiVersion": 2
+    },
+    {
+      "id": "mcp-grav",
+      "files": {
+        "config.json": "01e65db7dbc63cf27140fdd5dea273b1be60c4af505bd311e8bf52a7b4b09d56",
+        "docker-compose.json": "400117f2a53cc938fbda9e9e089ead332e55b05987fed2262af7c8a7e5f1415b"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "0.1.1",
+      "tipiVersion": 1
+    },
+    {
+      "id": "mcp-immich",
+      "files": {
+        "config.json": "d353f3afa953aa48212e9d00e43f98dc646b00795c060dfce862acea4afb99ed",
+        "docker-compose.json": "e35a9287353c9f41e00c6c61b83795aa3299a074a462d2246332429951bb0686"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 0
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "latest",
+      "tipiVersion": 2
+    },
+    {
+      "id": "mcp-karakeep",
+      "files": {
+        "config.json": "4d2b7d05c2c091c5eb3a917cf3a6b553fc3e30726b83e3fb62f5b65645efeab3",
+        "docker-compose.json": "f4024a8376ba47dfc0aa1e444790fbb585b1441aea4656eac489da89a5d5c8fd"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 0
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "latest",
+      "tipiVersion": 2
+    },
+    {
+      "id": "mcp-linkwarden",
+      "files": {
+        "config.json": "4f97c9a00a77a85027a70a3af19a22ce5bd9f9fef805f9597ad8a08d9d00321f",
+        "docker-compose.json": "733f6c3f0dc909dfcacb651f7828c6185b57c41f9d6ef3c300af959a9ec05562"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "0.4.0",
+      "tipiVersion": 1
+    },
+    {
+      "id": "mcp-miniflux",
+      "files": {
+        "config.json": "c100c3e808d624e1b4de4f7f7892120b8c280f63d00eec56abf8653169ead365",
+        "docker-compose.json": "5e508ab37551352b71ed5260acd234ba857db8730589fdb61c422e8e380ad5ae"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 0
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "latest",
+      "tipiVersion": 2
+    },
+    {
+      "id": "mcp-searxng",
+      "files": {
+        "config.json": "2674db5248a50a6084da861bb2defde045514f82f0583202976872d581232833",
+        "docker-compose.json": "e613f89595b73afce0ca2783a28adb00454bc3f6627539038c23407ca7e4b276"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "2.6.0",
+      "tipiVersion": 2
+    },
+    {
+      "id": "mcp-vaultwarden",
+      "files": {
+        "config.json": "0fc157bd1f53ee40b3b2090f79fc128f5ccdd6253ffe8ea4f5d386def25804b4",
+        "docker-compose.json": "043a896cbf4852edeffa63e5c1eea01886994ef75d9d95eb7ad43b95ee02a93f"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 0
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "latest",
+      "tipiVersion": 2
+    },
+    {
+      "id": "mcp-vikunja",
+      "files": {
+        "config.json": "f6006e8aa0318444648b6a2e10bb1375d6c17f70a6c8ed1eecb9f82b8f791400",
+        "docker-compose.json": "965e52cd4538cc5da580edd5e951813ec9047fbe2b2d1c4728fa16ea2594f094"
+      },
+      "issues": [
+        {
+          "file": "docker-compose.json",
+          "code": "official-schema",
+          "paths": [
+            "services,0,environment"
+          ]
+        }
+      ],
+      "warnings": [
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 0
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "latest",
+      "tipiVersion": 2
+    },
+    {
+      "id": "miniflux",
+      "files": {
+        "config.json": "77c24bdbb9c9e93d4dc638806ce450c2ea97fbe32387078a80793c60b3451030",
+        "docker-compose.json": "27a2cd1c56ca58a649f870bf82ef2b840fe24b98944f7f7fdf7f2e4ead2b05b9"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "2.3.4",
+      "tipiVersion": 13
+    },
+    {
+      "id": "minuspod",
+      "files": {
+        "config.json": "349e1987bf459a845a2e296dc99ed041dd6194cc782cc548b81fc6d36ccc1949",
+        "docker-compose.json": "fa51a318e16256f554bdd7cd6bb5fcaa35683e0652730de57d071553a5ace53b",
+        "docker-compose.yml": "d1dada60313f0d244729c57dd7fa2123bf40d85cd57da1099ee0cd69d0eb3d99"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.100.18-cpu",
+      "tipiVersion": 1
+    },
+    {
+      "id": "mstream",
+      "files": {
+        "config.json": "7a37cbcbd34a52f1fe7d3199d4f920a8968fe58365f19700fcf5a51c6af707b3",
+        "docker-compose.json": "a7badae6beade1a9f95f5947b8e84c6df0128d82ee8e865daded5195e69c5141",
+        "docker-compose.yml": "e4532174cbe1b03d628a2b09105eda45246cda6245265516bd658b2d66469ac9"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "v6.9.1-ls245",
+      "tipiVersion": 6
+    },
+    {
+      "id": "nextgba",
+      "files": {
+        "config.json": "b9d395ecef597ddc27724e7b04f00f092010aea663934c633016407e7babeae1",
+        "docker-compose.json": "8a791d163872b7d05dd8a5f94dbf461b6d8f00f02fb71a3c447cb44f84ed87d1",
+        "docker-compose.yml": "4ca9f221243e5b364b2cef2d45d6bbcf2524b405be2f43a137cf808144234da3"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "0.1.0",
+      "tipiVersion": 150
+    },
+    {
+      "id": "obsidian-livesync",
+      "files": {
+        "config.json": "2d17429f9abbf6eaded7b141ab51f4a869ba87794c8d6105c2dc8e1945029e48",
+        "docker-compose.json": "471c1e433e089818a5193b4cd463bdc813837ee8ad27a3f1bdbc6396c9ebe5d1",
+        "docker-compose.yml": "7002f41fb9bf95c3a99b13cebaf63803b31a2a7d26bb212ffcf94cce41fbdf9e"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "3.5.3",
+      "tipiVersion": 6
+    },
+    {
+      "id": "open-terminal",
+      "files": {
+        "config.json": "71d460fd535d0ee80fb902b651b328aa0588a8b1f4a47b047b7c734061c00835",
+        "docker-compose.json": "cf6193e797726b3c4fbba2efa5a3c18c58982adf0ec2de374f3a69b38869d704"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "0.14.2",
+      "tipiVersion": 3
+    },
+    {
+      "id": "openclaw",
+      "files": {
+        "config.json": "7f20ca2c1d637e04ec306dd746cc07fe07f4121e26d1b0b6d891e141b8090d79",
+        "docker-compose.json": "640860c5178b668155e80ab9d615f2a10ba1c2eb48d1d7f56ba299ddcc014e9f"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "2026.10.6",
+      "tipiVersion": 5
+    },
+    {
+      "id": "photocraft",
+      "files": {
+        "config.json": "0ba7b7186b6c3757521907816bbe1f744538dcb47d5c49e47ee461f0f8bbbc46",
+        "docker-compose.json": "e809ea96c19b5fc26c5bfee8be2b61a0f5c52a10ec48a426b1bc23bd1f187f9f",
+        "docker-compose.yml": "bf9cdab555a6fd2153fb914ec195a0be6a477bfcaaee5566b090d26a45554e74"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "legacy-v1-supported-not-current"
+        },
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v1"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "v0.15.1",
+      "tipiVersion": 1
+    },
+    {
+      "id": "reactive-resume",
+      "files": {
+        "config.json": "577a5e7689f07ce83dd72742aa0212a5e107b4de3d86013d406f74ce62d14db9",
+        "docker-compose.json": "3e712d1b86fbb7141303e4db0cc6f82381be43a68fe24f53688a519faf91b93f",
+        "docker-compose.yml": "d1ec9e2b10079621cccf621f7903f238272d06b9517b0f135aecf0ce5bc02321"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "v6",
+      "tipiVersion": 1
+    },
+    {
+      "id": "searxng-toolstack",
+      "files": {
+        "config.json": "42b5f75003f16f7d1eb1afa30de78833615da997dd2bbe3e69b3a335501eb331",
+        "docker-compose.json": "eeb6529f3d3d6b23f2b1715710fe4b087c9b39a70516aa7d598aade6dc97fa6a"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "file": "docker-compose.json",
+          "code": "floating-image",
+          "serviceIndex": 0
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "latest",
+      "tipiVersion": 2
+    },
+    {
+      "id": "syncthing",
+      "files": {
+        "config.json": "00ffa3e32bfa038a0b368f02fa871d99bcd6b907fd4477348177e05a79f49887",
+        "docker-compose.json": "94216cf8f0bce2bcba5d73942404ba3c76e07b816fc081a70919f48e0bd4bcfa",
+        "docker-compose.yml": "3cfcc06eb6bd7d65cd738bd69f7537b8859981f0f3c4860b9d387a57980ea9be"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.1.7",
+      "tipiVersion": 20
+    },
+    {
+      "id": "termix",
+      "files": {
+        "config.json": "6996fd253ee8ed849ef629ab6099f02060f65d5fb7bc7044ac39152ac93a944a",
+        "docker-compose.json": "2b92f24695b0ee7df82b8cc81fb3be6e34947fb2a8462e6834448fec655cefe0"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "release-2.6.1",
+      "tipiVersion": 4
+    },
+    {
+      "id": "tirreno",
+      "files": {
+        "config.json": "fbcc3ae7067c91b10be956d255c6e5bd56cde3f364cca7e7dab99e7c395188a2",
+        "docker-compose.json": "bd2215a63878d3a9835a0083ae306d12aa4372d40f5c6b3007a11ffbfc7a818c",
+        "docker-compose.yml": "fbc5f507d7aa5c9300024f267b6a1460724a02d44ebc63ccee70dcc22e9eccc9"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "v0.9.12",
+      "tipiVersion": 1
+    },
+    {
+      "id": "vaultwarden",
+      "files": {
+        "config.json": "b010a1bcbb8e0fb150702aff8adb30275f4665f8501577014c5ec7efd0b08c45",
+        "docker-compose.json": "49e8a01e1de19832d750bdb6a2a483c718e1876a35db2bab920403061742ecf1",
+        "docker-compose.yml": "3d10da97603f6ba2b85b66d4e4ea9fa07c0d630c478a9b9d8811e765ccf1ef7a"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "1.37.4",
+      "tipiVersion": 34
+    },
+    {
+      "id": "vikunja",
+      "files": {
+        "config.json": "7aab2cbdd85302e18f827194e4a6a91ecb6181b3ceec7759baa83c1fb629151a",
+        "docker-compose.json": "cd24eb7c55c6c34ada06d08852d5907003194b6790895fc39d6c2b5cbd0cc0f7",
+        "docker-compose.yml": "36ef77ea6e028e99e6919fc5648193c09fdd1a229d4cca23be3d942b4f8a073e"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.7.1",
+      "tipiVersion": 19
+    },
+    {
+      "id": "wallabag",
+      "files": {
+        "config.json": "8261c3ccbd29ad3851d63d8d2d1927c0089c8a099dcfca0c3922e62a78f637ea",
+        "docker-compose.json": "754708341b9320866a18d7bedd8cd3142cc05a2f4266ea5dec2ae9a481674647",
+        "docker-compose.yml": "7afee9ac3ad602cab3b7b11791e74dabefc61047a97c07815e7fdf634d23eb6c"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "legacy-v1-supported-not-current"
+        },
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v1"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.6.14",
+      "tipiVersion": 5
+    },
+    {
+      "id": "wordpress",
+      "files": {
+        "config.json": "7e5036f7ebd2e7a54cf544058cd2273924fd164b784ea29505b3b36948471547",
+        "docker-compose.json": "ad581ee00b26c741b21e2ce90566860f58e5b187e385cb17c1da6140a8b3f99e",
+        "docker-compose.yml": "942c49ed2d14bbe634adb980b39566e84b08eff78553efeca1e397f77f784e24"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 21
+    },
+    {
+      "id": "wordpress-aidanras",
+      "files": {
+        "config.json": "ea6b0d17a752a9d8718b4affc60b31b618297a1dab7b28a0cfb5a0ba7be0efa9",
+        "docker-compose.json": "32017e43718acb4611cc9242a84f5ebde8c1a4e0d3b527f7bb81afd0323b0105",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-alphahanky",
+      "files": {
+        "config.json": "ba6f1657f416f69aefb4cdc690b75242dd4c9ab90e8836e5b7ee12cd867d4982",
+        "docker-compose.json": "267e136affed66e19607c543506db92b78435a9e02a9343ccbfebf4333ed82d0",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 14
+    },
+    {
+      "id": "wordpress-anklemon",
+      "files": {
+        "config.json": "4ecca3f3e228721264ac6b7c7cda351a302e3da41d55ff814ef9ea4b49515985",
+        "docker-compose.json": "3bd294ba1ed5496280bd8de503c3fd91a0c068bf46c5c92e699264e7ac2b5454",
+        "docker-compose.yml": "24e8d3af7dcc45718237bfcbf5b8ae048c0144068cf7b4054ba223bdfedde692"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-aweggly",
+      "files": {
+        "config.json": "5eb1563bb4506416c6cc47d30f3b6b6ce2929218c60b7135cb5d22c5d0ebcfdb",
+        "docker-compose.json": "9f2834994a9a72b8a622fb099be7660e8156232a4bade14ba87ec31e1a8ee817",
+        "docker-compose.yml": "0fe453909697574bca43695859feb7ca9c53ab53aa68a3764f2b241a4b36dca9"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-ballnring",
+      "files": {
+        "config.json": "4eda4e1e58d5d971d79693f2ebae7af455a547c35eb1bfde045d87f6d6041659",
+        "docker-compose.json": "e3cd7a5a94c9f54210c11179ff24cee9d0e6170cd525e428e963c184a18cb343",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-blondesagainsttrump",
+      "files": {
+        "config.json": "c1425100000087e76887dd767dc95579f90e9bfb7161d5c6d0ebf59d9536570e",
+        "docker-compose.json": "0ee8386771c5d5c05bfddc748a84771da64129c37585e5542db07804c52679a1",
+        "docker-compose.yml": "130b0151008e8de86ca3045d43fcb3304baeda4786667be935782374b0f8ba38"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-closepeeps",
+      "files": {
+        "config.json": "2acd550302af9a9b6090d9cbdfa3204a6573b255c79c19beac7696c4ff5db167",
+        "docker-compose.json": "798e83100945b6f60a751ae9c53a896523105e16ead30fc7997722cdc5f2bba9",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-commutercafe",
+      "files": {
+        "config.json": "e8be4cb551425f8ef7fe9fe200246b6cebca1d022bcefc3ea71ab94778aa6158",
+        "docker-compose.json": "474441374a56bd1776523b638585c17c55a9607c3da085aa4c93e68c74db7a9d",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-corbieplays",
+      "files": {
+        "config.json": "9557f326cb8056c3fc79d478da7bbdaad3944ee500b673af04ff1589e9d8c1fc",
+        "docker-compose.json": "40b95f5d5a2033570aa9d8b4417a3b59a3d797fdc84437b6e186905770a34c01",
+        "docker-compose.yml": "d74a0facfd327039e47fc29c6a33e9a2692e9e80ee6d8e3b55a5f1d1d1018834"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-cuddleconfessions",
+      "files": {
+        "config.json": "c2faf88b83f9a45e8069232f43e8ee8f310356ba1100bccdedbadd4e49fa28cd",
+        "docker-compose.json": "cb30ad1c8ef85976a97c369622da470dfda8c473a1619c08a81eb59d9d5b3981",
+        "docker-compose.yml": "4caaf485a2d9c799025f50a1ae9fb9e41f34a26365f013c8dccc91efcf4359f7"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-desirearts",
+      "files": {
+        "config.json": "e644ec130013d315593b5c90f789bc9e14e68d6e6aa2c761f01cabed57e6deb3",
+        "docker-compose.json": "f951b4bd6236d1ef3d755c97175fe5bc0232e1b043816cb4291c2f9a249d2dcf",
+        "docker-compose.yml": "0ed174405036eefa1e998e2df7b28af088cea30e4d17d103261619fc5884a56a"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-doggydayhike",
+      "files": {
+        "config.json": "024bb837c9126c72fe79ae21ed282a825c8e35e9dcd506ca23ca51971851ff41",
+        "docker-compose.json": "d688ba5d508658900089fd4557025a4611f12fff5059971a152b2e767c1e5e00",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [
+        {
+          "file": "config.json",
+          "code": "folder-id-mismatch"
+        }
+      ],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-ecclesiasophia",
+      "files": {
+        "config.json": "391a4baf8a37ddde4d409ce3790b84f8bc9b80a61339b37a95a44537c44ac0d9",
+        "docker-compose.json": "fcddb0c12e8fab3a000135cec3e1b15e8d0f285c21accda0a102063f732af075",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-elderseth",
+      "files": {
+        "config.json": "2e89fb003e0de2649589d6c5fe54985c13ff19e21e2ad92330a0cec540326676",
+        "docker-compose.json": "5cc74dd912f19211385b1ba70564885bd32c585d4d0ec6a27d1e1549b016bb13"
+      },
+      "issues": [],
+      "warnings": [],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-farmleadership",
+      "files": {
+        "config.json": "bbda3a811ec0854eef83fa6a6121091b43d22d435148e108b7f68020771575dc",
+        "docker-compose.json": "efe33e459a18e24b938d76cce1a24c309aabd36754c6f816765e9781932e4827",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-hifirefit",
+      "files": {
+        "config.json": "37b86e660d75590e6e360981879dfa0efb5da441cd9af28d7bd6e460d50e32b8",
+        "docker-compose.json": "325af7c0494a03dce0b4096fcff2698f6ae53687b576e7771f8614aef5982511",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-hometownheartstrings",
+      "files": {
+        "config.json": "87908b05d077968aaaad25d320bd5e4b983e436029770df3d16026cefa27d9c6",
+        "docker-compose.json": "739deb51bd46355777027b8dac9ae32efba99e17c47bc85c967a8200670f53c8",
+        "docker-compose.yml": "50f983141b91719df14e930499ddc822ed6ced520e0eb8dd3e2b90485ac17836"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-jogmania",
+      "files": {
+        "config.json": "6673ff3c7d3181fe44e38e5a4d181ec94e1d45a77362fc6fa9472b126c25a91e",
+        "docker-compose.json": "2e0e0a969b3c022469e6b0edf22afda0a2b35c584bd9a60eaa74a9ce30fdc581",
+        "docker-compose.yml": "4238ec9e75afb5953b22f632bf9387a8cbee52e45fe37b9ca15bc4cdcc1bf793"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-jupiterseek",
+      "files": {
+        "config.json": "7138f68942eaca85190c43eb2ebdeebbd2d766a21e2ff6fa609c3a6cf14247af",
+        "docker-compose.json": "c5f5553fb5a9f2b7f0aa1b8a320ea79cfa960c6fb27bb3fe26faab1870ed6bb6",
+        "docker-compose.yml": "38e7b91b408d4813477f311a709ed70406571de1570ba146a4cd7a6a70e757ad"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-kiracuts",
+      "files": {
+        "config.json": "53ca7594262f3731000250699dac5a7240fc131c9dc13bb1f68538d6b763d020",
+        "docker-compose.json": "a6f6cd180f067adeb38c07d830526a015dea24f2b7889617c4d7cb3764e6570e",
+        "docker-compose.yml": "a5373bce444fb8e8a8d2efa2f9ea06477f5dd761b9b0fab482757a8150b63dfe"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-knowcalmly",
+      "files": {
+        "config.json": "9f0360a088e080f5a9e69baa382855b78ebea84c8a183a624cf6afbcbbd924a1",
+        "docker-compose.json": "f52927a480d142289ed97b4a8b90f1f6c3fd193a400285c7495b904dc51b5a06",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-lickingvape",
+      "files": {
+        "config.json": "cd9519417c44d99986822f5a4a304dfbbcab0e4a0c2fcb0747cc88c92ee83d06",
+        "docker-compose.json": "d8df93d8f6f3f0afe5f8f37f935326dcfd369464b5a62161606246b471c30433",
+        "docker-compose.yml": "b2bdb9f6c494b3bb571f7448e0fee41242493c0a7c748d0b098089181bba4a37"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-makesbakes",
+      "files": {
+        "config.json": "3b23691f034bc8bb379204c9919ccedb501443fc3ec6d794aa203bd3d4424780",
+        "docker-compose.json": "8036c8fd5c69115b6ed1b5573a6a099e7909e2bb5c53a5ef7bc6e79b8a49adbc",
+        "docker-compose.yml": "5e731f7423cea188848afddf8de1c40581797e5e2bcdad516e71d687832076e4"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-maleficme",
+      "files": {
+        "config.json": "7d3567b4b6568d4512180ff2a1faa962183f4a873335b3312405e5efe01b9e4c",
+        "docker-compose.json": "9baa08407c36b49f864b0e8fb8e87fcd0ce6986bbedcd1cc80153e520aee3464",
+        "docker-compose.yml": "37642c0038b53c983666a36cd6c45414e53fcbd80afcf4abcb6d37ee09662916"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-marleebean",
+      "files": {
+        "config.json": "dadfbfd3678dc951b388cf1a0a75804f49683927cc9e57d8652bcc9f19b5a2a7",
+        "docker-compose.json": "a0226afa97c7e78b288ceb98efb2fe57e0a86b78eb151f66a8407ffbc10fda30",
+        "docker-compose.yml": "cb8c5646c73e6435e1a087cdf183683e42524ea4a9cd6a46fb3fa9595dc72858"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-memnemonic",
+      "files": {
+        "config.json": "5575e9af1d651ce343ef4d62134d5c17fde5fc6c1e5a380dccd3561678d5c79e",
+        "docker-compose.json": "ca6a3d789a76e6bb5ae60ac47d7d1045e1b061adf94b7269435b7f47c75ce4ce",
+        "docker-compose.yml": "5c46839f9545c99b041506e154ca9de83c63bde2f48bf0f1f62f0f15156b958e"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-mercies",
+      "files": {
+        "config.json": "225edc6ac65b36f9c7c9e134ef0f55e1b9e531e2ae535928e5723bb04ca4426b",
+        "docker-compose.json": "273490d797c8b928642fd71d6ce9e1dbe1dca8d70420f8cf76dd52256fe19736",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-mneumonicme",
+      "files": {
+        "config.json": "f261b485aa62837793e4f4518300b8cccb08ac19cf1143aae7012385e48354ce",
+        "docker-compose.json": "d123973addb3a6bc667708ae608d0e643f0b3e769400b74fb1006ade6f5b7985",
+        "docker-compose.yml": "0f2ccd7457a4bd7d390dd24ef9e5c38707d6600ec3a9809723be385250aed63f"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-noreleasepower",
+      "files": {
+        "config.json": "35fe46980fa50a9d65697902173f34b588ffa1c6503aee0cfda939f7ce61ab74",
+        "docker-compose.json": "ac4c7aef8572460edd1e984821f1c0ee015df9d626a9b440fb75e07e80b59294",
+        "docker-compose.yml": "5c00a5426b13defb41727eac55453faa2c4b32cf06c52864f301ceab694ccc16"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-nyccharge",
+      "files": {
+        "config.json": "c076634c6794ab05f5610dd60022ecd4e517327f2325eae8e0144270e495132b",
+        "docker-compose.json": "3b85bb63332e6e1e4632688b417b3b3e466791b50d3c11e10b8b2ab20c572774",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-oraclepull",
+      "files": {
+        "config.json": "c387d761155d82fa2474470014672bb2c02300b48eb624c38348dc3b15ac8373",
+        "docker-compose.json": "37858c6f6bf9f91627707d177c7bf77ce903e452687fed0d0e728e6aacad02b4",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-puppiesride",
+      "files": {
+        "config.json": "0b15d3e2fae186eae51d1340453b6510148b786174579d9161701fd5c0438be6",
+        "docker-compose.json": "e2b7ed1365b2b0933f4ce13b9df8e8dbc7b405fccf74a003dd22c370f018875c",
+        "docker-compose.yml": "3c758214e9977988f299f796a91ade7405e032c3cdd3d91c93502e018e468c90"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-rasies",
+      "files": {
+        "config.json": "537a1ccb008301e1117be1c00d08b2e6a8e68ce687b6d84665f9e2fb0dfc07aa",
+        "docker-compose.json": "1c39d2938e149a10140dcf807f9f15e8c976907970d70846424be930275602e1",
+        "docker-compose.yml": "a219a923430b466b3f046be12fdb865368ba402630e1ce768bfdf9f5d23e8543"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-rassyapp",
+      "files": {
+        "config.json": "0df3410461794fe2088e52127ea48adb3468f60ed727d4c3a6c5049ce9d56340",
+        "docker-compose.json": "184d6c5b745a985b63b646928351f31ff8f706435be742d0fdb81eba26118dbe",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-rassyonline",
+      "files": {
+        "config.json": "f118895bc279818a9d66b161d820a3d04239e80b21915a621bfbb9fd2b741bdc",
+        "docker-compose.json": "c2e5975378e2a1d96dead8e0f78945f1ed966def664cb345fa0f5c991b2054a3",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-rassys",
+      "files": {
+        "config.json": "11d265b5a7109a01118000aa0b87ce9c301a2e9646b868ee9270f165ea0520b2",
+        "docker-compose.json": "cdef85cd7f5c687c0c1bcea3c63659b4be9e2e1927a94c24385f079a3ddd1683",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-saturnleo",
+      "files": {
+        "config.json": "0e291a9c51b64cb9fe22b6572f28a29b899868df53e83f924576c53a4c1c7536",
+        "docker-compose.json": "754fe3e658374e3c92ac0a1fddeec1379b7c128ffffd7ab5cb9abd6183794c9b",
+        "docker-compose.yml": "049fdb1ddd67a0e3ad643b39b0c8fe14b0bf25066fd9229dc8e890759e4cb929"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-saturnseer",
+      "files": {
+        "config.json": "a2e4ad525c97aab16e4a31a9ce02ec9559512d82c329919440c5fe2b23808461",
+        "docker-compose.json": "d627e3b85983d7fde25f69ef13ca6d78642432873bb0ab5edd7510cb36002cea",
+        "docker-compose.yml": "94d19a92a6181cb18596be264193369851005f627d2cd0ba0611eeed175ecab7"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-siblingsnowservice",
+      "files": {
+        "config.json": "efe6a0a5c4fa2a6b40487e2e729a975c5f321f70fd501d2177f60acd8baf72eb",
+        "docker-compose.json": "3e59970725317ad45a5dea4cf9bdb302eed1e78d1a5254237a46e184f505efc1",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-sloppyhero",
+      "files": {
+        "config.json": "7c803cf32fe20a7c378ec13ea9cdfa438e6df337f3579fdf6ef2628d543a8e63",
+        "docker-compose.json": "7ee13f4bdbe6f9cf561ef302e3c253a0c3134186c0eb9a36a7199fdbeecd4dfa",
+        "docker-compose.yml": "ac47020b49b896224faf8ff06e716912dee8ea8398147a38e469ca8480bb1f78"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-tapecrack",
+      "files": {
+        "config.json": "585fa4a86497d204e02a83d00b6ca35026942fc48c0a10be65ecd65ccfaa1b8f",
+        "docker-compose.json": "061441f1528511dcde103da5e636e04a3a1fcbd560d58e839176aee5dd4af0ce",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-totallyrighteoustales",
+      "files": {
+        "config.json": "30a9110d3b19fcf7acd179e36e6f8dd8c8457ccf5309700a7b8e98a9f2b9ea5a",
+        "docker-compose.json": "d5af39138c5637c5f7508f45646c7bc56442011452b6020f0800b1b9dd229f17",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-usmender",
+      "files": {
+        "config.json": "304bf9200a99daae831a5dbab43c3249327026841c770b73871ebe2d2c08a369",
+        "docker-compose.json": "22ac495e04fb6fa39fa027aa56a35a42e3adb19daac75c1c4458cf9cf82eb5cc",
+        "docker-compose.yml": "0f9b23b382f72076cf281373e38e05c2a8dc1d6e8b7617fdd9d1a94d3f6e62c0"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-vibesie",
+      "files": {
+        "config.json": "a6d94c0f03e0804c0695eea3cc1bf1aaac41cbf33fff7d7e3c1c529c45eb7277",
+        "docker-compose.json": "0aa102b471fb730158738407eaf31352a71c0313678b2d7e71658edb8b8ecba6",
+        "docker-compose.yml": "3c758214e9977988f299f796a91ade7405e032c3cdd3d91c93502e018e468c90"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-visionarytalentkids",
+      "files": {
+        "config.json": "a08a736ed4dfadb937f4d7d592dc4b7500225721f6a55895597fd5939119210e",
+        "docker-compose.json": "2e1c1c50f0db298b2ffbbf0653f9a137b45df9109ba8707800adcc3a1eae7f31",
+        "docker-compose.yml": "287a830414c6bd9c1fffb7aea7a7605ce08c6d0dc08455417125041a54a28969"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-wrapess",
+      "files": {
+        "config.json": "d89f64aca7e6cd74189f357352931b4c2314a00079370b5b9bf6ed57ca2a3624",
+        "docker-compose.json": "d6a17ad782a1e8a17a6fcb195ab543850ded12596679e18bc918f3a68ac02927",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-xlcrack",
+      "files": {
+        "config.json": "006a37f3d93e70bcf91b7b3eab25c85812e5f34aa39746aee1cdeca8587f61e3",
+        "docker-compose.json": "506d7402f39cdb9d22f4c2abe7f8c207d2d295c8b5096ed32714ae93fab89f74",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 16
+    },
+    {
+      "id": "wordpress-yoginilist",
+      "files": {
+        "config.json": "53d194b2935bff6168f4ba75c449ee8414d039048dbe960adeb4aed2c0b7c97d",
+        "docker-compose.json": "126e3ec227f2f0e3e6de7500cf13810c73792f9c7c38040652326d682dfd710f",
+        "docker-compose.yml": "08cfcdcd4cc3d1aaf536d008c151b38f84b617c9bc3a1a0d4187f400ee65494b"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "wordpress-zoroasteria",
+      "files": {
+        "config.json": "da1d1ca06cc49211f04fc276e0188a38914ae5d4c9cc355c2735feb09a2ea8ea",
+        "docker-compose.json": "7c9ed2f1c4c70b6f5821ce063991c49dbc8489d9c24de092c69837a87fb4000d",
+        "docker-compose.yml": "416ebcd3f1d12a5e43e4c3d28a1eda209ef0bc603c709867978b91ca42ccbaeb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "7.1.3",
+      "tipiVersion": 15
+    },
+    {
+      "id": "worldmonitor",
+      "files": {
+        "config.json": "b102daf1c349a23bd3827c22d9fa97a4547838b9925596864aa560bffa5722a7",
+        "docker-compose.json": "cf991a1945aff1d737f9abdafbf7f53ebbb15d13c5f1d4f8eef90942febc9a61",
+        "docker-compose.yml": "4f5657c707851594763ab84cf42a1e989a4a188df013cd206ebed6e695508dcb"
+      },
+      "issues": [],
+      "warnings": [
+        {
+          "code": "multiple-compose-files-all-validated-no-runtime-precedence-claim"
+        }
+      ],
+      "formats": [
+        {
+          "file": "docker-compose.json",
+          "format": "dynamic-json-v2"
+        },
+        {
+          "file": "docker-compose.yml",
+          "format": "compose-yaml-legacy"
+        }
+      ],
+      "version": "2.11.4",
+      "tipiVersion": 1
+    }
+  ],
+  "excludedDirectories": [],
+  "summary": {
+    "packages": 104,
+    "packagesWithIssues": 16,
+    "issues": 16,
+    "warnings": 96,
+    "newRegressions": null
+  }
+}

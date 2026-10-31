@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "releaseStage": "private-alpha-unqualified",
+  "sensitiveConversationReady": false,
+  "storeDestination": "ianras77/runtipi-appstore@app/wordpress_elderseth",
+  "api": {
+    "internalPort": 3001,
+    "startup": [
+      "node apps/api/dist/validateRuntime.js",
+      "./node_modules/.bin/prisma migrate deploy --schema apps/api/prisma/schema.prisma",
+      "node apps/api/dist/index.js"
+    ],
+    "requiredProductionEnvironment": [
+      "NODE_ENV",
+      "USMENDER_DEPLOYMENT_MODE",
+      "USMENDER_MESSAGING_PROVIDER",
+      "USMENDER_SMS_PROVIDER",
+      "USMENDER_DEMO_SEED",
+      "ENABLE_DB_ENCRYPTION",
+      "DATABASE_URL",
+      "JWT_SECRET",
+      "CAT_BASE_URL",
+      "USMENDER_PUBLIC_WEB_URL"
+    ],
+    "productionValues": {
+      "NODE_ENV": "production",
+      "USMENDER_DEPLOYMENT_MODE": "private-alpha",
+      "USMENDER_DEMO_SEED": "false"
+    },
+    "conditionalEnvironment": {
+      "matrix": [
+        "MATRIX_APPSERVICE_URL",
+        "MATRIX_APPSERVICE_TOKEN"
+      ],
+      "consoleSms": [
+        "USMENDER_ALLOW_SIMULATED_DELIVERY=true"
+      ],
+      "twilioSms": [
+        "TWILIO_ACCOUNT_SID",
+        "TWILIO_AUTH_TOKEN",
+        "TWILIO_FROM_NUMBER or TWILIO_MESSAGING_SERVICE_SID"
+      ],
+      "encryptedStorage": [
+        "DATA_ENCRYPTION_KEY"
+      ]
+    }
+  },
+  "web": {
+    "internalPort": 3000,
+    "buildArguments": [
+      "NEXT_PUBLIC_API_URL=/api",
+      "API_INTERNAL_URL=http://ACTUAL_API_SERVICE:3001"
+    ],
+    "rewriteTargetIsBuildTime": true
+  },
+  "worker": {
+    "mode": "inline-ready",
+    "executesBackgroundJobs": false
+  },
+  "requiredQualification": [
+    "private recipient identity and consent",
+    "real Cat and model contract quality",
+    "actual channel delivery and private Matrix registration",
+    "private ingress and authentication",
+    "immutable images and fresh installation",
+    "existing-data upgrade, backup and restore",
+    "browser and native device flows"
+  ],
+  "syntheticLocalPackage": {
+    "services": [
+      "web",
+      "api",
+      "postgres",
+      "cat"
+    ],
+    "messagingProvider": "local",
+    "smsProvider": "console",
+    "simulatedDelivery": true,
+    "matrixIncluded": false,
+    "workerIncluded": false,
+    "releaseQualified": false
+  },
+  "build": {
+    "context": ".",
+    "nodeSourceTag": "node:24.22.2-bookworm-slim",
+    "immutableBaseRequiredForRelease": true,
+    "dockerfiles": {
+      "api": "apps/api/Dockerfile",
+      "web": "apps/web/Dockerfile",
+      "cat": "services/cat/Dockerfile"
+    },
+    "catBaseArgument": "CAT_BASE_IMAGE",
+    "catBaseDefault": null,
+    "catMajor2Compatible": false
+  },
+  "cat": {
+    "internalPort": 80,
+    "persistentDataPath": "/app/cat/data",
+    "metadataPath": "/app/cat/data/metadata.json",
+    "requiredEnvironment": [
+      "OLLAMA_GENERAL_BASE_URL",
+      "OLLAMA_EMBED_BASE_URL",
+      "OLLAMA_GENERAL_MODEL",
+      "OLLAMA_EMBED_MODEL"
+    ],
+    "authenticatedInferenceQualified": false
+  }
+}

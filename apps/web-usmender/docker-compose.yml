@@ -1,0 +1,82 @@
+x-runtipi:
+  schema_version: 2
+services:
+  web:
+    image: '${USMENDER_WEB_IMAGE:?Unreleased: require qualified immutable web image}'
+    x-runtipi:
+      is_main: true
+      internal_port: 3000
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD
+      - node
+      - -e
+      - fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    restart: unless-stopped
+  api:
+    image: '${USMENDER_API_IMAGE:?Unreleased: require qualified immutable API image}'
+    environment:
+      PORT: '3001'
+      NODE_ENV: production
+      USMENDER_DEPLOYMENT_MODE: private-alpha
+      USMENDER_MESSAGING_PROVIDER: local
+      USMENDER_SMS_PROVIDER: console
+      USMENDER_ALLOW_SIMULATED_DELIVERY: 'true'
+      USMENDER_DEMO_SEED: 'false'
+      ENABLE_DB_ENCRYPTION: 'false'
+      DATABASE_URL: postgresql://usmender:${USMENDER_DB_PASSWORD}@postgres:5432/usmender
+      JWT_SECRET: ${USMENDER_JWT_SECRET}
+      CAT_BASE_URL: http://cat:80
+      USMENDER_PUBLIC_WEB_URL: ${USMENDER_PUBLIC_WEB_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      cat:
+        condition: service_started
+    healthcheck:
+      test:
+      - CMD
+      - node
+      - -e
+      - fetch('http://127.0.0.1:3001/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    stop_grace_period: 20s
+    restart: unless-stopped
+  postgres:
+    image: '${USMENDER_POSTGRES_IMAGE:?Unreleased: require qualified PostgreSQL 16
+      digest}'
+    environment:
+      POSTGRES_USER: usmender
+      POSTGRES_DB: usmender
+      POSTGRES_PASSWORD: ${USMENDER_DB_PASSWORD}
+    volumes:
+    - ${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U usmender -d usmender
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  cat:
+    image: '${USMENDER_CAT_IMAGE:?Unreleased: require custom Cat image with plugins
+      and initialization}'
+    environment:
+      OLLAMA_GENERAL_BASE_URL: ${USMENDER_INFERENCE_URL}
+      OLLAMA_EMBED_BASE_URL: ${USMENDER_INFERENCE_URL}
+      OLLAMA_GENERAL_MODEL: ${USMENDER_GENERAL_MODEL}
+      OLLAMA_EMBED_MODEL: ${USMENDER_EMBED_MODEL}
+    volumes:
+    - ${APP_DATA_DIR}/data/cat:/app/cat/data
+    restart: unless-stopped
