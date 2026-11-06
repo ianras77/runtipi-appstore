@@ -1,7 +1,7 @@
 # Tales installation candidate: disabled
 
 Source: https://github.com/ianras77/web-totallyrighteoustales/pull/2
-Frozen source: 2bcc0b9e56d1d66e122f70661f4e7e96f187d014.
+Frozen source: 01bf1c2e3957b5e82012a8cecb81db3787b6194f.
 
 This is preparation, not an installable release. Do not enable the app until every
 release-lock qualification has evidence and every image has a verified immutable
@@ -11,8 +11,8 @@ major 15 and Redis major 7 unless separately migration-tested.
 ## Source-image and same-origin build contract
 
 The paired source supports public Supabase build arguments and an opt-in,
-build-time API rewrite. Hosted run 42279527552 passed canonical Compose and
-17 bounded source contracts; it did not build or qualify an application image.
+build-time API rewrite. Hosted run 42280679287 passed canonical Compose and
+22 bounded source/fixture/mock checks; it did not build or qualify an application image.
 API and worker intentionally use node --import tsx through their existing package
 scripts. Missing API dist compilation alone is not a proven startup defect.
 
@@ -29,8 +29,8 @@ be tested for HTTP/auth, multipart size/time limits and browser sign-in before
 release. Direct S3 image uploads require browser-reachable storage URLs and CORS.
 TALES_API_URL remains an explicit API-side configuration input; its callbacks and
 URL use must be checked against the final same-origin HTTPS routing.
-The source Dockerfile's Node 20 base, root execution and full-image qualification
-remain release work. No claim of install readiness follows from source tests.
+The source Dockerfile now selects Node 22-bookworm and USER node; verified base
+digest/platform, actual nonroot runtime and full-image qualification remain release work. No claim of install readiness follows from source tests.
 
 ## Fresh environment and persistence
 

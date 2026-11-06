@@ -16,7 +16,7 @@ class Candidate(unittest.TestCase):
   self.assertIn('noeviction',s['redis']['command']); self.assertIn('yes',s['redis']['command'])
   self.assertEqual(s['worker']['depends_on']['api']['condition'],'service_healthy')
   lock=json.loads((ROOT/'release-tools/tales/release-lock.json').read_text())
-  self.assertEqual(lock['sourceCommit'],'2bcc0b9e56d1d66e122f70661f4e7e96f187d014')
+  self.assertEqual(lock['sourceCommit'],'01bf1c2e3957b5e82012a8cecb81db3787b6194f')
   self.assertEqual(lock['webBuildArguments']['NEXT_PUBLIC_API_URL'],'/api')
   self.assertEqual(lock['webBuildArguments']['TALES_API_PROXY_ORIGIN'],'http://api:3191')
   self.assertIsNone(lock['webBuildArguments']['NEXT_PUBLIC_SUPABASE_URL'])
