@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "status": "unreleased",
+  "sourceCommit": "01bf1c2e3957b5e82012a8cecb81db3787b6194f",
+  "images": {
+    "app": null,
+    "postgres": null,
+    "redis": null
+  },
+  "qualification": {
+    "sourceImageBuild": null,
+    "runtipiSchema": null,
+    "privateApiIngress": null,
+    "supabaseBuildConfiguration": null,
+    "authBrowserFlow": null,
+    "freshInstall": null,
+    "restartPersistence": null,
+    "backupRestore": null,
+    "restoredUpgrade": null,
+    "queueRecovery": null,
+    "mediaUpload": null
+  },
+  "webBuildArguments": {
+    "NEXT_PUBLIC_API_URL": "/api",
+    "TALES_API_PROXY_ORIGIN": "http://api:3191",
+    "NEXT_PUBLIC_SUPABASE_URL": null,
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": null
+  },
+  "webRuntimeEnvironment": {
+    "API_INTERNAL_URL": "http://api:3191"
+  }
+}

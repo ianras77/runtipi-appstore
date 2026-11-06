@@ -3,12 +3,17 @@
   "vcs": {
     "enabled": true,
     "clientKind": "git",
-    "useIgnoreFile": true,
-    "defaultBranch": "origin/master"
+    "useIgnoreFile": true
   },
   "files": {
     "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
-    "ignoreUnknown": false
+    "ignoreUnknown": false,
+    "ignore": [
+      "release-tools/schemas/**",
+      "release-tools/baseline-inventory.json",
+      "release-tools/usmender/existing-package-sha256.json",
+      "release-tools/usmender/source-runtime-contract.json"
+    ]
   },
   "formatter": {
     "enabled": true,

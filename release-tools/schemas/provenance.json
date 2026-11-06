@@ -1,0 +1,48 @@
+{
+  "audited_at": "2026-10-30",
+  "runtipi_release": "v4.11.0",
+  "runtipi_commit": "5e4d7a5bb1d537782191fc1fbcb7e30c0423d566",
+  "compose_spec_commit": "3a4a6995e4a971f6173dff9130cb3e38e6738651",
+  "sources": [
+    {
+      "path": "packages/common/src/schemas/app-info.ts",
+      "url": "https://github.com/runtipi/runtipi/blob/5e4d7a5bb1d537782191fc1fbcb7e30c0423d566/packages/common/src/schemas/app-info.ts",
+      "sha256": "51e4cdf3ce748ee09e715cc6740f2699a4d9d67c2ed31b16c9e1ea1f4b785e13"
+    },
+    {
+      "path": "packages/common/src/schemas/compose-yaml.ts",
+      "url": "https://github.com/runtipi/runtipi/blob/5e4d7a5bb1d537782191fc1fbcb7e30c0423d566/packages/common/src/schemas/compose-yaml.ts",
+      "sha256": "c4c7910fd8283b586394918c96248fb516ef2cfa52fabedb5549c9bf6627a1fa"
+    },
+    {
+      "path": "packages/common/src/types/app-urn.ts",
+      "url": "https://github.com/runtipi/runtipi/blob/5e4d7a5bb1d537782191fc1fbcb7e30c0423d566/packages/common/src/types/app-urn.ts",
+      "sha256": "57555623abc67cae182d5c6f0afd3fcd3084f3360aa594a10c8e8d209786d885"
+    },
+    {
+      "path": "packages/common/src/schemas/dynamic-compose.ts",
+      "url": "https://github.com/runtipi/runtipi/blob/5e4d7a5bb1d537782191fc1fbcb7e30c0423d566/packages/common/src/schemas/dynamic-compose.ts",
+      "sha256": "8bf9dde3fe9d829c78d72b925f34e50cc1394892ee551ed0399f772d0972c976"
+    },
+    {
+      "path": "packages/common/src/schemas/dynamic-compose-ark.ts",
+      "url": "https://github.com/runtipi/runtipi/blob/5e4d7a5bb1d537782191fc1fbcb7e30c0423d566/packages/common/src/schemas/dynamic-compose-ark.ts",
+      "sha256": "82aad640533601c2be467a75f4e2fab2a77bf2839b71f62da7c1729a5a9025cd"
+    },
+    {
+      "path": "packages/common/src/schemas/utils/converters/v1.ts",
+      "url": "https://github.com/runtipi/runtipi/blob/5e4d7a5bb1d537782191fc1fbcb7e30c0423d566/packages/common/src/schemas/utils/converters/v1.ts",
+      "sha256": "6106726f62e96554580901ecb1ccd6818b8bdf149189b2b1aa33da76e48552a1"
+    }
+  ],
+  "note": "The npm @runtipi/common@1.1.3 published YAML validator is NOT the same as v4.11.0's source. This project compiles and imports exact vendored v4.11.0 source; it never imports the mismatched package validator.",
+  "action_pins": {
+    "checkout": "11d5960a326750d5838078e36cf38b85af677262",
+    "buildx": "8d2750c68a42422c14e847fe6c8ac0403b4cbd6f",
+    "login": "c94ce9fb468520275223c153574b00df6fe4bcc9",
+    "build": "10e90e3645eae34f1e60eeb005ba3a3d33f178e8",
+    "artifact": "ea165f8d65b6e75b540449e92b4886f43607fa02"
+  },
+  "latest_stable_verified_at": "2026-10-30T22:58:00Z",
+  "latest_stable_source": "https://github.com/runtipi/runtipi/releases/latest"
+}
