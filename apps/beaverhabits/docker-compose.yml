@@ -1,0 +1,39 @@
+services:
+  beaverhabits:
+    image: daya0576/beaverhabits:latest
+    restart: unless-stopped
+    user: "1000:1000"
+    ports:
+      - "${APP_PORT}:8080"
+    environment:
+      HABITS_STORAGE: USER_DISK
+      INDEX_HABIT_DATE_COLUMNS: ${INDEX_HABIT_DATE_COLUMNS:-5}
+      ENABLE_IOS_STANDALONE: "true"
+    volumes:
+      - ${APP_DATA_DIR}/user:/app/.user
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 45s
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.beaverhabits.loadbalancer.server.port: "8080"
+      traefik.http.routers.beaverhabits-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.beaverhabits-insecure.entrypoints: web
+      traefik.http.routers.beaverhabits-insecure.middlewares: beaverhabits-web-redirect
+      traefik.http.middlewares.beaverhabits-web-redirect.redirectscheme.scheme: https
+      traefik.http.routers.beaverhabits.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.beaverhabits.entrypoints: websecure
+      traefik.http.routers.beaverhabits.tls.certresolver: myresolver
+      traefik.http.routers.beaverhabits-local.rule: Host(`beaverhabits.${LOCAL_DOMAIN}`)
+      traefik.http.routers.beaverhabits-local.entrypoints: websecure
+      traefik.http.routers.beaverhabits-local.tls: "true"
+      runtipi.managed: "true"
+
+networks:
+  tipi_main_network:
+    external: true

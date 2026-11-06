@@ -1,0 +1,35 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Letta Server",
+  "id": "letta",
+  "available": true,
+  "short_desc": "Self-hosted API server for stateful AI agents",
+  "description": "Deploy the Letta API server with persistent agent data, password protection, and optional OpenAI model access. This is the legacy Docker server documented by Letta; upstream no longer actively maintains this deployment surface.",
+  "author": "Letta",
+  "port": 8283,
+  "categories": ["ai", "development"],
+  "tipi_version": 1,
+  "version": "latest",
+  "source": "https://github.com/letta-ai/letta",
+  "website": "https://docs.letta.com/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Letta Server Password",
+      "min": 32,
+      "encoding": "hex",
+      "env_variable": "LETTA_SERVER_PASSWORD"
+    },
+    {
+      "type": "password",
+      "label": "OpenAI API Key (optional)",
+      "hint": "You can also configure other model providers after deployment.",
+      "env_variable": "OPENAI_API_KEY"
+    }
+  ],
+  "created_at": 1793491200000,
+  "updated_at": 1793491200000
+}

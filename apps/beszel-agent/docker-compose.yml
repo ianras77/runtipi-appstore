@@ -1,22 +1,48 @@
 version: '3.9'
 services:
   beszel-agent:
-    image: henrygd/beszel-agent:0.21.1
+    image: henrygd/beszel-agent:0.21.1-alpine
     container_name: beszel-agent
     restart: unless-stopped
     network_mode: host
-    privileged: true
     security_opt:
       - apparmor:unconfined
     volumes:
+      - ${APP_DATA_DIR}/data:/var/lib/beszel-agent
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
       - /var/run/systemd/private:/var/run/systemd/private
+      - /:/extra-filesystems/dm-0__OS:ro
+      - /boot:/extra-filesystems/sda2__boot:ro
+      - /boot/efi:/extra-filesystems/sda1__boot-efi:ro
+      - /srdata/runtipi:/extra-filesystems/srdata__srdata:ro
+      - /mnt/cannonball:/extra-filesystems/cannonball__cannonball:ro
     environment:
-      - PORT=45876
+      - LISTEN=45876
       - KEY=${BESZEL_AGENT_KEY}
-      - SENSORS=--all
-      - GPU=true
+      - DATA_DIR=/var/lib/beszel-agent
+      - FILESYSTEM=dm-0__OS
+      - DISK_USAGE_CACHE=5m
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN
+    devices:
+      - /dev/sda:/dev/sda
+      - /dev/sdb:/dev/sdb
+      - /dev/sdc:/dev/sdc
+      - /dev/sdd:/dev/sdd
+      - /dev/sde:/dev/sde
+      - /dev/sdf:/dev/sdf
+      - /dev/sdg:/dev/sdg
+      - /dev/sdh:/dev/sdh
+      - /dev/dm-0:/dev/dm-0
+      - /dev/zfs:/dev/zfs
+    healthcheck:
+      test: /agent health
+      interval: 120s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     labels:
       # Disable traefik
       traefik.enable: false

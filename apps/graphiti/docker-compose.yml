@@ -1,0 +1,54 @@
+version: "3.7"
+
+services:
+  graphiti:
+    image: zepai/graphiti:0.30.2
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:8000"
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      NEO4J_URI: bolt://graphiti-neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: ${GRAPHITI_NEO4J_PASSWORD}
+      PORT: "8000"
+      db_backend: neo4j
+    depends_on:
+      graphiti-neo4j:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthcheck', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "false"
+      runtipi.managed: "true"
+
+  graphiti-neo4j:
+    image: neo4j:5.26.2
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/${GRAPHITI_NEO4J_PASSWORD}
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1G
+    volumes:
+      - ${APP_DATA_DIR}/neo4j/data:/data
+      - ${APP_DATA_DIR}/neo4j/logs:/logs
+    healthcheck:
+      test: ["CMD-SHELL", "cypher-shell -u neo4j -p \"${GRAPHITI_NEO4J_PASSWORD}\" 'RETURN 1'"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    networks:
+      - tipi_main_network
+    labels:
+      runtipi.managed: "true"
+
+networks:
+  tipi_main_network:
+    external: true

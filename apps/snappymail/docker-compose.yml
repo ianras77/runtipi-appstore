@@ -1,0 +1,28 @@
+services:
+  snappymail:
+    image: djmaze/snappymail:v2.38.2.1
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:8888"
+    volumes:
+      - ${APP_DATA_DIR}/data:/var/lib/snappymail
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.snappymail.loadbalancer.server.port: "8888"
+      traefik.http.routers.snappymail-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.snappymail-insecure.entrypoints: web
+      traefik.http.routers.snappymail-insecure.middlewares: snappymail-web-redirect
+      traefik.http.middlewares.snappymail-web-redirect.redirectscheme.scheme: https
+      traefik.http.routers.snappymail.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.snappymail.entrypoints: websecure
+      traefik.http.routers.snappymail.tls.certresolver: myresolver
+      traefik.http.routers.snappymail-local.rule: Host(`snappymail.${LOCAL_DOMAIN}`)
+      traefik.http.routers.snappymail-local.entrypoints: websecure
+      traefik.http.routers.snappymail-local.tls: "true"
+      runtipi.managed: "true"
+
+networks:
+  tipi_main_network:
+    external: true

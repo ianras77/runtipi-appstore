@@ -1,0 +1,21 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "SnappyMail",
+  "id": "snappymail",
+  "available": true,
+  "short_desc": "Lightweight webmail client for your IMAP accounts",
+  "description": "Use a responsive webmail interface with existing IMAP and SMTP accounts. SnappyMail is a mail client, not a mail server; configure your provider in its admin panel.",
+  "author": "SnappyMail contributors",
+  "port": 8888,
+  "categories": ["network", "utilities"],
+  "tipi_version": 1,
+  "version": "v2.38.2.1",
+  "source": "https://github.com/the-djmaze/snappymail",
+  "website": "https://snappymail.eu/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [],
+  "created_at": 1793491200000,
+  "updated_at": 1793491200000
+}

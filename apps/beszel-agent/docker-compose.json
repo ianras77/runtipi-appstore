@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "beszel-agent",
-      "image": "henrygd/beszel-agent:0.21.1",
+      "image": "henrygd/beszel-agent:0.21.1-alpine",
       "isMain": true,
       "internalPort": 45876,
       "networkMode": "host",
@@ -21,7 +21,7 @@
         },
         {
           "key": "FILESYSTEM",
-          "value": "/"
+          "value": "dm-0__OS"
         },
         {
           "key": "DISK_USAGE_CACHE",
@@ -46,6 +46,11 @@
         {
           "hostPath": "/var/run/systemd/private",
           "containerPath": "/var/run/systemd/private",
+          "readOnly": true
+        },
+        {
+          "hostPath": "/",
+          "containerPath": "/extra-filesystems/dm-0__OS",
           "readOnly": true
         },
         {
@@ -77,12 +82,24 @@
         "/dev/sde:/dev/sde",
         "/dev/sdf:/dev/sdf",
         "/dev/sdg:/dev/sdg",
-        "/dev/sdh:/dev/sdh"
+        "/dev/sdh:/dev/sdh",
+        "/dev/dm-0:/dev/dm-0",
+        "/dev/zfs:/dev/zfs"
       ],
       "capAdd": [
         "SYS_RAWIO",
         "SYS_ADMIN"
-      ]
+      ],
+      "securityOpt": [
+        "apparmor:unconfined"
+      ],
+      "healthCheck": {
+        "test": "/agent health",
+        "interval": "120s",
+        "timeout": "5s",
+        "retries": 3,
+        "startPeriod": "10s"
+      }
     }
   ],
   "$schema": "../dynamic-compose-schema.json",

@@ -1,0 +1,49 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "graphiti",
+      "image": "zepai/graphiti:0.30.2",
+      "isMain": true,
+      "internalPort": 8000,
+      "environment": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "NEO4J_URI": "bolt://graphiti-neo4j:7687",
+        "NEO4J_USER": "neo4j",
+        "NEO4J_PASSWORD": "${GRAPHITI_NEO4J_PASSWORD}",
+        "PORT": "8000",
+        "db_backend": "neo4j"
+      },
+      "dependsOn": {
+        "graphiti-neo4j": {"condition": "service_healthy"}
+      },
+      "healthCheck": {
+        "test": "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthcheck', timeout=3)\"",
+        "interval": "30s",
+        "timeout": "5s",
+        "retries": 5,
+        "startPeriod": "60s"
+      }
+    },
+    {
+      "name": "graphiti-neo4j",
+      "image": "neo4j:5.26.2",
+      "environment": {
+        "NEO4J_AUTH": "neo4j/${GRAPHITI_NEO4J_PASSWORD}",
+        "NEO4J_server_memory_heap_initial__size": "512m",
+        "NEO4J_server_memory_heap_max__size": "1G"
+      },
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/neo4j/data", "containerPath": "/data"},
+        {"hostPath": "${APP_DATA_DIR}/neo4j/logs", "containerPath": "/logs"}
+      ],
+      "healthCheck": {
+        "test": "cypher-shell -u neo4j -p \"${GRAPHITI_NEO4J_PASSWORD}\" 'RETURN 1'",
+        "interval": "15s",
+        "timeout": "10s",
+        "retries": 10,
+        "startPeriod": "60s"
+      }
+    }
+  ]
+}

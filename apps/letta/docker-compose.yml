@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  letta:
+    image: letta/letta:latest
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:8283"
+    environment:
+      SECURE: "true"
+      LETTA_SERVER_PASSWORD: ${LETTA_SERVER_PASSWORD}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      LETTA_MEMFS_SERVICE_URL: local
+    volumes:
+      - ${APP_DATA_DIR}/postgres:/var/lib/postgresql/data
+      - ${APP_DATA_DIR}/memfs:/root/.letta/memfs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; s=socket.create_connection(('127.0.0.1',8283),timeout=5); s.close()"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.letta.loadbalancer.server.port: "8283"
+      traefik.http.routers.letta-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.letta-insecure.entrypoints: web
+      traefik.http.routers.letta-insecure.middlewares: letta-web-redirect
+      traefik.http.middlewares.letta-web-redirect.redirectscheme.scheme: https
+      traefik.http.routers.letta.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.letta.entrypoints: websecure
+      traefik.http.routers.letta.tls.certresolver: myresolver
+      traefik.http.routers.letta-local.rule: Host(`letta.${LOCAL_DOMAIN}`)
+      traefik.http.routers.letta-local.entrypoints: websecure
+      traefik.http.routers.letta-local.tls: "true"
+      runtipi.managed: "true"
+
+networks:
+  tipi_main_network:
+    external: true

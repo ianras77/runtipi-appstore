@@ -1,0 +1,28 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Figranium",
+  "id": "figranium",
+  "available": true,
+  "short_desc": "Visual browser automation workflows with an API",
+  "description": "Build browser workflows visually, run them on a schedule, and trigger them through Figranium's API. The app stores its database and browser captures in persistent Runtipi app data.",
+  "author": "Figranium",
+  "port": 11345,
+  "categories": ["automation", "development"],
+  "tipi_version": 1,
+  "version": "v0.21.2",
+  "source": "https://github.com/figranium/figranium",
+  "website": "https://figranium.dev/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [
+    {
+      "type": "boolean",
+      "label": "Enable anonymous usage telemetry",
+      "default": false,
+      "env_variable": "FIGRANIUM_TELEMETRY_ENABLED"
+    }
+  ],
+  "created_at": 1793491200000,
+  "updated_at": 1793491200000
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "snappymail",
+      "image": "djmaze/snappymail:v2.38.2.1",
+      "isMain": true,
+      "internalPort": 8888,
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/data", "containerPath": "/var/lib/snappymail"}
+      ]
+    }
+  ]
+}

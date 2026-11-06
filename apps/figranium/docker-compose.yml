@@ -1,0 +1,39 @@
+services:
+  figranium:
+    image: ghcr.io/figranium/figranium:latest
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:11345"
+    environment:
+      NODE_ENV: production
+      FIGRANIUM_TELEMETRY_ENABLED: ${FIGRANIUM_TELEMETRY_ENABLED:-false}
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/data
+      - ${APP_DATA_DIR}/captures:/app/public/captures
+      - ${APP_DATA_DIR}/captures:/app/src/public/captures
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:11345').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.figranium.loadbalancer.server.port: "11345"
+      traefik.http.routers.figranium-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.figranium-insecure.entrypoints: web
+      traefik.http.routers.figranium-insecure.middlewares: figranium-web-redirect
+      traefik.http.middlewares.figranium-web-redirect.redirectscheme.scheme: https
+      traefik.http.routers.figranium.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.figranium.entrypoints: websecure
+      traefik.http.routers.figranium.tls.certresolver: myresolver
+      traefik.http.routers.figranium-local.rule: Host(`figranium.${LOCAL_DOMAIN}`)
+      traefik.http.routers.figranium-local.entrypoints: websecure
+      traefik.http.routers.figranium-local.tls: "true"
+      runtipi.managed: "true"
+
+networks:
+  tipi_main_network:
+    external: true

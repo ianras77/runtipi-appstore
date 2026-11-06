@@ -1,0 +1,32 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "BeaverHabits",
+  "id": "beaverhabits",
+  "available": true,
+  "short_desc": "Simple self-hosted habit tracker",
+  "description": "Track daily habits with a lightweight web app. Habit data is stored on persistent app storage using BeaverHabits' file-based storage mode.",
+  "author": "Henry Zhu",
+  "port": 8080,
+  "categories": ["utilities"],
+  "tipi_version": 1,
+  "version": "v0.10.0",
+  "source": "https://github.com/daya0576/beaverhabits",
+  "website": "https://beaverhabits.com/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "uid": 1000,
+  "gid": 1000,
+  "form_fields": [
+    {
+      "type": "number",
+      "label": "Habit date columns",
+      "default": 5,
+      "min": 1,
+      "max": 14,
+      "env_variable": "INDEX_HABIT_DATE_COLUMNS"
+    }
+  ],
+  "created_at": 1793491200000,
+  "updated_at": 1793491200000
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "caddy",
+      "image": "ghcr.io/perminder-klair/subwave-caddy:1.28.0",
+      "isMain": true,
+      "internalPort": 80,
+      "dependsOn": {
+        "web": {"condition": "service_started"},
+        "controller": {"condition": "service_healthy"},
+        "broadcast": {"condition": "service_healthy"}
+      },
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/caddy/data", "containerPath": "/data"},
+        {"hostPath": "${APP_DATA_DIR}/caddy/config", "containerPath": "/config"}
+      ]
+    },
+    {
+      "name": "broadcast",
+      "image": "ghcr.io/perminder-klair/subwave-broadcast:1.28.0",
+      "environment": {
+        "ICECAST_SOURCE_PASSWORD": "${ICECAST_SOURCE_PASSWORD:-}",
+        "ICECAST_ADMIN_PASSWORD": "${ICECAST_ADMIN_PASSWORD:-}",
+        "ICECAST_RELAY_PASSWORD": "${ICECAST_RELAY_PASSWORD:-}",
+        "ICECAST_TRUSTED_PROXY_HOSTS": "caddy",
+        "TZ": "${TZ:-Etc/UTC}",
+        "STATE_DIR": "/var/sub-wave"
+      },
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/state", "containerPath": "/var/sub-wave"},
+        {"hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/var/log/liquidsoap"}
+      ],
+      "healthCheck": {
+        "test": "curl -fsS http://127.0.0.1:7702/status-json.xsl >/dev/null",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 12,
+        "startPeriod": "30s"
+      }
+    },
+    {
+      "name": "docker-socket-proxy",
+      "image": "ghcr.io/tecnativa/docker-socket-proxy:0.3.0",
+      "environment": {"CONTAINERS": "1"},
+      "volumes": [
+        {"hostPath": "/var/run/docker.sock", "containerPath": "/var/run/docker.sock", "readOnly": true}
+      ]
+    },
+    {
+      "name": "controller",
+      "image": "ghcr.io/perminder-klair/subwave-controller:1.28.0",
+      "environment": {
+        "NODE_ENV": "production",
+        "TZ": "${TZ:-Etc/UTC}",
+        "ADMIN_USER": "${ADMIN_USER}",
+        "ADMIN_PASS": "${ADMIN_PASS}",
+        "STATE_DIR": "/var/sub-wave",
+        "SOUNDS_DIR": "/sounds",
+        "ANALYZE_URL": "http://analyzer:8080",
+        "DOCKER_HOST": "tcp://docker-socket-proxy:2375"
+      },
+      "extraHosts": ["host.docker.internal:host-gateway"],
+      "dependsOn": {
+        "broadcast": {"condition": "service_healthy"},
+        "docker-socket-proxy": {"condition": "service_started"},
+        "analyzer": {"condition": "service_started"}
+      },
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/state", "containerPath": "/var/sub-wave"}
+      ],
+      "healthCheck": {
+        "test": "curl -fsS http://127.0.0.1:7701/health >/dev/null",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 8,
+        "startPeriod": "45s"
+      }
+    },
+    {
+      "name": "web",
+      "image": "ghcr.io/perminder-klair/subwave-web:1.28.0",
+      "environment": {
+        "NODE_ENV": "production",
+        "SUBWAVE_HOMEPAGE": "player",
+        "SITE_URL": "${APP_PROTOCOL:-http}://${APP_DOMAIN}",
+        "CONTROLLER_INTERNAL_URL": "http://controller:7701"
+      },
+      "dependsOn": {
+        "controller": {"condition": "service_healthy"}
+      }
+    },
+    {
+      "name": "analyzer",
+      "image": "ghcr.io/perminder-klair/subwave-analyzer:1.28.0",
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/state", "containerPath": "/var/sub-wave"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "figranium",
+      "image": "ghcr.io/figranium/figranium:latest",
+      "isMain": true,
+      "internalPort": 11345,
+      "environment": {
+        "NODE_ENV": "production",
+        "FIGRANIUM_TELEMETRY_ENABLED": "${FIGRANIUM_TELEMETRY_ENABLED:-false}"
+      },
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/data", "containerPath": "/app/data"},
+        {"hostPath": "${APP_DATA_DIR}/captures", "containerPath": "/app/public/captures"},
+        {"hostPath": "${APP_DATA_DIR}/captures", "containerPath": "/app/src/public/captures"}
+      ],
+      "healthCheck": {
+        "test": "node -e \"fetch('http://127.0.0.1:11345').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\"",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 5,
+        "startPeriod": "90s"
+      }
+    }
+  ]
+}

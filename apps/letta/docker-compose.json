@@ -1,0 +1,28 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "letta",
+      "image": "letta/letta:latest",
+      "isMain": true,
+      "internalPort": 8283,
+      "environment": {
+        "SECURE": "true",
+        "LETTA_SERVER_PASSWORD": "${LETTA_SERVER_PASSWORD}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "LETTA_MEMFS_SERVICE_URL": "local"
+      },
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql/data"},
+        {"hostPath": "${APP_DATA_DIR}/memfs", "containerPath": "/root/.letta/memfs"}
+      ],
+      "healthCheck": {
+        "test": "python -c \"import socket; s=socket.create_connection(('127.0.0.1',8283),timeout=5); s.close()\"",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 10,
+        "startPeriod": "120s"
+      }
+    }
+  ]
+}

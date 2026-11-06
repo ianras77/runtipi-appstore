@@ -1,0 +1,21 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "RapidForge",
+  "id": "rapidforge",
+  "available": true,
+  "short_desc": "Self-hosted webhooks, APIs, and scheduled scripts",
+  "description": "Build internal tools, webhooks, APIs, and scheduled tasks using Bash and Lua. RapidForge stores its SQLite database and configuration on persistent app storage.",
+  "author": "RapidForge",
+  "port": 8080,
+  "categories": ["automation", "development"],
+  "tipi_version": 1,
+  "version": "v0.14.0",
+  "source": "https://github.com/rapidforge-io/rapidforge",
+  "website": "https://rapidforge.io/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64"],
+  "form_fields": [],
+  "created_at": 1793491200000,
+  "updated_at": 1793491200000
+}

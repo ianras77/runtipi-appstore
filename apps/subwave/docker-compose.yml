@@ -1,0 +1,132 @@
+services:
+  caddy:
+    image: ghcr.io/perminder-klair/subwave-caddy:1.28.0
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:80"
+    depends_on:
+      web:
+        condition: service_started
+      controller:
+        condition: service_healthy
+      broadcast:
+        condition: service_healthy
+    volumes:
+      - ${APP_DATA_DIR}/caddy/data:/data
+      - ${APP_DATA_DIR}/caddy/config:/config
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.subwave.loadbalancer.server.port: "80"
+      traefik.http.routers.subwave-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.subwave-insecure.entrypoints: web
+      traefik.http.routers.subwave-insecure.middlewares: subwave-web-redirect
+      traefik.http.middlewares.subwave-web-redirect.redirectscheme.scheme: https
+      traefik.http.routers.subwave.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.subwave.entrypoints: websecure
+      traefik.http.routers.subwave.tls.certresolver: myresolver
+      traefik.http.routers.subwave-local.rule: Host(`subwave.${LOCAL_DOMAIN}`)
+      traefik.http.routers.subwave-local.entrypoints: websecure
+      traefik.http.routers.subwave-local.tls: "true"
+      runtipi.managed: "true"
+
+  broadcast:
+    image: ghcr.io/perminder-klair/subwave-broadcast:1.28.0
+    restart: unless-stopped
+    environment:
+      ICECAST_SOURCE_PASSWORD: ${ICECAST_SOURCE_PASSWORD:-}
+      ICECAST_ADMIN_PASSWORD: ${ICECAST_ADMIN_PASSWORD:-}
+      ICECAST_RELAY_PASSWORD: ${ICECAST_RELAY_PASSWORD:-}
+      ICECAST_TRUSTED_PROXY_HOSTS: caddy
+      TZ: ${TZ:-Etc/UTC}
+      STATE_DIR: /var/sub-wave
+    volumes:
+      - ${APP_DATA_DIR}/state:/var/sub-wave
+      - ${APP_DATA_DIR}/logs:/var/log/liquidsoap
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:7702/status-json.xsl >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    networks:
+      - tipi_main_network
+    labels:
+      runtipi.managed: "true"
+
+  docker-socket-proxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:0.3.0
+    restart: unless-stopped
+    environment:
+      CONTAINERS: "1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - tipi_main_network
+    labels:
+      runtipi.managed: "true"
+
+  controller:
+    image: ghcr.io/perminder-klair/subwave-controller:1.28.0
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      TZ: ${TZ:-Etc/UTC}
+      ADMIN_USER: ${ADMIN_USER}
+      ADMIN_PASS: ${ADMIN_PASS}
+      STATE_DIR: /var/sub-wave
+      SOUNDS_DIR: /sounds
+      ANALYZE_URL: http://analyzer:8080
+      DOCKER_HOST: tcp://docker-socket-proxy:2375
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      broadcast:
+        condition: service_healthy
+      docker-socket-proxy:
+        condition: service_started
+      analyzer:
+        condition: service_started
+    volumes:
+      - ${APP_DATA_DIR}/state:/var/sub-wave
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:7701/health >/dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+      start_period: 45s
+    networks:
+      - tipi_main_network
+    labels:
+      runtipi.managed: "true"
+
+  web:
+    image: ghcr.io/perminder-klair/subwave-web:1.28.0
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      SUBWAVE_HOMEPAGE: player
+      SITE_URL: ${APP_PROTOCOL:-http}://${APP_DOMAIN}
+      CONTROLLER_INTERNAL_URL: http://controller:7701
+    depends_on:
+      controller:
+        condition: service_healthy
+    networks:
+      - tipi_main_network
+    labels:
+      runtipi.managed: "true"
+
+  analyzer:
+    image: ghcr.io/perminder-klair/subwave-analyzer:1.28.0
+    restart: unless-stopped
+    volumes:
+      - ${APP_DATA_DIR}/state:/var/sub-wave
+    networks:
+      - tipi_main_network
+    labels:
+      runtipi.managed: "true"
+
+networks:
+  tipi_main_network:
+    external: true
