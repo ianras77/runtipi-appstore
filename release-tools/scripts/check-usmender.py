@@ -16,7 +16,7 @@ def validate(lock, release=False):
     assert config['min_tipi_version'] == '4.11.0'
     assert compose['x-runtipi']['schema_version'] == 2
     services = compose['services']
-    assert set(services) == {'web','api','postgres','cat'}
+    assert set(services) == {'web','api','postgres'}
     assert sum(s.get('x-runtipi',{}).get('is_main',False) for s in services.values()) == 1
     for s in services.values():
         assert not any(k in s for k in ['build','ports','privileged','network_mode','devices']), 'No source builds or host exposure'
@@ -28,9 +28,9 @@ def validate(lock, release=False):
     assert set(contract['api']['requiredProductionEnvironment']) <= env.keys()
     assert set(contract['syntheticLocalPackage']['services']) == set(services)
     assert contract['syntheticLocalPackage']['releaseQualified'] is False
-    assert set(contract['cat']['requiredEnvironment']) <= services['cat']['environment'].keys()
-    assert contract['cat']['persistentDataPath'] == '/app/cat/data'
-    assert contract['build']['catMajor2Compatible'] is False
+    assert contract['api']['mediationEngine'] == 'mastra'
+    assert not any(k.startswith(('CAT_', 'USMENDER_CAT_')) or k == 'USMENDER_MEDIATION_ENGINE' for k in env), 'Retired runtime declarations forbidden'
+    assert services['postgres']['volumes'] == ['${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data'], 'Preserve existing database path'
     for key, value in contract['api']['productionValues'].items(): assert env[key] == value
     for key,value in {'USMENDER_MESSAGING_PROVIDER':'local','USMENDER_SMS_PROVIDER':'console','USMENDER_ALLOW_SIMULATED_DELIVERY':'true','ENABLE_DB_ENCRYPTION':'false'}.items(): assert env[key] == value
     assert services['api']['depends_on']['postgres']['condition'] == 'service_healthy'
@@ -57,7 +57,7 @@ def main():
         compiled=(args.source/'apps/api/dist/runtimeConfig.js').resolve()
         assert compiled.is_file(), 'Build the source API before paired validation'
         env=dict(compose['services']['api']['environment'])
-        env.update(DATABASE_URL='postgresql://synthetic:fixture@postgres:5432/usmender', JWT_SECRET='synthetic-fixture-not-for-deployment-00000000', USMENDER_PUBLIC_WEB_URL='https://synthetic.invalid')
+        env.update(DATABASE_URL='postgresql://synthetic:fixture@postgres:5432/usmender', JWT_SECRET='synthetic-fixture-not-for-deployment-00000000', USMENDER_PUBLIC_WEB_URL='https://synthetic.invalid', USMENDER_MODEL_BASE_URL='http://127.0.0.1:9999/v1', USMENDER_MODEL='synthetic-no-network')
         code='import {validateRuntimeConfig} from '+json.dumps(compiled.as_uri())+'; const status=validateRuntimeConfig('+json.dumps(env)+'); if(status.sensitiveConversationReady!==false||status.simulatedSms!==true)process.exit(1); console.log(JSON.stringify(status));'
         subprocess.run([shutil.which('node'),'--input-type=module','-e',code],check=True,env={})
     if args.render:
@@ -68,3 +68,4 @@ def main():
 if __name__=='__main__':
     try:main()
     except (AssertionError,KeyError,ValueError) as e:print(f'BLOCKED: {e}',file=sys.stderr);sys.exit(1)
+

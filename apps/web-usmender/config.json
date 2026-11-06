@@ -10,7 +10,10 @@
   "description": "Not an installable or sensitive-conversation-qualified release. Image artifacts, private ingress and lifecycle qualification remain outstanding.",
   "author": "ianras77",
   "source": "https://github.com/ianras77/web-usmender",
-  "categories": ["social", "ai"],
+  "categories": [
+    "social",
+    "ai"
+  ],
   "dynamic_config": true,
   "min_tipi_version": "4.11.0",
   "exposable": false,
@@ -46,12 +49,6 @@
       "type": "text",
       "label": "General model alias",
       "env_variable": "USMENDER_GENERAL_MODEL",
-      "required": true
-    },
-    {
-      "type": "text",
-      "label": "Embedding model alias",
-      "env_variable": "USMENDER_EMBED_MODEL",
       "required": true
     }
   ]

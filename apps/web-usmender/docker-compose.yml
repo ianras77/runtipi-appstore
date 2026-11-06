@@ -33,13 +33,13 @@ services:
       ENABLE_DB_ENCRYPTION: 'false'
       DATABASE_URL: postgresql://usmender:${USMENDER_DB_PASSWORD}@postgres:5432/usmender
       JWT_SECRET: ${USMENDER_JWT_SECRET}
-      CAT_BASE_URL: http://cat:80
       USMENDER_PUBLIC_WEB_URL: ${USMENDER_PUBLIC_WEB_URL}
+      USMENDER_MODEL_BASE_URL: ${USMENDER_INFERENCE_URL}
+      USMENDER_MODEL: ${USMENDER_GENERAL_MODEL}
+      USMENDER_MODEL_TIMEOUT_MS: '12000'
     depends_on:
       postgres:
         condition: service_healthy
-      cat:
-        condition: service_started
     healthcheck:
       test:
       - CMD
@@ -68,15 +68,4 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
-    restart: unless-stopped
-  cat:
-    image: '${USMENDER_CAT_IMAGE:?Unreleased: require custom Cat image with plugins
-      and initialization}'
-    environment:
-      OLLAMA_GENERAL_BASE_URL: ${USMENDER_INFERENCE_URL}
-      OLLAMA_EMBED_BASE_URL: ${USMENDER_INFERENCE_URL}
-      OLLAMA_GENERAL_MODEL: ${USMENDER_GENERAL_MODEL}
-      OLLAMA_EMBED_MODEL: ${USMENDER_EMBED_MODEL}
-    volumes:
-    - ${APP_DATA_DIR}/data/cat:/app/cat/data
     restart: unless-stopped

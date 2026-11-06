@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "status": "unreleased",
   "profile": "synthetic-local-only",
-  "sourceCommit": null,
-  "sourceContractSha256": "4af679348afb3f2fefd106b6ac4c6c3c849c735ffc4b6c6b6b6221289c564881",
+  "sourceCommit": "3edfc06fc9a15d6c83bb0fd7af8fc1d2400ad4dc",
+  "sourceContractSha256": "db249f93428b91f1e948c307f5b76711f9aaf66f6b2ff87e47805bccae3d9603",
   "webBuildArguments": {
     "NEXT_PUBLIC_API_URL": "/api",
     "API_INTERNAL_URL": "http://api:3001"
@@ -11,8 +11,7 @@
   "images": {
     "web": null,
     "api": null,
-    "postgres": null,
-    "cat": null
+    "postgres": null
   },
   "qualification": {
     "imageBuilds": null,

@@ -1,44 +1,24 @@
-# USMender — disabled synthetic private-alpha preparation
+# USMender: disabled Cat-free installation preparation
 
-**Not installable yet. Do not enable this listing or use real private conversations.**
-This is a new top-level package for `ianras77/runtipi-appstore`, branch
-`app/wordpress_elderseth`. It does not move another store's data or change any
-existing app ID. The YAML package requires Runtipi >=4.11.0; the actual host
-version has not been established.
+This is a review candidate for ianras77/runtipi-appstore, targeting app/wordpress_elderseth. It is NOT an installable release. Keep available=false. The release lock pairs source 3edfc06fc9a15d6c83bb0fd7af8fc1d2400ad4dc with its exact runtime contract; all image digests and installation qualifications remain unset.
 
-The first bounded profile has web, API, PostgreSQL and a custom Cat service.
-Messaging is explicitly local; SMS is explicitly simulated console output;
-email/iMessage remain handoffs. Encryption is explicitly off. Only synthetic
-records belong in this profile. There is no claim of verified recipients,
-qualified model output, real delivery or safe sensitive conversations.
-Matrix is deliberately absent, not silently replaced while advertising a
-Matrix install. A full Matrix profile requires its own private registration,
-credentials, persistent state, and provider/identity qualification. The source
-worker currently reports `executesBackgroundJobs:false`, so it is not packaged
-as a functioning background queue.
+The package has web, API and PostgreSQL services. Native Mastra is in the API. It does not start Cheshire Cat or supply retired mediation settings. Historical CAT_ storage values remain valid and are not rewritten.
 
-## What is implemented
+## Required configuration and limitations
+- Private HTTPS web origin, reachable OpenAI-compatible model base URL (including the provider's API prefix such as /v1), and model alias.
+- Current preparation supports only an unauthenticated synthetic inference endpoint. An authenticated provider requires a separately schema-validated optional secret form and USMENDER_MODEL_API_KEY forwarding before qualification. Never put an API key into the URL.
+- Database password and JWT secret must be preserved across upgrades. Existing installations must use their existing values, not regenerate them.
+- No real SMS, email or Matrix delivery is configured. SMS is simulated, messaging is local, storage encryption is not configured. Sensitive-conversation readiness is false.
+- Web images must be built with NEXT_PUBLIC_API_URL=/api and API_INTERNAL_URL=http://api:3001.
 
-- One web ingress, no raw API/database/Cat host ports, no source-tree bind mounts,
-  no runtime dependency installation, no mounted Docker socket or GPU claims.
-- Explicit production/private-alpha/no-demo-seed configuration. The actual
-  source runtime validator accepts the synthetic profile, reports its limitations,
-  and is exercised by the paired check.
-- PostgreSQL health gates API startup. The API image must retain the source's
-  fail-fast preflight/migrate/start entrypoint; schema checks do not establish it.
-- Database and Cat data live below this install's `${APP_DATA_DIR}/data`.
-  Generated DB/JWT secrets must be preserved across upgrades and restores.
-- Web build arguments must be `NEXT_PUBLIC_API_URL=/api` and
-  `API_INTERNAL_URL=http://api:3001`. Runtime overrides cannot fix a wrongly
-  built Next rewrite.
+## Data preservation
+The PostgreSQL bind mount is unchanged: ${APP_DATA_DIR}/data/postgres to /var/lib/postgresql/data. Removal of Cat from this source Compose file does not authorize stopping existing services or deleting, remapping, or migrating any data. Retain any existing data/cat directory and separate backups. Do not run down -v, volume prune or account deletion as migration steps. Moving from another store or host needs an explicit backup/restore migration because APP_DATA_DIR may identify a new directory.
 
-## Why image expressions remain unresolved
+## Before install readiness
+1. Publish reviewed source-built images to the intended authorized registry and verify pulls/digests for the target architecture. Record real immutable references for web, API and PostgreSQL; do not fabricate hashes.
+2. Run full store schema/inventory and canonical Runtipi Compose checks; current repository baseline has known unrelated validation failures.
+3. Test a fresh synthetic install in an isolated target-compatible Runtipi instance, web/API origin/auth and model protocol, restart persistence and retained credentials.
+4. Restore a synthetic database backup, upgrade it with the real migration entrypoint, check data/account identities and verify recovery with a pre-upgrade backup. Application downgrade alone is not a schema rollback.
+5. Review private ingress, secret handling, backup ownership and browser acceptance. Explicitly approve availability promotion and deployment separately.
 
-All four `${USMENDER_*_IMAGE:?...}` expressions intentionally fail if someone
-tries to start this unqualified package. They are not invented registry tags or
-release digests, and are not installer form fields. A release lock must record
-actual published source and immutable image references. The render tool creates
-only a separate staging artifact; it never enables the app or edits this package.
-
-See `../../release-tools/README.md` for qualification and commands. `available:false`
-is necessary but is not permission to merge, deploy, or expose the service.
+Current evidence: three isolated compatibility/retention tests pass against the exact published pure runtime validator. Existing stale package is rejected for CAT_BASE_URL and missing model variables; this candidate is accepted. This does not establish image availability, production model quality, Runtipi installation, whole-store validation or safe use of sensitive conversations.
