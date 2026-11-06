@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "vaultwarden-mcp",
-      "image": "ghcr.io/icoretech/warden-mcp:latest",
+      "image": "ghcr.io/icoretech/warden-mcp:0.2.36",
       "isMain": true,
       "internalPort": 3005,
       "addToMainNetwork": true,

@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "searxng-mcp",
-      "image": "isokoliuk/mcp-searxng:2.6.0",
+      "image": "isokoliuk/mcp-searxng:2.10.0",
       "isMain": true,
       "internalPort": 3000,
       "addToMainNetwork": true,

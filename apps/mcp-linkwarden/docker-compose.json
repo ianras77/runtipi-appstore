@@ -12,7 +12,7 @@
         "-lc"
       ],
       "command": [
-        "exec npx --yes supergateway@4.1.0 --stdio 'npx --yes linkwarden-mcp@0.4.0' --outputTransport streamableHttp --port 8000 --stateful"
+        "exec npx --yes supergateway@4.2.1 --stdio 'npx --yes linkwarden-mcp@0.4.0' --outputTransport streamableHttp --port 8000 --stateful"
       ],
       "environment": {
         "LINKWARDEN_URL": "${LINKWARDEN_URL}",

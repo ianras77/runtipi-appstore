@@ -7,7 +7,7 @@
   "port": 8080,
   "description": "Private HTTP MCP companion for Vikunja. Task, project and label tools use the configured Vikunja API token; destructive delete tools are disabled.",
   "version": "latest",
-  "tipi_version": 2,
+  "tipi_version": 3,
   "short_desc": "MCP tools for Vikunja tasks and projects",
   "author": "nkcx",
   "source": "https://github.com/nkcx/vikunja-mcp-http",

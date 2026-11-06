@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "beszel-mcp",
-      "image": "ghcr.io/maxbth/beszel-mcp:1.2.3",
+      "image": "ghcr.io/maxbth/beszel-mcp:1.0.0",
       "isMain": true,
       "internalPort": 3000,
       "addToMainNetwork": true,
