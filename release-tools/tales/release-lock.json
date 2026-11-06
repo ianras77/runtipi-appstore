@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "status": "unreleased",
+  "sourceCommit": "c7d10ca3088e14dc11facd8ee9125317e3f6094c",
+  "images": {
+    "app": null,
+    "postgres": null,
+    "redis": null
+  },
+  "qualification": {
+    "sourceImageBuild": null,
+    "runtipiSchema": null,
+    "privateApiIngress": null,
+    "supabaseBuildConfiguration": null,
+    "authBrowserFlow": null,
+    "freshInstall": null,
+    "restartPersistence": null,
+    "backupRestore": null,
+    "restoredUpgrade": null,
+    "queueRecovery": null,
+    "mediaUpload": null
+  }
+}

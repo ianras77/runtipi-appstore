@@ -1,0 +1,101 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "web-totallyrighteoustales",
+  "name": "Totally Righteous Tales (unreleased)",
+  "available": false,
+  "port": 3190,
+  "tipi_version": 1,
+  "version": "0.0.0-unreleased",
+  "short_desc": "Disabled installation preparation; not runtime qualified.",
+  "description": "Image, authentication, ingress and persistence qualification required before enabling.",
+  "author": "ianras77",
+  "source": "https://github.com/ianras77/web-totallyrighteoustales",
+  "categories": [
+    "social",
+    "ai"
+  ],
+  "dynamic_config": true,
+  "min_tipi_version": "4.11.0",
+  "exposable": false,
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Database password (preserve on upgrade)",
+      "env_variable": "TALES_DB_PASSWORD",
+      "min": 64,
+      "encoding": "hex"
+    },
+    {
+      "type": "url",
+      "label": "Private HTTPS web origin",
+      "env_variable": "TALES_WEB_URL",
+      "required": true
+    },
+    {
+      "type": "url",
+      "label": "Private HTTPS API origin",
+      "env_variable": "TALES_API_URL",
+      "required": true
+    },
+    {
+      "type": "url",
+      "label": "Supabase project URL",
+      "env_variable": "TALES_SUPABASE_URL",
+      "required": true
+    },
+    {
+      "type": "text",
+      "label": "Supabase public anonymous key",
+      "env_variable": "TALES_SUPABASE_ANON_KEY",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Supabase JWT secret",
+      "env_variable": "TALES_SUPABASE_JWT_SECRET",
+      "required": true
+    },
+    {
+      "type": "url",
+      "label": "Reachable LocalAI endpoint",
+      "env_variable": "TALES_LOCALAI_BASE_URL",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "LocalAI API key",
+      "env_variable": "TALES_LOCALAI_API_KEY",
+      "required": true
+    },
+    {
+      "type": "url",
+      "label": "S3 endpoint",
+      "env_variable": "TALES_S3_ENDPOINT",
+      "required": true
+    },
+    {
+      "type": "text",
+      "label": "S3 bucket",
+      "env_variable": "TALES_S3_BUCKET",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "S3 access key",
+      "env_variable": "TALES_S3_ACCESS_KEY",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "S3 secret key",
+      "env_variable": "TALES_S3_SECRET_KEY",
+      "required": true
+    },
+    {
+      "type": "url",
+      "label": "Public media URL",
+      "env_variable": "TALES_S3_PUBLIC_URL",
+      "required": true
+    }
+  ]
+}
