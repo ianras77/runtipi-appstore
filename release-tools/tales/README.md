@@ -1,29 +1,36 @@
 # Tales installation candidate: disabled
 
 Source: https://github.com/ianras77/web-totallyrighteoustales/pull/2
-Frozen source: c7d10ca3088e14dc11facd8ee9125317e3f6094c.
+Frozen source: 2bcc0b9e56d1d66e122f70661f4e7e96f187d014.
 
 This is preparation, not an installable release. Do not enable the app until every
 release-lock qualification has evidence and every image has a verified immutable
 registry digest. No image is published or claimed here. PostgreSQL must remain
 major 15 and Redis major 7 unless separately migration-tested.
 
-## Source-image blockers
+## Source-image and same-origin build contract
 
-The API and worker start scripts use node --import tsx with TypeScript source;
-the image retains the dependencies needed by that execution model. A missing
-tsc build is not itself a demonstrated defect. Production API and worker image
-execution remains unqualified and must be tested before image release.
-The frontend's NEXT_PUBLIC_API_URL and NEXT_PUBLIC_SUPABASE_* values are baked
-at build time. Runtime environment cannot repair an incorrectly built image.
-The Dockerfile lacks public Supabase build arguments. Add and test these in a
-separate source change; never bake the JWT secret or storage credentials.
+The paired source supports public Supabase build arguments and an opt-in,
+build-time API rewrite. Hosted run 42279527552 passed canonical Compose and
+17 bounded source contracts; it did not build or qualify an application image.
+API and worker intentionally use node --import tsx through their existing package
+scripts. Missing API dist compilation alone is not a proven startup defect.
 
-The source web config has no API rewrite. API_INTERNAL_URL alone does not create
-one. This candidate deliberately publishes no API port: implement and test a
-private API ingress and browser-reachable HTTPS API origin, or qualify a
-same-origin proxy with all HTTP methods, uploads, authentication and CORS. Do not
-point a remote browser at localhost or an internal Compose service name.
+Build NEXT_PUBLIC_API_URL=/api and TALES_API_PROXY_ORIGIN=http://api:3191.
+The source lock records these fixed values plus unresolved public Supabase URL
+and anonymous-key arguments. Resolve those with the intended Supabase project
+before building; never bake a service-role key, JWT secret or S3 credentials.
+Runtime API_INTERNAL_URL=http://api:3191 is separately required for SSR and is
+provided by this candidate. Runtime environment does not retarget built public
+values or the proxy. Rebuild if the public project configuration changes.
+
+The API remains private with no published host port. The built proxy must still
+be tested for HTTP/auth, multipart size/time limits and browser sign-in before
+release. Direct S3 image uploads require browser-reachable storage URLs and CORS.
+TALES_API_URL remains an explicit API-side configuration input; its callbacks and
+URL use must be checked against the final same-origin HTTPS routing.
+The source Dockerfile's Node 20 base, root execution and full-image qualification
+remain release work. No claim of install readiness follows from source tests.
 
 ## Fresh environment and persistence
 

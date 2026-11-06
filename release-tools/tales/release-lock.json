@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "unreleased",
-  "sourceCommit": "c7d10ca3088e14dc11facd8ee9125317e3f6094c",
+  "sourceCommit": "2bcc0b9e56d1d66e122f70661f4e7e96f187d014",
   "images": {
     "app": null,
     "postgres": null,
@@ -19,5 +19,14 @@
     "restoredUpgrade": null,
     "queueRecovery": null,
     "mediaUpload": null
+  },
+  "webBuildArguments": {
+    "NEXT_PUBLIC_API_URL": "/api",
+    "TALES_API_PROXY_ORIGIN": "http://api:3191",
+    "NEXT_PUBLIC_SUPABASE_URL": null,
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": null
+  },
+  "webRuntimeEnvironment": {
+    "API_INTERNAL_URL": "http://api:3191"
   }
 }

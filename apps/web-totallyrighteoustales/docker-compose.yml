@@ -128,7 +128,7 @@ services:
     - -lc
     - pnpm -C apps/web start
     environment:
-      NEXT_PUBLIC_API_URL: ${TALES_API_URL}
+      NEXT_PUBLIC_API_URL: /api
       API_INTERNAL_URL: http://api:3191
     depends_on:
       api:
