@@ -1,6 +1,5 @@
 {
   "$schema": "../dynamic-compose-schema.json",
-  "schemaVersion": 2,
   "services": [
     {
       "name": "miniflux-mcp",
