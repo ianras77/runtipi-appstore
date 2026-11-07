@@ -7,11 +7,30 @@
       "isMain": true,
       "internalPort": 3000,
       "addToMainNetwork": true,
+      "entrypoint": [
+        "npx",
+        "--yes",
+        "supergateway@4.2.1",
+        "--stdio",
+        "node index.js",
+        "--outputTransport",
+        "streamableHttp",
+        "--port",
+        "3000",
+        "--host",
+        "0.0.0.0",
+        "--streamableHttpPath",
+        "/mcp",
+        "--healthEndpoint",
+        "/healthz",
+        "--healthCheck",
+        "server"
+      ],
       "environment": {
         "KARAKEEP_API_ADDR": "${KARAKEEP_API_ADDR}",
         "KARAKEEP_API_KEY": "${KARAKEEP_API_KEY}",
-        "KARAKEEP_MCP_TRANSPORT": "HTTPstreamable",
-        "KARAKEEP_MCP_STREAM_PORT": "3000"
+        "SUPERGATEWAY_API_KEY": "${MCP_AUTH_TOKEN}",
+        "npm_config_cache": "/tmp/karakeep-mcp-npm-cache"
       }
     }
   ]

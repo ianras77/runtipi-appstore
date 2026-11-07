@@ -5,9 +5,9 @@
   "available": true,
   "deprecated": false,
   "port": 3000,
-  "description": "Private MCP companion for the Karakeep API. The upstream HTTP transport has no MCP-side auth; keep it on the Runtipi app network.",
+  "description": "Private HTTP MCP bridge for the Karakeep API with bearer authentication. Keep it on the Runtipi app network.",
   "version": "0.34.0",
-  "tipi_version": 5,
+  "tipi_version": 6,
   "short_desc": "MCP tools for a Karakeep instance",
   "author": "Karakeep",
   "source": "https://github.com/karakeep-app/karakeep",
@@ -37,6 +37,12 @@
       "label": "Karakeep API key",
       "env_variable": "KARAKEEP_API_KEY",
       "required": true
+    },
+    {
+      "type": "random",
+      "label": "MCP bearer token",
+      "env_variable": "MCP_AUTH_TOKEN",
+      "min": 32
     }
   ]
 }
