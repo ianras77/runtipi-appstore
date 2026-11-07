@@ -7,7 +7,7 @@
   "port": 3100,
   "description": "Private MCP companion for a Grav 2.0 site with the Grav API plugin installed and enabled. The current custom-store Grav package is 2.2.25. Its preserved site data may require migration before reuse. The MCP HTTP transport has no built-in client authentication, so keep this endpoint on a trusted private network.",
   "version": "0.1.5",
-  "tipi_version": 2,
+  "tipi_version": 3,
   "short_desc": "MCP tools for Grav 2.0 sites",
   "author": "getgrav",
   "source": "https://github.com/getgrav/grav-mcp",
@@ -25,7 +25,7 @@
   ],
   "form_fields": [
     {
-      "type": "url",
+      "type": "text",
       "label": "Grav API URL",
       "env_variable": "GRAV_API_URL",
       "hint": "Grav 2.0 API URL, usually ending in /api.",

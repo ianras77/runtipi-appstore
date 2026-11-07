@@ -7,7 +7,7 @@
   "port": 5000,
   "description": "Private HTTP MCP companion for Immich. Use a dedicated, least-privilege Immich API key; the MCP endpoint itself has no bearer-auth option.",
   "version": "3.3.5",
-  "tipi_version": 4,
+  "tipi_version": 5,
   "short_desc": "MCP tools for an Immich photo library",
   "author": "barryw",
   "source": "https://github.com/barryw/ImmichMCP",
@@ -25,7 +25,7 @@
   ],
   "form_fields": [
     {
-      "type": "url",
+      "type": "text",
       "label": "Immich base URL",
       "env_variable": "IMMICH_BASE_URL",
       "default": "http://immich:2283",

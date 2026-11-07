@@ -7,7 +7,7 @@
   "port": 3000,
   "description": "Hardened, bearer-authenticated MCP search connector for an existing SearXNG instance. Private to the Runtipi app network by default.",
   "version": "2.10.0",
-  "tipi_version": 3,
+  "tipi_version": 4,
   "short_desc": "Authenticated MCP search tools for SearXNG",
   "author": "ihor-sokoliuk",
   "source": "https://github.com/ihor-sokoliuk/mcp-searxng",
@@ -25,7 +25,7 @@
   ],
   "form_fields": [
     {
-      "type": "url",
+      "type": "text",
       "label": "SearXNG URL",
       "env_variable": "SEARXNG_URL",
       "default": "http://searxng:8080",

@@ -7,7 +7,7 @@
   "port": 8080,
   "description": "HTTP MCP companion for Miniflux with bearer authentication. Every connected client uses the configured Miniflux API identity.",
   "version": "latest",
-  "tipi_version": 3,
+  "tipi_version": 4,
   "short_desc": "MCP tools for Miniflux feeds and entries",
   "author": "Miniflux MCP contributors",
   "source": "https://github.com/tssujt/miniflux-mcp",
@@ -25,7 +25,7 @@
   ],
   "form_fields": [
     {
-      "type": "url",
+      "type": "text",
       "label": "Miniflux URL",
       "env_variable": "MINIFLUX_URL",
       "default": "http://miniflux:8080",
