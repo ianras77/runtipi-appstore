@@ -12,7 +12,7 @@
         "-lc"
       ],
       "command": [
-        "exec npx --yes grav-mcp@0.1.1 --url \"$GRAV_API_URL\" --key \"$GRAV_API_KEY\" --transport http --port 3100"
+        "exec npx --yes grav-mcp@0.1.5 --url \"$GRAV_API_URL\" --key \"$GRAV_API_KEY\" --transport http --port 3100"
       ],
       "environment": {
         "GRAV_API_URL": "${GRAV_API_URL}",

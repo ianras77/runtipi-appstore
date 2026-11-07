@@ -1,0 +1,161 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e5]:
+      - link "Runtipi logo Runtipi" [ref=e6] [cursor=pointer]:
+        - /url: /dashboard
+        - heading "Runtipi logo Runtipi" [level=1] [ref=e7]:
+          - img "Runtipi logo" [ref=e8]
+          - text: Runtipi
+      - generic [ref=e9]:
+        - generic [ref=e11]:
+          - link "Source code" [ref=e12] [cursor=pointer]:
+            - /url: https://github.com/runtipi/runtipi
+            - img [ref=e13]
+            - text: Source code
+          - link "Sponsor" [ref=e15] [cursor=pointer]:
+            - /url: https://github.com/runtipi/runtipi?sponsor=1
+            - img [ref=e16]
+            - text: Sponsor
+        - generic [ref=e18]:
+          - button [ref=e19] [cursor=pointer]:
+            - img [ref=e20]
+          - button [ref=e22] [cursor=pointer]:
+            - img [ref=e23]
+          - button [ref=e26] [cursor=pointer]:
+            - img [ref=e27]
+      - navigation "Main navigation" [ref=e31]:
+        - list [ref=e33]:
+          - listitem [ref=e34]:
+            - link "Dashboard" [ref=e35] [cursor=pointer]:
+              - /url: /dashboard
+              - img [ref=e37]
+              - generic [ref=e41]: Dashboard
+          - listitem [ref=e42]:
+            - link "My Apps" [ref=e43] [cursor=pointer]:
+              - /url: /apps
+              - img [ref=e45]
+              - generic [ref=e49]: My Apps
+          - listitem [ref=e50]:
+            - link "App Store" [ref=e51] [cursor=pointer]:
+              - /url: /app-store
+              - img [ref=e53]
+              - generic [ref=e57]: App Store
+          - listitem [ref=e58]:
+            - link "Settings" [ref=e59] [cursor=pointer]:
+              - /url: /settings
+              - img [ref=e61]
+              - generic [ref=e64]: Settings
+    - generic [ref=e65]:
+      - generic [ref=e68]:
+        - list "breadcrumbs" [ref=e70]:
+          - listitem [ref=e115]:
+            - link "app-store":
+              - /url: /app-store
+        - heading "App Store" [level=2] [ref=e116]
+      - generic [ref=e74]:
+        - generic [ref=e118]:
+          - textbox "Search apps" [active] [ref=e121]: MCP
+          - combobox [ref=e125] [cursor=pointer]:
+            - generic: Choose an appstore
+          - combobox [ref=e129] [cursor=pointer]:
+            - generic: Choose a category
+        - generic [ref=e131]:
+          - link "Karakeep MCP" [ref=e419] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-karakeep
+            - generic [ref=e420]:
+              - img [ref=e422]
+              - generic [ref=e424]:
+                - heading "Karakeep MCP" [level=3] [ref=e426]
+                - paragraph [ref=e427]:
+                  - generic "MCP tools for a Karakeep instance" [ref=e428]: MCP tools for a Karakeep insta...
+                - generic [ref=e429]: AI
+                - generic [ref=e430]: Utilities
+          - link "Linkwarden MCP" [ref=e432] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-linkwarden
+            - generic [ref=e433]:
+              - img [ref=e435]
+              - generic [ref=e437]:
+                - heading "Linkwarden MCP" [level=3] [ref=e439]
+                - paragraph [ref=e440]:
+                  - generic "Private MCP bridge for Linkwarden bookmarks" [ref=e441]: Private MCP bridge for Linkwar...
+                - generic [ref=e442]: AI
+                - generic [ref=e443]: Utilities
+          - link "SearXNG MCP" [ref=e445] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-searxng
+            - generic [ref=e446]:
+              - img [ref=e448]
+              - generic [ref=e450]:
+                - heading "SearXNG MCP" [level=3] [ref=e452]
+                - paragraph [ref=e453]:
+                  - generic "Authenticated MCP search tools for SearXNG" [ref=e454]: Authenticated MCP search tools...
+                - generic [ref=e455]: AI
+                - generic [ref=e456]: Utilities
+          - link "Beszel MCP" [ref=e458] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-beszel
+            - generic [ref=e459]:
+              - img [ref=e461]
+              - generic [ref=e463]:
+                - heading "Beszel MCP" [level=3] [ref=e465]
+                - paragraph [ref=e466]:
+                  - generic "Read-only MCP tools for Beszel monitoring" [ref=e467]: Read-only MCP tools for Beszel...
+                - generic [ref=e468]: AI
+                - generic [ref=e469]: Utilities
+          - link "Ghost MCP" [ref=e471] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-ghost
+            - generic [ref=e472]:
+              - img [ref=e474]
+              - generic [ref=e476]:
+                - heading "Ghost MCP" [level=3] [ref=e478]
+                - paragraph [ref=e479]:
+                  - generic "Bearer-authenticated MCP tools for Ghost CMS" [ref=e480]: Bearer-authenticated MCP tools...
+                - generic [ref=e481]: AI
+                - generic [ref=e482]: Utilities
+          - link "Grav MCP" [ref=e484] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-grav
+            - generic [ref=e485]:
+              - img [ref=e487]
+              - generic [ref=e489]:
+                - heading "Grav MCP" [level=3] [ref=e491]
+                - paragraph [ref=e492]: MCP tools for Grav 2.0 sites
+                - generic [ref=e493]: AI
+                - generic [ref=e494]: Utilities
+          - link "Immich MCP" [ref=e496] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-immich
+            - generic [ref=e497]:
+              - img [ref=e499]
+              - generic [ref=e501]:
+                - heading "Immich MCP" [level=3] [ref=e503]
+                - paragraph [ref=e504]:
+                  - generic "MCP tools for an Immich photo library" [ref=e505]: MCP tools for an Immich photo ...
+                - generic [ref=e506]: AI
+                - generic [ref=e507]: Utilities
+          - link "Miniflux MCP" [ref=e509] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-miniflux
+            - generic [ref=e510]:
+              - img [ref=e512]
+              - generic [ref=e514]:
+                - heading "Miniflux MCP" [level=3] [ref=e516]
+                - paragraph [ref=e517]:
+                  - generic "MCP tools for Miniflux feeds and entries" [ref=e518]: MCP tools for Miniflux feeds a...
+                - generic [ref=e519]: AI
+                - generic [ref=e520]: Utilities
+          - link "Vikunja MCP" [ref=e522] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-vikunja
+            - generic [ref=e523]:
+              - img [ref=e525]
+              - generic [ref=e527]:
+                - heading "Vikunja MCP" [level=3] [ref=e529]
+                - paragraph [ref=e530]:
+                  - generic "MCP tools for Vikunja tasks and projects" [ref=e531]: MCP tools for Vikunja tasks an...
+                - generic [ref=e532]: AI
+                - generic [ref=e533]: Utilities
+          - link "Vaultwarden MCP" [ref=e535] [cursor=pointer]:
+            - /url: /app-store/migrated/mcp-vaultwarden
+            - generic [ref=e536]:
+              - img [ref=e538]
+              - generic [ref=e540]:
+                - heading "Vaultwarden MCP" [level=3] [ref=e542]
+                - paragraph [ref=e543]:
+                  - generic "Read-only, no-reveal MCP access to Vaultwarden" [ref=e544]: Read-only, no-reveal MCP acces...
+                - generic [ref=e545]: AI
+                - generic [ref=e546]: Utilities

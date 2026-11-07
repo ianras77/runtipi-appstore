@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "immich-mcp",
-      "image": "ghcr.io/barryw/immichmcp:latest",
+      "image": "ghcr.io/barryw/immichmcp:v3.3.5",
       "isMain": true,
       "internalPort": 5000,
       "addToMainNetwork": true,

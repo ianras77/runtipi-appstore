@@ -6,8 +6,8 @@
   "deprecated": false,
   "port": 3000,
   "description": "Private MCP companion for the Karakeep API. The upstream HTTP transport has no MCP-side auth; keep it on the Runtipi app network.",
-  "version": "0.33.2",
-  "tipi_version": 3,
+  "version": "0.34.0",
+  "tipi_version": 4,
   "short_desc": "MCP tools for a Karakeep instance",
   "author": "Karakeep",
   "source": "https://github.com/karakeep-app/karakeep",
@@ -29,7 +29,7 @@
       "label": "Karakeep API address",
       "env_variable": "KARAKEEP_API_ADDR",
       "hint": "Base URL for the existing Karakeep service.",
-      "default": "http://karakeep:3000",
+      "default": "http://hoarder:3000",
       "required": true
     },
     {
