@@ -7,7 +7,7 @@
   "port": 3000,
   "description": "Hardened, bearer-authenticated MCP search connector for an existing SearXNG instance. Private to the Runtipi app network by default.",
   "version": "2.10.0",
-  "tipi_version": 4,
+  "tipi_version": 5,
   "short_desc": "Authenticated MCP search tools for SearXNG",
   "author": "ihor-sokoliuk",
   "source": "https://github.com/ihor-sokoliuk/mcp-searxng",
@@ -49,9 +49,9 @@
       "type": "text",
       "label": "Allowed MCP host names",
       "env_variable": "MCP_HTTP_ALLOWED_HOSTS",
-      "hint": "Comma-separated Host values accepted by hardened HTTP mode. Include the host and port clients will use.",
+      "hint": "Comma-separated Host values accepted by hardened HTTP mode. Include the MCP service alias and port used by Runtipi clients.",
       "required": true,
-      "default": "mcp-searxng:3000,localhost:3000,127.0.0.1:3000"
+      "default": "mcp-searxng:3000,searxng-mcp:3000,localhost:3000,127.0.0.1:3000"
     }
   ]
 }
