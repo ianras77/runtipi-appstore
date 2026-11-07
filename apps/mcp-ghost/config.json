@@ -7,7 +7,7 @@
   "port": 3100,
   "description": "Authenticated HTTP MCP companion using Ghost's ghst CLI. The upstream MCP feature is pre-1.0; this install restricts tools to posts, tags and site.",
   "version": "0.18.3",
-  "tipi_version": 5,
+  "tipi_version": 6,
   "short_desc": "Bearer-authenticated MCP tools for Ghost CMS",
   "author": "TryGhost",
   "source": "https://github.com/TryGhost/ghst",
@@ -39,10 +39,12 @@
       "required": true
     },
     {
-      "type": "random",
+      "type": "password",
       "label": "MCP bearer token",
       "env_variable": "GHOST_MCP_AUTH_TOKEN",
-      "min": 32
+      "required": true,
+      "min": 32,
+      "max": 256
     }
   ]
 }
