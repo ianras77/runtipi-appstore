@@ -7,7 +7,7 @@
   "port": 8080,
   "description": "Bearer-authenticated private HTTP MCP companion for Vikunja. Allows scoped task and project changes but omits delete and bulk-change tools.",
   "version": "latest",
-  "tipi_version": 6,
+  "tipi_version": 7,
   "short_desc": "MCP tools for Vikunja tasks and projects",
   "author": "nkcx",
   "source": "https://github.com/nkcx/vikunja-mcp-http",
@@ -39,10 +39,12 @@
       "required": true
     },
     {
-      "type": "random",
+      "type": "password",
       "label": "MCP bearer token",
       "env_variable": "MCP_AUTH_TOKEN",
-      "min": 32
+      "min": 32,
+      "required": true,
+      "max": 256
     }
   ]
 }

@@ -7,7 +7,7 @@
   "port": 8000,
   "description": "Bearer-authenticated private Streamable HTTP bridge for Linkwarden. Read-only mode and essential tools are enabled.",
   "version": "0.4.0",
-  "tipi_version": 5,
+  "tipi_version": 6,
   "short_desc": "Private MCP bridge for Linkwarden bookmarks",
   "author": "ni-c",
   "source": "https://github.com/ni-c/linkwarden-mcp",
@@ -40,10 +40,12 @@
       "required": true
     },
     {
-      "type": "random",
+      "type": "password",
       "label": "MCP bearer token",
       "env_variable": "MCP_AUTH_TOKEN",
-      "min": 32
+      "min": 32,
+      "required": true,
+      "max": 256
     }
   ]
 }
