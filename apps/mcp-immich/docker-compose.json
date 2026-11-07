@@ -23,6 +23,12 @@
       "image": "ghcr.io/barryw/immichmcp:v3.3.5",
       "internalPort": 5001,
       "addToMainNetwork": false,
+      "healthCheck": {
+        "test": "curl -sS http://localhost:5001/mcp >/dev/null",
+        "interval": "30s",
+        "timeout": "5s",
+        "retries": 3
+      },
       "environment": {
         "IMMICH_BASE_URL": "${IMMICH_BASE_URL}",
         "IMMICH_API_KEY": "${IMMICH_API_KEY}",

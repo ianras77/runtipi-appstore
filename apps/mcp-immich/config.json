@@ -7,7 +7,7 @@
   "port": 5000,
   "description": "Bearer-authenticated private MCP gateway to Immich. Use a dedicated least-privilege Immich API key; callers also need the MCP bearer token.",
   "version": "3.3.5",
-  "tipi_version": 8,
+  "tipi_version": 9,
   "short_desc": "MCP tools for an Immich photo library",
   "author": "barryw",
   "source": "https://github.com/barryw/ImmichMCP",
