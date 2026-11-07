@@ -5,9 +5,9 @@
   "available": true,
   "deprecated": false,
   "port": 5000,
-  "description": "Private HTTP MCP companion for Immich. Use a dedicated, least-privilege Immich API key; the MCP endpoint itself has no bearer-auth option.",
+  "description": "Bearer-authenticated private MCP gateway to Immich. Use a dedicated least-privilege Immich API key; callers also need the MCP bearer token.",
   "version": "3.3.5",
-  "tipi_version": 5,
+  "tipi_version": 6,
   "short_desc": "MCP tools for an Immich photo library",
   "author": "barryw",
   "source": "https://github.com/barryw/ImmichMCP",
@@ -28,14 +28,21 @@
       "type": "text",
       "label": "Immich base URL",
       "env_variable": "IMMICH_BASE_URL",
-      "default": "http://immich:2283",
-      "required": true
+      "default": "https://photos.rasies.com",
+      "required": true,
+      "hint": "Use the HTTPS URL for the existing Immich server."
     },
     {
       "type": "password",
       "label": "Immich API key",
       "env_variable": "IMMICH_API_KEY",
       "required": true
+    },
+    {
+      "type": "random",
+      "label": "MCP bearer token",
+      "env_variable": "MCP_AUTH_TOKEN",
+      "min": 32
     }
   ]
 }

@@ -3,10 +3,27 @@
   "services": [
     {
       "name": "vaultwarden-mcp",
-      "image": "ghcr.io/icoretech/warden-mcp:0.2.36",
+      "image": "node:22-alpine",
       "isMain": true,
       "internalPort": 3005,
       "addToMainNetwork": true,
+      "entrypoint": [
+        "node",
+        "-e",
+        "const http=require(\"http\"),https=require(\"https\"),crypto=require(\"crypto\");const target=new URL(process.env.MCP_UPSTREAM);const key=Buffer.from(process.env.MCP_AUTH_TOKEN||\"\");if(key.length<32)throw new Error(\"MCP_AUTH_TOKEN must be at least 32 bytes\");const transport=target.protocol===\"https:\"?https:http;http.createServer((req,res)=>{const m=/^Bearer\\s+(.+)$/i.exec(req.headers.authorization||\"\");const got=Buffer.from(m?m[1]:\"\");if(got.length!==key.length||!crypto.timingSafeEqual(got,key)){res.writeHead(401,{\"WWW-Authenticate\":\"Bearer\",\"Cache-Control\":\"no-store\"});return res.end()}const headers={...req.headers,host:target.host};delete headers.authorization;delete headers.connection;const u=transport.request({protocol:target.protocol,hostname:target.hostname,port:target.port||undefined,path:req.url,method:req.method,headers},r=>{res.writeHead(r.statusCode||502,r.headers);r.pipe(res)});u.on(\"error\",()=>{if(!res.headersSent)res.writeHead(502);res.end()});req.pipe(u)}).listen(Number(process.env.PORT||3000),\"0.0.0.0\");"
+      ],
+      "environment": {
+        "PORT": "3005",
+        "MCP_UPSTREAM": "http://vaultwarden-mcp-backend:3005",
+        "MCP_AUTH_TOKEN": "${MCP_AUTH_TOKEN}"
+      }
+    },
+    {
+      "name": "vaultwarden-mcp-backend",
+      "image": "ghcr.io/icoretech/warden-mcp:0.2.36",
+      "isMain": false,
+      "internalPort": 3005,
+      "addToMainNetwork": false,
       "environment": {
         "PORT": "3005",
         "WARDEN_MCP_HOST": "0.0.0.0",

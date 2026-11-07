@@ -5,9 +5,9 @@
   "available": true,
   "deprecated": false,
   "port": 8000,
-  "description": "Private Streamable HTTP bridge for Linkwarden's stdio MCP server. Starts with essential tools in read-only mode and has no MCP-side authentication.",
+  "description": "Bearer-authenticated private Streamable HTTP bridge for Linkwarden. Read-only mode and essential tools are enabled.",
   "version": "0.4.0",
-  "tipi_version": 4,
+  "tipi_version": 5,
   "short_desc": "Private MCP bridge for Linkwarden bookmarks",
   "author": "ni-c",
   "source": "https://github.com/ni-c/linkwarden-mcp",
@@ -38,6 +38,12 @@
       "min": 32,
       "max": 512,
       "required": true
+    },
+    {
+      "type": "random",
+      "label": "MCP bearer token",
+      "env_variable": "MCP_AUTH_TOKEN",
+      "min": 32
     }
   ]
 }

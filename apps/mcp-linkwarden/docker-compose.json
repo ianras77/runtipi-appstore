@@ -12,13 +12,14 @@
         "-lc"
       ],
       "command": [
-        "exec npx --yes supergateway@4.2.1 --stdio 'npx --yes linkwarden-mcp@0.4.0' --outputTransport streamableHttp --port 8000 --stateful"
+        "exec npx --yes supergateway@4.2.1 --stdio 'npx --yes linkwarden-mcp@0.4.0' --outputTransport streamableHttp --port 8000 --stateful --apiKey \"$MCP_AUTH_TOKEN\""
       ],
       "environment": {
         "LINKWARDEN_URL": "${LINKWARDEN_URL}",
         "LINKWARDEN_TOKEN": "${LINKWARDEN_TOKEN}",
         "LINKWARDEN_READ_ONLY": "true",
-        "LINKWARDEN_ALLOW_TOOLS": "essential"
+        "LINKWARDEN_ALLOW_TOOLS": "essential",
+        "MCP_AUTH_TOKEN": "${MCP_AUTH_TOKEN}"
       }
     }
   ]

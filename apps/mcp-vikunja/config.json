@@ -5,9 +5,9 @@
   "available": true,
   "deprecated": false,
   "port": 8080,
-  "description": "Private HTTP MCP companion for Vikunja. Task, project and label tools use the configured Vikunja API token; destructive delete tools are disabled.",
+  "description": "Bearer-authenticated private HTTP MCP companion for Vikunja. The API token is account-scoped; destructive delete tools are disabled.",
   "version": "latest",
-  "tipi_version": 4,
+  "tipi_version": 5,
   "short_desc": "MCP tools for Vikunja tasks and projects",
   "author": "nkcx",
   "source": "https://github.com/nkcx/vikunja-mcp-http",
@@ -37,6 +37,12 @@
       "label": "Vikunja API token",
       "env_variable": "VIKUNJA_API_TOKEN",
       "required": true
+    },
+    {
+      "type": "random",
+      "label": "MCP bearer token",
+      "env_variable": "MCP_AUTH_TOKEN",
+      "min": 32
     }
   ]
 }

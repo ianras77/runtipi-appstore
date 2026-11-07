@@ -13,8 +13,25 @@
         "VERIFY_SSL": "true",
         "ENABLE_TASK_DELETE": "false",
         "ENABLE_PROJECT_DELETE": "false",
-        "ENABLE_LABEL_DELETE": "false"
-      }
+        "ENABLE_LABEL_DELETE": "false",
+        "SUPERGATEWAY_API_KEY": "${MCP_AUTH_TOKEN}"
+      },
+      "entrypoint": [
+        "npx",
+        "--yes",
+        "supergateway@4.2.1"
+      ],
+      "command": [
+        "--stdio",
+        "node /opt/vikunja-mcp/dist/index.js",
+        "--outputTransport",
+        "streamableHttp",
+        "--port",
+        "8080",
+        "--host",
+        "0.0.0.0",
+        "--stateful"
+      ]
     }
   ]
 }

@@ -3,16 +3,32 @@
   "services": [
     {
       "name": "immich-mcp",
-      "image": "ghcr.io/barryw/immichmcp:v3.3.5",
+      "image": "node:22-alpine",
       "isMain": true,
       "internalPort": 5000,
       "addToMainNetwork": true,
+      "entrypoint": [
+        "node",
+        "-e",
+        "const http=require(\"http\"),https=require(\"https\"),crypto=require(\"crypto\");const target=new URL(process.env.MCP_UPSTREAM);const key=Buffer.from(process.env.MCP_AUTH_TOKEN||\"\");if(key.length<32)throw new Error(\"MCP_AUTH_TOKEN must be at least 32 bytes\");const transport=target.protocol===\"https:\"?https:http;http.createServer((req,res)=>{const m=/^Bearer\\s+(.+)$/i.exec(req.headers.authorization||\"\");const got=Buffer.from(m?m[1]:\"\");if(got.length!==key.length||!crypto.timingSafeEqual(got,key)){res.writeHead(401,{\"WWW-Authenticate\":\"Bearer\",\"Cache-Control\":\"no-store\"});return res.end()}const headers={...req.headers,host:target.host};delete headers.authorization;delete headers.connection;const u=transport.request({protocol:target.protocol,hostname:target.hostname,port:target.port||undefined,path:req.url,method:req.method,headers},r=>{res.writeHead(r.statusCode||502,r.headers);r.pipe(res)});u.on(\"error\",()=>{if(!res.headersSent)res.writeHead(502);res.end()});req.pipe(u)}).listen(Number(process.env.PORT||3000),\"0.0.0.0\");"
+      ],
+      "environment": {
+        "PORT": "5000",
+        "MCP_UPSTREAM": "http://immich-mcp-backend:5001",
+        "MCP_AUTH_TOKEN": "${MCP_AUTH_TOKEN}"
+      }
+    },
+    {
+      "name": "immich-mcp-backend",
+      "image": "ghcr.io/barryw/immichmcp:v3.3.5",
+      "internalPort": 5001,
+      "addToMainNetwork": false,
       "environment": {
         "IMMICH_BASE_URL": "${IMMICH_BASE_URL}",
         "IMMICH_API_KEY": "${IMMICH_API_KEY}",
         "IMMICH_TOOL_MODE": "gateway",
         "DOWNLOAD_MODE": "url",
-        "MCP_PORT": "5000"
+        "MCP_PORT": "5001"
       }
     }
   ]
