@@ -1,0 +1,96 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "noreleasepower",
+      "image": "discourse/discourse:2026.7.4",
+      "isMain": true,
+      "internalPort": 80,
+      "environment": {
+        "DISCOURSE_HOSTNAME": "${APP_DOMAIN}",
+        "DISCOURSE_SITE_NAME": "NoReleasePower",
+        "DISCOURSE_DEVELOPER_EMAILS": "${DISCOURSE_DEVELOPER_EMAILS}",
+        "DISCOURSE_DB_HOST": "noreleasepower-db",
+        "DISCOURSE_DB_PORT": "5432",
+        "DISCOURSE_DB_NAME": "discourse",
+        "DISCOURSE_DB_USERNAME": "discourse",
+        "DISCOURSE_DB_PASSWORD": "${DB_PASSWORD}",
+        "DISCOURSE_REDIS_HOST": "noreleasepower-redis",
+        "DISCOURSE_REDIS_PORT": "6379",
+        "DISCOURSE_SMTP_ADDRESS": "${DISCOURSE_SMTP_ADDRESS:-}",
+        "DISCOURSE_SMTP_PORT": "${DISCOURSE_SMTP_PORT:-587}",
+        "DISCOURSE_SMTP_USER_NAME": "${DISCOURSE_SMTP_USER_NAME:-}",
+        "DISCOURSE_SMTP_PASSWORD": "${DISCOURSE_SMTP_PASSWORD:-}",
+        "DISCOURSE_FORCE_HTTPS": "true",
+        "DISABLE_LETSENCRYPT": "1",
+        "LANG": "en_US.UTF-8"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/shared",
+          "containerPath": "/shared",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "dependsOn": {
+        "noreleasepower-db": {"condition": "service_healthy"},
+        "noreleasepower-redis": {"condition": "service_healthy"}
+      },
+      "healthCheck": {
+        "test": "curl -fsS http://127.0.0.1/srv/status >/dev/null || curl -fsS http://127.0.0.1/ >/dev/null",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 10,
+        "startPeriod": "180s"
+      }
+    },
+    {
+      "name": "noreleasepower-db",
+      "image": "discourse/postgres:pg18",
+      "environment": {
+        "POSTGRES_DB": "discourse",
+        "DB_USER": "discourse",
+        "DB_PASSWORD": "${DB_PASSWORD}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/postgres",
+          "containerPath": "/var/lib/postgresql",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U postgres -d discourse",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "30s"
+      }
+    },
+    {
+      "name": "noreleasepower-redis",
+      "image": "redis:8.10-alpine",
+      "command": "redis-server --appendonly yes",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/redis",
+          "containerPath": "/data",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "healthCheck": {
+        "test": "redis-cli ping",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "15s"
+      }
+    }
+  ]
+}

@@ -1,0 +1,232 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "formbricks",
+      "image": "ghcr.io/formbricks/formbricks:6.1.2",
+      "isMain": true,
+      "internalPort": 3000,
+      "environment": {
+        "NODE_ENV": "production",
+        "WEBAPP_URL": "${APP_PROTOCOL:-https}://${APP_DOMAIN}",
+        "BETTER_AUTH_URL": "${APP_PROTOCOL:-https}://${APP_DOMAIN}",
+        "NEXTAUTH_URL": "${APP_PROTOCOL:-https}://${APP_DOMAIN}",
+        "DATABASE_URL": "postgresql://postgres:${POSTGRES_PASSWORD}@formbricks-db:5432/formbricks?schema=public",
+        "BETTER_AUTH_SECRET": "${BETTER_AUTH_SECRET}",
+        "NEXTAUTH_SECRET": "${BETTER_AUTH_SECRET}",
+        "ENCRYPTION_KEY": "${ENCRYPTION_KEY}",
+        "CRON_SECRET": "${CRON_SECRET}",
+        "REDIS_URL": "redis://formbricks-redis:6379",
+        "HUB_API_KEY": "${HUB_API_KEY}",
+        "HUB_API_URL": "http://formbricks-hub:8080",
+        "CUBEJS_API_URL": "http://formbricks-cube:4000",
+        "CUBEJS_API_SECRET": "${CUBEJS_API_SECRET}",
+        "CUBEJS_JWT_ISSUER": "formbricks-web",
+        "CUBEJS_JWT_AUDIENCE": "formbricks-cube",
+        "AUTHZED_ENABLED": "true",
+        "AUTHZED_ENDPOINT": "formbricks-spicedb:50051",
+        "AUTHZED_TOKEN": "${AUTHZED_TOKEN}",
+        "AUTHZED_SYSTEM_KEY": "formbricks",
+        "AUTHZED_INSECURE": "true",
+        "AUTHZED_CONSISTENCY": "fully_consistent",
+        "SKIP_STARTUP_MIGRATION": "true",
+        "EMAIL_VERIFICATION_DISABLED": "1",
+        "PASSWORD_RESET_DISABLED": "1",
+        "FORMBRICKS_AUTHZED_V6_MIGRATION_ACKNOWLEDGED": "true",
+        "MAIL_FROM": "${MAIL_FROM:-}",
+        "MAIL_FROM_NAME": "${MAIL_FROM_NAME:-Formbricks}",
+        "SMTP_HOST": "${SMTP_HOST:-}",
+        "SMTP_PORT": "${SMTP_PORT:-587}",
+        "SMTP_USER": "${SMTP_USER:-}",
+        "SMTP_PASSWORD": "${SMTP_PASSWORD:-}",
+        "SMTP_AUTHENTICATED": "${SMTP_AUTHENTICATED:-true}",
+        "SMTP_SECURE_ENABLED": "${SMTP_SECURE_ENABLED:-false}",
+        "SMTP_REQUIRE_TLS": "${SMTP_REQUIRE_TLS:-true}"
+      },
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/saml-connection", "containerPath": "/home/nextjs/apps/web/saml-connection", "readOnly": false, "shared": false, "private": false}
+      ],
+      "dependsOn": {
+        "formbricks-migrate": {"condition": "service_completed_successfully"},
+        "formbricks-redis": {"condition": "service_healthy"},
+        "formbricks-cube": {"condition": "service_healthy"},
+        "formbricks-hub": {"condition": "service_started"},
+        "formbricks-authzed-initialize": {"condition": "service_completed_successfully"}
+      },
+      "healthCheck": {"test": "node -e \"require('http').get('http://127.0.0.1:3000/', (res) => { res.resume(); process.exit(res.statusCode < 500 ? 0 : 1); }).on('error', () => process.exit(1));\"", "interval": "30s", "timeout": "10s", "retries": 10, "startPeriod": "180s"}
+    },
+    {
+      "name": "formbricks-db",
+      "image": "pgvector/pgvector:pg18",
+      "shmSize": "512mb",
+      "environment": {"POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}", "POSTGRES_DB": "formbricks"},
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/postgres", "containerPath": "/var/lib/postgresql", "readOnly": false, "shared": false, "private": false}
+      ],
+      "healthCheck": {"test": "pg_isready -U postgres -d formbricks", "interval": "10s", "timeout": "5s", "retries": 20, "startPeriod": "30s"}
+    },
+    {
+      "name": "formbricks-redis",
+      "image": "valkey/valkey@sha256:418652cfb58ef879d4978c33553735d7147016032d5aefaa14c828e611eb9dfd",
+      "command": "valkey-server --appendonly yes --maxmemory-policy noeviction",
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/redis", "containerPath": "/data", "readOnly": false, "shared": false, "private": false}
+      ],
+      "healthCheck": {"test": "valkey-cli ping", "interval": "10s", "timeout": "5s", "retries": 20, "startPeriod": "10s"}
+    },
+    {
+      "name": "formbricks-authzed-db-bootstrap",
+      "image": "pgvector/pgvector:pg18",
+      "entrypoint": ["/bin/sh", "-ec"],
+      "command": "psql \"$$POSTGRES_ADMIN_URL\" -v ON_ERROR_STOP=1 -v authzed_password=\"$$AUTHZED_DATABASE_PASSWORD\" <<'SQL'\nSELECT 'CREATE ROLE spicedb LOGIN PASSWORD ' || quote_literal(:'authzed_password') WHERE NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'spicedb')\\gexec\nSELECT 'CREATE DATABASE spicedb OWNER spicedb' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'spicedb')\\gexec\nSQL",
+      "environment": {
+        "POSTGRES_ADMIN_URL": "postgresql://postgres:${POSTGRES_PASSWORD}@formbricks-db:5432/postgres?sslmode=disable",
+        "AUTHZED_DATABASE_PASSWORD": "${AUTHZED_DATABASE_PASSWORD}"
+      },
+      "dependsOn": {"formbricks-db": {"condition": "service_healthy"}}
+    },
+    {
+      "name": "formbricks-spicedb-migrate",
+      "image": "authzed/spicedb:v1.57.0",
+      "command": ["datastore", "migrate", "head"],
+      "environment": {
+        "SPICEDB_DATASTORE_ENGINE": "postgres",
+        "SPICEDB_DATASTORE_CONN_URI": "postgresql://spicedb:${AUTHZED_DATABASE_PASSWORD}@formbricks-db:5432/spicedb?sslmode=disable"
+      },
+      "dependsOn": {"formbricks-authzed-db-bootstrap": {"condition": "service_completed_successfully"}}
+    },
+    {
+      "name": "formbricks-spicedb",
+      "image": "authzed/spicedb:v1.57.0",
+      "command": "serve",
+      "environment": {
+        "SPICEDB_DATASTORE_ENGINE": "postgres",
+        "SPICEDB_DATASTORE_CONN_URI": "postgresql://spicedb:${AUTHZED_DATABASE_PASSWORD}@formbricks-db:5432/spicedb?sslmode=disable",
+        "SPICEDB_GRPC_PRESHARED_KEY": "${AUTHZED_TOKEN}",
+        "SPICEDB_LOG_FORMAT": "json",
+        "SPICEDB_TELEMETRY_ENDPOINT": ""
+      },
+      "dependsOn": {"formbricks-spicedb-migrate": {"condition": "service_completed_successfully"}},
+      "healthCheck": {"test": "/usr/local/bin/grpc_health_probe -addr=localhost:50051", "interval": "10s", "timeout": "5s", "retries": 12, "startPeriod": "20s"}
+    },
+    {
+      "name": "formbricks-cube-config",
+      "image": "alpine:3.23",
+      "entrypoint": ["/bin/sh", "-ec"],
+      "command": "apk add --no-cache curl; mkdir -p /config/schema; curl -fsSL https://raw.githubusercontent.com/formbricks/formbricks/6.1.2/docker/cube/cube.js -o /config/cube.js; curl -fsSL https://raw.githubusercontent.com/formbricks/formbricks/6.1.2/docker/cube/schema/FeedbackRecords.js -o /config/schema/FeedbackRecords.js",
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/cube", "containerPath": "/config", "readOnly": false, "shared": false, "private": false}
+      ]
+    },
+    {
+      "name": "formbricks-migrate",
+      "image": "ghcr.io/formbricks/formbricks:6.1.2",
+      "entrypoint": ["sh", "-c"],
+      "command": "node /home/nextjs/validate-env.mjs && if command -v timeout >/dev/null 2>&1; then timeout 300 node packages/database/dist/scripts/apply-migrations.js; else node packages/database/dist/scripts/apply-migrations.js; fi",
+      "environment": {
+        "NODE_ENV": "production",
+        "WEBAPP_URL": "${APP_PROTOCOL:-https}://${APP_DOMAIN}",
+        "BETTER_AUTH_URL": "${APP_PROTOCOL:-https}://${APP_DOMAIN}",
+        "NEXTAUTH_URL": "${APP_PROTOCOL:-https}://${APP_DOMAIN}",
+        "DATABASE_URL": "postgresql://postgres:${POSTGRES_PASSWORD}@formbricks-db:5432/formbricks?schema=public",
+        "BETTER_AUTH_SECRET": "${BETTER_AUTH_SECRET}",
+        "ENCRYPTION_KEY": "${ENCRYPTION_KEY}",
+        "CRON_SECRET": "${CRON_SECRET}",
+        "REDIS_URL": "redis://formbricks-redis:6379",
+        "HUB_API_KEY": "${HUB_API_KEY}",
+        "HUB_API_URL": "http://formbricks-hub:8080",
+        "CUBEJS_API_URL": "http://formbricks-cube:4000",
+        "CUBEJS_API_SECRET": "${CUBEJS_API_SECRET}",
+        "AUTHZED_ENABLED": "true",
+        "AUTHZED_ENDPOINT": "formbricks-spicedb:50051",
+        "AUTHZED_TOKEN": "${AUTHZED_TOKEN}",
+        "AUTHZED_SYSTEM_KEY": "formbricks",
+        "FORMBRICKS_AUTHZED_V6_MIGRATION_ACKNOWLEDGED": "true"
+      },
+      "dependsOn": {"formbricks-db": {"condition": "service_healthy"}}
+    },
+    {
+      "name": "formbricks-authzed-initialize",
+      "image": "ghcr.io/formbricks/formbricks:6.1.2",
+      "entrypoint": ["formbricks-authzed"],
+      "command": ["upgrade", "prepare"],
+      "environment": {
+        "DATABASE_URL": "postgresql://postgres:${POSTGRES_PASSWORD}@formbricks-db:5432/formbricks?schema=public",
+        "ENCRYPTION_KEY": "${ENCRYPTION_KEY}",
+        "CUBEJS_API_SECRET": "${CUBEJS_API_SECRET}",
+        "CUBEJS_API_URL": "http://formbricks-cube:4000",
+        "HUB_API_KEY": "${HUB_API_KEY}",
+        "HUB_API_URL": "http://formbricks-hub:8080",
+        "REDIS_URL": "redis://formbricks-redis:6379",
+        "AUTHZED_ENABLED": "true",
+        "AUTHZED_ENDPOINT": "formbricks-spicedb:50051",
+        "AUTHZED_TOKEN": "${AUTHZED_TOKEN}",
+        "AUTHZED_SYSTEM_KEY": "formbricks",
+        "AUTHZED_INSECURE": "true",
+        "FORMBRICKS_AUTHZED_V6_MIGRATION_ACKNOWLEDGED": "true"
+      },
+      "dependsOn": {
+        "formbricks-migrate": {"condition": "service_completed_successfully"},
+        "formbricks-spicedb": {"condition": "service_healthy"}
+      }
+    },
+    {
+      "name": "formbricks-hub-migrate",
+      "image": "ghcr.io/formbricks/hub:0.8.5",
+      "entrypoint": ["sh", "-c"],
+      "command": "if [ -x /usr/local/bin/goose ] && [ -x /usr/local/bin/river ]; then /usr/local/bin/goose -dir /app/migrations postgres \"$$DATABASE_URL\" up && /usr/local/bin/river migrate-up --database-url \"$$DATABASE_URL\"; else echo 'Migration tools unavailable'; exit 1; fi",
+      "environment": {"DATABASE_URL": "postgresql://postgres:${POSTGRES_PASSWORD}@formbricks-db:5432/formbricks?sslmode=disable"},
+      "dependsOn": {"formbricks-migrate": {"condition": "service_completed_successfully"}}
+    },
+    {
+      "name": "formbricks-hub",
+      "image": "ghcr.io/formbricks/hub:0.8.5",
+      "environment": {
+        "DATABASE_URL": "postgresql://postgres:${POSTGRES_PASSWORD}@formbricks-db:5432/formbricks?sslmode=disable",
+        "API_KEY": "${HUB_API_KEY}"
+      },
+      "dependsOn": {
+        "formbricks-hub-migrate": {"condition": "service_completed_successfully"},
+        "formbricks-db": {"condition": "service_healthy"}
+      }
+    },
+    {
+      "name": "formbricks-hub-worker",
+      "image": "ghcr.io/formbricks/hub:0.8.5",
+      "entrypoint": ["/app/hub-worker"],
+      "environment": {"DATABASE_URL": "postgresql://postgres:${POSTGRES_PASSWORD}@formbricks-db:5432/formbricks?sslmode=disable"},
+      "dependsOn": {
+        "formbricks-hub-migrate": {"condition": "service_completed_successfully"},
+        "formbricks-db": {"condition": "service_healthy"}
+      }
+    },
+    {
+      "name": "formbricks-cube",
+      "image": "ghcr.io/formbricks/cube:1.8.8-3",
+      "environment": {
+        "CUBEJS_DB_TYPE": "postgres",
+        "CUBEJS_DB_HOST": "formbricks-db",
+        "CUBEJS_DB_NAME": "formbricks",
+        "CUBEJS_DB_USER": "postgres",
+        "CUBEJS_DB_PASS": "${POSTGRES_PASSWORD}",
+        "CUBEJS_DB_PORT": "5432",
+        "CUBEJS_API_SECRET": "${CUBEJS_API_SECRET}",
+        "CUBEJS_JWT_ISSUER": "formbricks-web",
+        "CUBEJS_JWT_AUDIENCE": "formbricks-cube",
+        "CUBEJS_DEFAULT_API_SCOPES": "meta,data",
+        "CUBEJS_EXTERNAL_DEFAULT": "false",
+        "CUBEJS_CACHE_AND_QUEUE_DRIVER": "memory",
+        "CUBEJS_DB_QUERY_TIMEOUT": "60s"
+      },
+      "volumes": [
+        {"hostPath": "${APP_DATA_DIR}/cube", "containerPath": "/cube/conf", "readOnly": true, "shared": false, "private": false}
+      ],
+      "dependsOn": {
+        "formbricks-cube-config": {"condition": "service_completed_successfully"},
+        "formbricks-hub-migrate": {"condition": "service_completed_successfully"},
+        "formbricks-db": {"condition": "service_healthy"}
+      },
+      "healthCheck": {"test": "node -e \"require('http').get('http://127.0.0.1:4000/readyz', (res) => { res.resume(); process.exit(res.statusCode === 200 ? 0 : 1); }).on('error', () => process.exit(1));\"", "interval": "15s", "timeout": "5s", "retries": 12, "startPeriod": "60s"}
+    }
+  ]
+}

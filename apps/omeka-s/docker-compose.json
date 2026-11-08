@@ -1,0 +1,74 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "services": [
+    {
+      "name": "omeka-s",
+      "image": "giocomai/omeka-s-docker:v4.2.1",
+      "isMain": true,
+      "internalPort": 80,
+      "environment": {
+        "APPLICATION_ENV": "production",
+        "MYSQL_USER": "omeka",
+        "MYSQL_PASSWORD": "${DB_PASSWORD}",
+        "MYSQL_DATABASE": "omeka",
+        "MYSQL_HOST": "omeka-s-db",
+        "MYSQL_PORT": "3306",
+        "OMEKA_ADMIN_EMAIL": "${OMEKA_ADMIN_EMAIL}",
+        "OMEKA_ADMIN_NAME": "${OMEKA_ADMIN_NAME}",
+        "OMEKA_ADMIN_PASSWORD": "${OMEKA_ADMIN_PASSWORD}",
+        "OMEKA_SITE_TITLE": "${OMEKA_SITE_TITLE}",
+        "OMEKA_TIMEZONE": "Etc/UTC",
+        "OMEKA_LOCALE": "en_US",
+        "PHP_MEMORY_LIMIT": "512M",
+        "PHP_UPLOAD_MAX_FILESIZE": "128M",
+        "PHP_POST_MAX_SIZE": "128M",
+        "PHP_MAX_EXECUTION_TIME": "300"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/volume",
+          "containerPath": "/var/www/html/volume",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "dependsOn": {
+        "omeka-s-db": {"condition": "service_healthy"}
+      },
+      "healthCheck": {
+        "test": "php -r 'exit(@fsockopen(\"127.0.0.1\", 80) ? 0 : 1);'",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 8,
+        "startPeriod": "60s"
+      }
+    },
+    {
+      "name": "omeka-s-db",
+      "image": "mariadb:11.4",
+      "environment": {
+        "MARIADB_DATABASE": "omeka",
+        "MARIADB_USER": "omeka",
+        "MARIADB_PASSWORD": "${DB_PASSWORD}",
+        "MARIADB_ROOT_PASSWORD": "${DB_ROOT_PASSWORD}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/mariadb",
+          "containerPath": "/var/lib/mysql",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "healthCheck": {
+        "test": "healthcheck.sh --connect --innodb_initialized",
+        "interval": "10s",
+        "timeout": "10s",
+        "retries": 12,
+        "startPeriod": "30s"
+      }
+    }
+  ]
+}

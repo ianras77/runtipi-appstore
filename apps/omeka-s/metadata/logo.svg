@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Omeka S">
+  <rect width="512" height="512" rx="104" fill="#243c55"/>
+  <path d="M96 156h320M128 156v216m64-216v216m64-216v216m64-216v216m64-216v216M96 372h320M80 408h352" fill="none" stroke="#f4ead6" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M80 156l176-76 176 76" fill="none" stroke="#d6ad65" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

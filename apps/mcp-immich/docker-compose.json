@@ -32,7 +32,7 @@
       "environment": {
         "IMMICH_BASE_URL": "${IMMICH_BASE_URL}",
         "IMMICH_API_KEY": "${IMMICH_API_KEY}",
-        "IMMICH_TOOL_MODE": "gateway",
+        "IMMICH_TOOL_MODE": "static",
         "DOWNLOAD_MODE": "url",
         "MCP_PORT": "5001"
       }

@@ -1,0 +1,60 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "NoReleasePower",
+  "id": "noreleasepower",
+  "available": true,
+  "short_desc": "A thoughtful community for reflection, support, and shared learning",
+  "description": "No Release Power brings together a public introduction and library with a member community for thoughtful conversation, support requests, shared reflections, member-authored articles, reading discussions, and ongoing journals. Public material introduces the community's principles and foundational ideas. Approved members can take part in private categories, ask for the kind of response they want, and build a shared body of knowledge. Start with broad spaces such as Start Here, Public Library, Conversations & Reflections, Support & Check-Ins, Personal Journals, and Member Articles & Reading Circle; use subject tags to connect topics across categories. Keep personal stories with their authors, collaboratively maintain shared guides, and publish member contributions publicly only with the author's permission. The app provides the Discourse platform; categories, member groups, consent practices, SMTP, and editorial workflows are configured by the site owner after installation.",
+  "author": "Discourse",
+  "port": 80,
+  "categories": ["social"],
+  "tipi_version": 1,
+  "version": "2026.7.4",
+  "source": "https://github.com/discourse/discourse",
+  "website": "https://www.discourse.org/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [
+    {
+      "type": "email",
+      "label": "Site administrator email",
+      "hint": "The first account registered with this address becomes an administrator during initial setup.",
+      "required": true,
+      "env_variable": "DISCOURSE_DEVELOPER_EMAILS"
+    },
+    {
+      "type": "random",
+      "label": "PostgreSQL password",
+      "min": 32,
+      "encoding": "hex",
+      "env_variable": "DB_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "SMTP server",
+      "hint": "Required for invitations, notifications, and password resets. Configure your SMTP server after installation if this is left blank.",
+      "required": false,
+      "env_variable": "DISCOURSE_SMTP_ADDRESS"
+    },
+    {
+      "type": "number",
+      "label": "SMTP port",
+      "default": 587,
+      "required": false,
+      "env_variable": "DISCOURSE_SMTP_PORT"
+    },
+    {
+      "type": "text",
+      "label": "SMTP username",
+      "required": false,
+      "env_variable": "DISCOURSE_SMTP_USER_NAME"
+    },
+    {
+      "type": "password",
+      "label": "SMTP password",
+      "required": false,
+      "env_variable": "DISCOURSE_SMTP_PASSWORD"
+    }
+  ]
+}

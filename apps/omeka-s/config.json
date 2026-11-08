@@ -1,0 +1,61 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Omeka S",
+  "id": "omeka-s",
+  "available": true,
+  "short_desc": "Publish linked cultural heritage collections and exhibits",
+  "description": "Omeka S is a web publication system for libraries, archives, museums, universities, and galleries. Build multiple public sites from shared items, media, vocabularies, and metadata. This package includes Omeka S, MariaDB persistence, and first-run administrator setup.",
+  "author": "Omeka; Docker image by giocomai",
+  "port": 80,
+  "categories": ["data"],
+  "tipi_version": 1,
+  "version": "4.2.1",
+  "source": "https://github.com/omeka/omeka-s",
+  "website": "https://omeka.org/s/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["amd64"],
+  "form_fields": [
+    {
+      "type": "email",
+      "label": "Administrator email",
+      "required": true,
+      "env_variable": "OMEKA_ADMIN_EMAIL"
+    },
+    {
+      "type": "text",
+      "label": "Administrator name",
+      "default": "Site Administrator",
+      "required": true,
+      "env_variable": "OMEKA_ADMIN_NAME"
+    },
+    {
+      "type": "random",
+      "label": "Administrator password",
+      "min": 24,
+      "encoding": "hex",
+      "env_variable": "OMEKA_ADMIN_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "Public site title",
+      "default": "Omeka S",
+      "required": true,
+      "env_variable": "OMEKA_SITE_TITLE"
+    },
+    {
+      "type": "random",
+      "label": "Database password",
+      "min": 32,
+      "encoding": "hex",
+      "env_variable": "DB_PASSWORD"
+    },
+    {
+      "type": "random",
+      "label": "Database root password",
+      "min": 32,
+      "encoding": "hex",
+      "env_variable": "DB_ROOT_PASSWORD"
+    }
+  ]
+}
