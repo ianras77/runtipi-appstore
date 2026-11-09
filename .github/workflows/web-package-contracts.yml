@@ -1,0 +1,31 @@
+name: Store format and release contracts (no publication)
+on:
+  pull_request:
+    paths: ['apps/**', 'release-tools/**', 'package.json', '.github/workflows/web-package-contracts.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  npm_config_audit: 'false'
+  npm_config_fund: 'false'
+jobs:
+  disabled-package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: release-tools
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install -r requirements.txt
+      - run: npm run test:inventory
+      - run: node scripts/validate-official.mjs
+      - run: python scripts/validate-compose-spec.py
+      - run: python scripts/test-usmender.py
+      - run: python scripts/check-usmender.py

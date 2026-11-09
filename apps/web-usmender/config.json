@@ -1,0 +1,55 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "web-usmender",
+  "name": "USMender \u2014 synthetic private alpha (unreleased)",
+  "available": false,
+  "port": 3294,
+  "tipi_version": 1,
+  "version": "0.0.0-unreleased",
+  "short_desc": "Disabled release preparation; synthetic conversations only.",
+  "description": "Not an installable or sensitive-conversation-qualified release. Image artifacts, private ingress and lifecycle qualification remain outstanding.",
+  "author": "ianras77",
+  "source": "https://github.com/ianras77/web-usmender",
+  "categories": [
+    "social",
+    "ai"
+  ],
+  "dynamic_config": true,
+  "min_tipi_version": "4.11.0",
+  "exposable": false,
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Database password (preserve on update)",
+      "env_variable": "USMENDER_DB_PASSWORD",
+      "min": 64,
+      "encoding": "hex"
+    },
+    {
+      "type": "random",
+      "label": "JWT secret (preserve on update)",
+      "env_variable": "USMENDER_JWT_SECRET",
+      "min": 64,
+      "encoding": "hex"
+    },
+    {
+      "type": "url",
+      "label": "Private HTTPS web origin",
+      "env_variable": "USMENDER_PUBLIC_WEB_URL",
+      "required": true,
+      "regex": "^https://[^/?#]+/?$"
+    },
+    {
+      "type": "url",
+      "label": "Reachable private inference endpoint",
+      "env_variable": "USMENDER_INFERENCE_URL",
+      "required": true
+    },
+    {
+      "type": "text",
+      "label": "General model alias",
+      "env_variable": "USMENDER_GENERAL_MODEL",
+      "required": true
+    }
+  ]
+}

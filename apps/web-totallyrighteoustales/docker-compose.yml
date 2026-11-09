@@ -1,0 +1,139 @@
+x-runtipi:
+  schema_version: 2
+services:
+  postgres:
+    image: '${TALES_POSTGRES_IMAGE:?Unreleased: qualified immutable image required}'
+    environment:
+      POSTGRES_USER: trt
+      POSTGRES_DB: trt
+      POSTGRES_PASSWORD: ${TALES_DB_PASSWORD}
+    volumes:
+    - ${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U trt -d trt
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    restart: unless-stopped
+  redis:
+    image: '${TALES_REDIS_IMAGE:?Unreleased: qualified immutable image required}'
+    command:
+    - redis-server
+    - --appendonly
+    - 'yes'
+    - --maxmemory-policy
+    - noeviction
+    volumes:
+    - ${APP_DATA_DIR}/data/redis:/data
+    healthcheck:
+      test:
+      - CMD
+      - redis-cli
+      - ping
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    restart: unless-stopped
+  api:
+    image: '${TALES_APP_IMAGE:?Unreleased: qualified immutable image required}'
+    command:
+    - sh
+    - -lc
+    - pnpm -C apps/api exec prisma migrate deploy && pnpm -C apps/api start
+    environment:
+      DATABASE_URL: postgresql://trt:${TALES_DB_PASSWORD}@postgres:5432/trt?schema=public
+      REDIS_URL: redis://redis:6379
+      APP_URL: ${TALES_WEB_URL}
+      API_URL: ${TALES_API_URL}
+      DEV_AUTH_BYPASS: 'false'
+      OPENAI_ENABLED: 'false'
+      LOCALAI_CHAT_MODEL: rassy-smart
+      LOCALAI_MODERATION_MODEL: ibm-granite.granite-4.0-1b
+      LOCALAI_EMBED_MODEL: granite-embedding-125m-english
+      LOCALAI_TRANSCRIBE_MODEL: whisper-1
+      S3_REGION: us-east-1
+      SUPABASE_URL: ${TALES_SUPABASE_URL}
+      SUPABASE_ANON_KEY: ${TALES_SUPABASE_ANON_KEY}
+      SUPABASE_JWT_SECRET: ${TALES_SUPABASE_JWT_SECRET}
+      LOCALAI_BASE_URL: ${TALES_LOCALAI_BASE_URL}
+      LOCALAI_API_KEY: ${TALES_LOCALAI_API_KEY}
+      S3_ENDPOINT: ${TALES_S3_ENDPOINT}
+      S3_BUCKET: ${TALES_S3_BUCKET}
+      S3_ACCESS_KEY: ${TALES_S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${TALES_S3_SECRET_KEY}
+      S3_PUBLIC_URL: ${TALES_S3_PUBLIC_URL}
+      PORT: '3191'
+      HOST: 0.0.0.0
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD
+      - node
+      - -e
+      - fetch('http://127.0.0.1:3191/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    restart: unless-stopped
+  worker:
+    image: '${TALES_APP_IMAGE:?Unreleased: qualified immutable image required}'
+    command:
+    - sh
+    - -lc
+    - pnpm -C apps/api start:worker
+    environment:
+      DATABASE_URL: postgresql://trt:${TALES_DB_PASSWORD}@postgres:5432/trt?schema=public
+      REDIS_URL: redis://redis:6379
+      APP_URL: ${TALES_WEB_URL}
+      API_URL: ${TALES_API_URL}
+      DEV_AUTH_BYPASS: 'false'
+      OPENAI_ENABLED: 'false'
+      LOCALAI_CHAT_MODEL: rassy-smart
+      LOCALAI_MODERATION_MODEL: ibm-granite.granite-4.0-1b
+      LOCALAI_EMBED_MODEL: granite-embedding-125m-english
+      LOCALAI_TRANSCRIBE_MODEL: whisper-1
+      S3_REGION: us-east-1
+      SUPABASE_URL: ${TALES_SUPABASE_URL}
+      SUPABASE_ANON_KEY: ${TALES_SUPABASE_ANON_KEY}
+      SUPABASE_JWT_SECRET: ${TALES_SUPABASE_JWT_SECRET}
+      LOCALAI_BASE_URL: ${TALES_LOCALAI_BASE_URL}
+      LOCALAI_API_KEY: ${TALES_LOCALAI_API_KEY}
+      S3_ENDPOINT: ${TALES_S3_ENDPOINT}
+      S3_BUCKET: ${TALES_S3_BUCKET}
+      S3_ACCESS_KEY: ${TALES_S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${TALES_S3_SECRET_KEY}
+      S3_PUBLIC_URL: ${TALES_S3_PUBLIC_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+  web:
+    image: '${TALES_APP_IMAGE:?Unreleased: qualified immutable image required}'
+    command:
+    - sh
+    - -lc
+    - pnpm -C apps/web start
+    environment:
+      NEXT_PUBLIC_API_URL: /api
+      API_INTERNAL_URL: http://api:3191
+    depends_on:
+      api:
+        condition: service_healthy
+    x-runtipi:
+      is_main: true
+      internal_port: 3190
+    restart: unless-stopped
