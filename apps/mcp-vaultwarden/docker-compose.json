@@ -20,7 +20,7 @@
     },
     {
       "name": "vaultwarden-mcp-backend",
-      "image": "ghcr.io/icoretech/warden-mcp:0.2.36",
+      "image": "ghcr.io/icoretech/warden-mcp:0.2.62",
       "isMain": false,
       "internalPort": 3005,
       "addToMainNetwork": false,

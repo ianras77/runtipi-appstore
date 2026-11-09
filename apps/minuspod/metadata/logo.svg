@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="MinusPod">
+  <rect width="512" height="512" rx="112" fill="#191735"/>
+  <circle cx="256" cy="256" r="164" fill="#1c1b40" stroke="#514a81" stroke-width="10"/>
+  <rect x="135" y="247" width="14" height="18" rx="7" fill="#d89bff"/>
+  <rect x="166" y="224" width="14" height="64" rx="7" fill="#d89bff"/>
+  <rect x="197" y="200" width="14" height="112" rx="7" fill="#d89bff"/>
+  <rect x="228" y="238" width="14" height="36" rx="7" fill="#d89bff"/>
+  <rect x="259" y="208" width="14" height="96" rx="7" fill="#d89bff"/>
+  <rect x="290" y="224" width="14" height="64" rx="7" fill="#d89bff"/>
+  <rect x="321" y="244" width="14" height="24" rx="7" fill="#d89bff"/>
+  <rect x="163" y="336" width="186" height="20" rx="10" fill="#f7f2ff"/>
+  <circle cx="356" cy="356" r="38" fill="#ffcb73"/>
+  <rect x="342" y="350" width="28" height="12" rx="6" fill="#392952"/>
+</svg>

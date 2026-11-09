@@ -7,7 +7,7 @@
   "port": 3000,
   "description": "Read-only MCP companion for Beszel. The MCP endpoint requires a generated bearer token.",
   "version": "1.0.0",
-  "tipi_version": 3,
+  "tipi_version": 4,
   "short_desc": "Read-only MCP tools for Beszel monitoring",
   "author": "Maxime Bertheau",
   "source": "https://github.com/maxbth/beszel-mcp",

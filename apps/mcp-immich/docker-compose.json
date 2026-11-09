@@ -20,7 +20,7 @@
     },
     {
       "name": "immich-mcp-backend",
-      "image": "ghcr.io/barryw/immichmcp:v3.3.5",
+      "image": "ghcr.io/barryw/immichmcp:v3.3.3",
       "internalPort": 5001,
       "addToMainNetwork": false,
       "healthCheck": {

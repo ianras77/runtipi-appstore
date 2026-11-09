@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "karakeep-mcp",
-      "image": "ghcr.io/karakeep-app/karakeep-mcp:0.34.0",
+      "image": "ghcr.io/karakeep-app/karakeep-mcp:0.34.1",
       "isMain": true,
       "internalPort": 3000,
       "addToMainNetwork": true,

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Maxun">
+  <rect width="512" height="512" rx="112" fill="#0b1d2d"/>
+  <path d="M112 146h288a22 22 0 0 1 22 22v176a22 22 0 0 1-22 22H112a22 22 0 0 1-22-22V168a22 22 0 0 1 22-22Z" fill="#102339" stroke="#31516a" stroke-width="10"/>
+  <path d="M90 200h332" stroke="#31516a" stroke-width="10"/>
+  <circle cx="125" cy="173" r="8" fill="#ff7b75"/><circle cx="153" cy="173" r="8" fill="#f7c96a"/><circle cx="181" cy="173" r="8" fill="#72d5af"/>
+  <path d="M148 258h216M148 298h128" stroke="#35566e" stroke-width="13" stroke-linecap="round"/>
+  <path d="M194 372c-4 25 6 42 28 52l32 14 35-14c22-10 31-27 26-52" fill="#18394d" stroke="#70e1cf" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M204 338c-19-25-17-62 7-83l20-17 25 20 25-20 20 17c24 21 26 58 7 83l-24 31h-56l-24-31Z" fill="#70e1cf"/>
+  <circle cx="240" cy="291" r="7" fill="#092033"/><circle cx="272" cy="291" r="7" fill="#092033"/>
+  <path d="m241 313 15 9 15-9" fill="none" stroke="#092033" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m178 268-24-15m180 15 24-15" stroke="#70e1cf" stroke-width="9" stroke-linecap="round"/>
+</svg>
