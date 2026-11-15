@@ -10,6 +10,16 @@ services:
         VITE_UMAMI_WEBSITE_ID: ${RASIES_UMAMI_WEBSITE_ID:-${VITE_UMAMI_WEBSITE_ID:-}}
         VITE_UMAMI_DOMAINS: ${RASIES_UMAMI_DOMAINS:-${VITE_UMAMI_DOMAINS:-}}
     restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,mode=1777
+    networks:
+      - default
+      - runtipi-main
     ports:
       - "${APP_PORT:-3186}:3000"
     environment:
@@ -26,6 +36,8 @@ services:
       - SEARXNG_BASE_URL=https://search.rasies.com
       - SEARXNG_PATH=/search
       - SEARXNG_TIMEOUT_MS=9000
+      - SEARXNG_MCP_URL=${SEARXNG_MCP_URL:-http://searxng-mcp:3000/mcp}
+      - SEARXNG_MCP_TOKEN=${SEARXNG_MCP_TOKEN:-}
       - RASSYMIND_BASE_URL=${RASSYMIND_BASE_URL:-${RASIES_CAT_BASE_URL:-http://host.docker.internal:8844}}
       - RASSYMIND_CHAT_PATH=${RASSYMIND_CHAT_PATH:-${RASIES_CAT_CHAT_PATH:-/v1/chat/completions}}
       - RASSYMIND_MODEL=${RASSYMIND_MODEL:-${RASIES_CAT_MODEL:-rassy-fast}}
@@ -37,14 +49,19 @@ services:
       - AUTHENTIK_URL=https://auth.rasies.com/
       - SIGNUP_URL=https://signup.rasies.com
       - PLEX_URL=https://plex.rasies.com
+      - AUDIOBOOKSHELF_URL=https://audio.rasies.com
+      - KAVITA_URL=https://books.rasies.com
+      - KOMGA_URL=https://komga.rasies.com
       - WIZARR_BASE_URL=${RASIES_WIZARR_BASE_URL:-https://signup.rasies.com}
       - WIZARR_API_KEY=${RASIES_WIZARR_API_KEY:-}
       - WIZARR_PLEX_SERVER_IDS=${RASIES_WIZARR_PLEX_SERVER_IDS:-}
       - WIZARR_INVITE_EXPIRES_DAYS=${RASIES_WIZARR_INVITE_EXPIRES_DAYS:-30}
       - WIZARR_INVITE_DURATION=${RASIES_WIZARR_INVITE_DURATION:-unlimited}
       - WIZARR_TIMEOUT_MS=${RASIES_WIZARR_TIMEOUT_MS:-10000}
-      - DATA_URL=https://data.rasies.com
+      - DATA_URL=https://bew.rasies.com
       - PHOTOS_URL=https://photos.rasies.com
+      - IMMICH_API_KEY=${IMMICH_API_KEY:-}
+      - IMMICH_ALBUM_NAME=${IMMICH_ALBUM_NAME:-rasies.com}
       - SEND_URL=https://send.rasies.com
       - GRIST_URL=https://grist.rasies.com
       - DRAW_URL=https://draw.rasies.com
@@ -61,13 +78,20 @@ services:
       - THOUGHTS_ROOT=/thoughts
       - MR_RASSY_SOUNDS_ROOT=/mr-rassy-sounds
       - MUSIC_LIBRARY_ROOT=/music-library
+      - FAMILY_OIDC_ISSUER=${FAMILY_OIDC_ISSUER}
+      - FAMILY_OIDC_CLIENT_ID=${FAMILY_OIDC_CLIENT_ID}
+      - FAMILY_ACCESS_FILE=/run/family-access.json
+      - FAMILY_CHAT_MODEL_ENABLED=${FAMILY_CHAT_MODEL_ENABLED:-false}
+      - FAMILY_CHAT_WEB_SEARCH_ENABLED=${FAMILY_CHAT_WEB_SEARCH_ENABLED:-false}
+      - MASTRA_DATA_DIR=/data/mastra
       - ALLOWED_ORIGINS=https://www.rasies.com,https://rassys.com,https://www.rassys.com,http://${APP_HOST}:${APP_PORT},http://localhost:5173,http://127.0.0.1:5173
     volumes:
       - ${APP_DATA_DIR}/app-data/web-rasies/named/mastra:/data/mastra
+      - ${APP_DATA_DIR}/private/family-access.json:/run/family-access.json:ro
       - ${ROOT_FOLDER_HOST}/media/data/podcasts:/stories:ro
       - ${ROOT_FOLDER_HOST}/media/data/web-rasies:/thoughts:ro
       - ${ROOT_FOLDER_HOST}/media/data/dj:/mr-rassy-sounds:ro
-      - ${ROOT_FOLDER_HOST}/media/data/music:/music-library:ro
+      - ${ROOT_FOLDER_HOST}/media/data/music2/music:/music-library:ro
     extra_hosts:
       - host.docker.internal:host-gateway
     healthcheck:
@@ -84,3 +108,9 @@ services:
 
 x-runtipi:
   schema_version: 2
+
+networks:
+  default:
+  runtipi-main:
+    external: true
+    name: runtipi_tipi_main_network
