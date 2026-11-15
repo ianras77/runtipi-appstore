@@ -58,7 +58,7 @@ services:
       - WIZARR_INVITE_EXPIRES_DAYS=${RASIES_WIZARR_INVITE_EXPIRES_DAYS:-30}
       - WIZARR_INVITE_DURATION=${RASIES_WIZARR_INVITE_DURATION:-unlimited}
       - WIZARR_TIMEOUT_MS=${RASIES_WIZARR_TIMEOUT_MS:-10000}
-      - DATA_URL=https://bew.rasies.com
+      - DATA_URL=https://data.rasies.com
       - PHOTOS_URL=https://photos.rasies.com
       - IMMICH_API_KEY=${IMMICH_API_KEY:-}
       - IMMICH_ALBUM_NAME=${IMMICH_ALBUM_NAME:-rasies.com}
