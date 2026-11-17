@@ -1,0 +1,5 @@
+node_modules/
+schemas/compiled/
+__pycache__/
+!package-lock.json
+inventory-report.json

@@ -6,9 +6,10 @@
   "scripts": {
     "commit": "git-cz",
     "lint": "biome check",
-    "lint:ci": "biome ci --changed --error-on-warnings --no-errors-on-unmatched",
-    "test": "jest",
-    "prepare": "lefthook install"
+    "lint:ci": "node release-tools/scripts/lint-changed.mjs",
+    "test": "npm run test:store-contracts",
+    "prepare": "lefthook install",
+    "test:store-contracts": "npm --prefix release-tools run test:inventory"
   },
   "repository": {
     "type": "git",

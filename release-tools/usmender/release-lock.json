@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "status": "unreleased",
+  "profile": "synthetic-local-only",
+  "sourceCommit": "3cb629f5d23446549e87a581ee3ed0817da18167",
+  "sourceContractSha256": "db249f93428b91f1e948c307f5b76711f9aaf66f6b2ff87e47805bccae3d9603",
+  "webBuildArguments": {
+    "NEXT_PUBLIC_API_URL": "/api",
+    "API_INTERNAL_URL": "http://api:3001"
+  },
+  "images": {
+    "web": null,
+    "api": null,
+    "postgres": null
+  },
+  "qualification": {
+    "imageBuilds": null,
+    "freshInstall": null,
+    "restartPersistence": null,
+    "backupRestore": null,
+    "restoredUpgrade": null,
+    "privateIngress": null,
+    "browserFlow": null
+  }
+}

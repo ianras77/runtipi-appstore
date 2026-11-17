@@ -4,47 +4,38 @@ on:
   push:
     branches:
       - master
-
+      - app/wordpress_elderseth
+env:
+  npm_config_audit: 'false'
+  npm_config_fund: 'false'
 jobs:
   ci:
-    if: "!contains(github.head_ref, 'renovate/')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 0
-
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-
+          node-version: 24.22.2
       - uses: pnpm/action-setup@v4.1.0
         name: Install pnpm
-        id: pnpm-install
         with:
-          version: 8
+          version: 12.16.1
           run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
+      - uses: actions/setup-python@v5
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run global tests
+          python-version: '3.12'
+      - name: Install frozen tooling without repository lifecycle hooks
+        run: |
+          pnpm install --frozen-lockfile --ignore-scripts
+          npm ci --prefix release-tools --ignore-scripts
+          python -m pip install -r release-tools/requirements.txt
+      - name: Run actual checked-in contract tests and inventory
         run: pnpm test
-
-      - name: Run linter
+      - name: Run linter against this event's actual base commit
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: pnpm run lint:ci
